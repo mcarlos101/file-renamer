@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>RENAMER</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="browse">
+     <property name="title">
+      <string/>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="dir_btn">
+        <property name="text">
+         <string>Browse</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="dir_txt">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QTextEdit" name="dir_output">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QGroupBox" name="options">
+     <property name="title">
+      <string/>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QCheckBox" name="recursively">
+        <property name="text">
+         <string>Add Files Recursively</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="id">
+        <property name="text">
+         <string>Keep ID</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="extension">
+        <property name="text">
+         <string>Keep Extension</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string/>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QComboBox" name="comboBox">
+        <item>
+         <property name="text">
+          <string>PREVIEW</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Remove Non-Alphanum Chars</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Remove Accents</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Trim Spaces</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Replace Spaces With Hyphens</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Replace Dots With Hyphens</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Replace Hyphens With Spaces</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Lower Case</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Title Case</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Remove ID</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="clear_btn">
+        <property name="text">
+         <string>CLEAR</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="rename_btn">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>RENAME</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QGroupBox" name="search_replace">
+     <property name="title">
+      <string/>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="search_label">
+        <property name="text">
+         <string>Search</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="search">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+        <property name="text">
+         <string notr="true"/>
+        </property>
+        <property name="placeholderText">
+         <string notr="true"/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="replace_label">
+        <property name="text">
+         <string>Replace</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="replace">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="regex">
+        <property name="text">
+         <string>Regular Expression</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="find_btn">
+        <property name="text">
+         <string>Find</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>dir_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>open_dir()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>77</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-3</x>
+     <y>31</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dir_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>dir_txt</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>100</x>
+     <y>40</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>216</x>
+     <y>45</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clear_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>dir_output</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>523</x>
+     <y>519</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>411</x>
+     <y>395</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>Widget</receiver>
+   <slot>index_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>99</x>
+     <y>519</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>548</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rename_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>rename_files()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>778</x>
+     <y>519</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>794</x>
+     <y>553</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>recursively</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>add_recursively()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>72</x>
+     <y>460</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>491</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>id</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>keep_id()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>523</x>
+     <y>460</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>797</x>
+     <y>484</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>extension</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>keep_ext()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>778</x>
+     <y>460</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>794</x>
+     <y>526</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>regex</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>regex()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>565</x>
+     <y>577</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>33</x>
+     <y>602</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>find_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>find()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>726</x>
+     <y>555</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>776</x>
+     <y>595</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>open_dir()</slot>
+  <slot>index_changed()</slot>
+  <slot>rename_files()</slot>
+  <slot>add_recursively()</slot>
+  <slot>keep_ext()</slot>
+  <slot>keep_id()</slot>
+  <slot>search_replace()</slot>
+  <slot>regex()</slot>
+  <slot>find()</slot>
+ </slots>
+</ui>
