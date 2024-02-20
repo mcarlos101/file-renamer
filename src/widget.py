@@ -143,8 +143,9 @@ if __name__ == "__main__":
     widget = Widget()
     widget.show()
 
-    # Open the sqq styles file and read in the CSS-alike styling code
-    with open('style/default.qss', 'r') as f:
+    # Open the qss styles file and read in the CSS-alike styling code
+    filename = Path("style/default.qss")
+    with open(filename, 'r') as f:
         style = f.read()
         # Set the stylesheet of the application
         app.setStyleSheet(style)
