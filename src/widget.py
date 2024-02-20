@@ -44,6 +44,9 @@ class Widget(QWidget):
 
     def add_recursively(self):
         dir_name = ""
+        if self.ui.comboBox.currentIndex() > 0:
+            self.ui.comboBox.setCurrentIndex(0)
+            self.ui.comboBox.setCurrentText('PREVIEW')
         if self.ui.dir_txt.displayText():
             dir_name = self.ui.dir_txt.displayText()
             self.path = Path(dir_name)
@@ -73,6 +76,9 @@ class Widget(QWidget):
 
     def find(self):
         title = "Search & Replace"
+        if title != self.ui.comboBox.currentText():
+            self.ui.comboBox.setCurrentIndex(0)
+            self.ui.comboBox.setCurrentText('PREVIEW')
         if len(self.ui.search.displayText()):
             self.rename.search_replace(self.path, self.ui, widget, title)
         else:
