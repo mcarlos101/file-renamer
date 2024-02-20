@@ -1,5 +1,5 @@
 # This Python file uses the following encoding: utf-8
-import sys, os, logging
+import sys, os, logging, platform
 from PySide6.QtWidgets import QApplication, QWidget, QFileDialog
 from pathlib import Path
 
@@ -149,8 +149,14 @@ if __name__ == "__main__":
     widget = Widget()
     widget.show()
 
-    # Open the qss styles file and read in the CSS-alike styling code
     filename = Path("style/default.qss")
+    platform = platform.system()
+    if platform == "Windows":
+        filename = Path("style/default_win.qss")
+    elif platform == "Darwin":
+        filename = Path("style/default_macos.qss")
+
+    # Open the qss styles file and read in the CSS-alike styling code
     with open(filename, 'r') as f:
         style = f.read()
         # Set the stylesheet of the application
