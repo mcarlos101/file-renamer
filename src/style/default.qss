@@ -27,22 +27,6 @@ QComboBox {
     border: 1px solid #0d6efd;
 }
 
-QComboBox::drop-down {
-    width: 0px;
-    border: none;
-}
-
-QComboBox::down-arrow {
-    image: none;
-}
-
-QComboBox QAbstractItemView {
-    background: #0b5ed7;
-    /* border: 1px solid white;
-    padding: 4px 4px 4px 4px;*/
-    outline: 0px;
-}
-
 QTextEdit {
     color: black;
     font-weight: normal;

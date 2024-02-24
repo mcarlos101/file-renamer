@@ -17,8 +17,8 @@ QPushButton {
 
 QPushButton:hover,
 QPushButton:focus {
-    background-color: #0b5ed7;
-    border: 1px solid #9ac3fe;
+    background: white;
+    color: #0b5ed7;
 }
 
 QComboBox {
@@ -28,19 +28,19 @@ QComboBox {
 }
 
 QComboBox::drop-down {
+    color: white;
     width: 0px;
     border: none;
 }
 
 QComboBox::down-arrow {
+    color: white;
     image: none;
 }
 
 QComboBox QAbstractItemView {
-    background: #0b5ed7;
-    /* border: 1px solid white;
-    padding: 4px 4px 4px 4px;*/
-    outline: 0px;
+    background: white;
+    color: #0b5ed7;
 }
 
 QTextEdit {

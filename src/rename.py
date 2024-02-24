@@ -1,6 +1,6 @@
 import os, re, logging
 import unidecode
-# noinspection PyPackageRequirements
+from pathlib import Path
 
 from lib.files import Files
 from lib.exceptions import AppError
@@ -8,14 +8,15 @@ from lib.exceptions import AppError
 
 class Rename:
 
-    def __init__(self, name, ui):
+    def __init__(self, name, platform, ui):
         """The __init__ method is a constructor"""
         self.logfile = os.path.expanduser('~') + "/rename.log"
         logging.basicConfig(filename=self.logfile, filemode='w',
                             level=logging.INFO)
         logging.info("Rename __init__")
-        self.files = Files(ui)
         self.name = name
+        self.platform = platform
+        self.files = Files(platform, ui)
         self.file = {}
         self.data = {
             "preview": True,
@@ -55,10 +56,10 @@ class Rename:
         logging.info("self.file['new']: %s", self.file['new'])
         if self.file['new'] != "":
             if ui.extension.isChecked() and ui.id.isChecked():
-                self.file['new'] = self.file['new'] + self.file['id']
+                self.file['new'] = self.file['new'] + self.file['id'] + self.file['ext']
 
             elif ui.extension.isChecked() and ui.id.isChecked() is False:
-                pass
+                self.file['new'] = self.file['new'] + self.file['ext']
 
             elif ui.extension.isChecked() is False and ui.id.isChecked():
                 index = self.file['new'].find(self.file['ext'])
@@ -72,7 +73,7 @@ class Rename:
         else:
             pass
 
-    def remove_chars(self, path, ui, widget, title):
+    def remove_chars(self, path, ui, widget, title, case_change):
         logging.info(title)
         self.data['count'] = 0
         self.files.print_title(title, ui, widget)
@@ -80,12 +81,11 @@ class Rename:
         filename = ""
         msg = ""
         try:
-            for path in self.files.filelist:
+            for f in self.files.filelist:
                 logging.info("------------------------------")
-                logging.info('path: %s', path)
+                logging.info('Path(f)   : %s', Path(f))
                 self.file.clear()
-                self.file = self.files.split_name(path, ui, widget, title)
-                logging.info('self.file: %s', self.file)
+                self.file = self.files.split_name(f, ui, widget, title)
 
                 filename = self.check_options(ui, widget)
 
@@ -97,24 +97,24 @@ class Rename:
 
                 self.update_options(ui, widget)
 
-                self.files.compare(self.file, self.data, ui, widget, title)
+                self.files.compare(self.file, self.data, ui, widget, title, case_change)
         except AppError:
             self.app_error.print(ui, msg)
         else:
             self.files.preview(self.data, ui, widget, title)
 
-    def remove_accents(self, path, ui, widget, title):
+    def remove_accents(self, path, ui, widget, title, case_change):
         logging.info(title)
         self.data['count'] = 0
         self.files.print_title(title, ui, widget)
         self.files.find(path, ui, widget)
         filename = ""
         try:
-            for path in self.files.filelist:
+            for f in self.files.filelist:
                 logging.info("------------------------------")
-                logging.info('path: %s', path)
+                logging.info('Path(f)   : %s', Path(f))
                 self.file.clear()
-                self.file = self.files.split_name(path, ui, widget, title)
+                self.file = self.files.split_name(f, ui, widget, title)
 
                 filename = self.check_options(ui, widget)
 
@@ -125,7 +125,7 @@ class Rename:
 
                 self.update_options(ui, widget)
 
-                self.files.compare(self.file, self.data, ui, widget, title)
+                self.files.compare(self.file, self.data, ui, widget, title, case_change)
         except SystemError:
             self.files.filelist.clear()
             msg = 'SystemError'
@@ -173,18 +173,18 @@ class Rename:
         pattern = re.compile(r'-{1,}')
         return re.sub(pattern, ' ', string)
 
-    def trim_spaces(self, path, ui, widget, title):
+    def trim_spaces(self, path, ui, widget, title, case_change):
         logging.info(title)
         self.data['count'] = 0
         self.files.print_title(title, ui, widget)
         self.files.find(path, ui, widget)
         filename = ""
         try:
-            for path in self.files.filelist:
+            for f in self.files.filelist:
                 logging.info("------------------------------")
-                logging.info('path: %s', path)
+                logging.info('Path(f)   : %s', Path(f))
                 self.file.clear()
-                self.file = self.files.split_name(path, ui, widget, title)
+                self.file = self.files.split_name(f, ui, widget, title)
 
                 filename = self.check_options(ui, widget)
 
@@ -195,7 +195,7 @@ class Rename:
 
                 self.update_options(ui, widget)
 
-                self.files.compare(self.file, self.data, ui, widget, title)
+                self.files.compare(self.file, self.data, ui, widget, title, case_change)
         except SystemError:
             self.files.filelist.clear()
             msg = 'SystemError'
@@ -203,18 +203,18 @@ class Rename:
         else:
             self.files.preview(self.data, ui, widget, title)
 
-    def replace_spaces(self, path, ui, widget, title):
+    def replace_spaces(self, path, ui, widget, title, case_change):
         logging.info(title)
         self.data['count'] = 0
         self.files.print_title(title, ui, widget)
         self.files.find(path, ui, widget)
         filename = ""
         try:
-            for path in self.files.filelist:
+            for f in self.files.filelist:
                 logging.info("------------------------------")
-                logging.info('path: %s', path)
+                logging.info('Path(f)   : %s', Path(f))
                 self.file.clear()
-                self.file = self.files.split_name(path, ui, widget, title)
+                self.file = self.files.split_name(f, ui, widget, title)
 
                 filename = self.check_options(ui, widget)
 
@@ -227,7 +227,7 @@ class Rename:
 
                 self.update_options(ui, widget)
 
-                self.files.compare(self.file, self.data, ui, widget, title)
+                self.files.compare(self.file, self.data, ui, widget, title, case_change)
         except SystemError:
             self.files.filelist.clear()
             msg = 'SystemError'
@@ -235,18 +235,18 @@ class Rename:
         else:
             self.files.preview(self.data, ui, widget, title)
 
-    def replace_dots(self, path, ui, widget, title):
+    def replace_dots(self, path, ui, widget, title, case_change):
         logging.info(title)
         self.data['count'] = 0
         self.files.print_title(title, ui, widget)
         self.files.find(path, ui, widget)
         filename = ""
         try:
-            for path in self.files.filelist:
+            for f in self.files.filelist:
                 logging.info("------------------------------")
-                logging.info('path: %s', path)
+                logging.info('Path(f)   : %s', Path(f))
                 self.file.clear()
-                self.file = self.files.split_name(path, ui, widget, title)
+                self.file = self.files.split_name(f, ui, widget, title)
 
                 filename = self.check_options(ui, widget)
 
@@ -255,7 +255,7 @@ class Rename:
 
                 self.update_options(ui, widget)
 
-                self.files.compare(self.file, self.data, ui, widget, title)
+                self.files.compare(self.file, self.data, ui, widget, title, case_change)
         except SystemError:
             self.files.filelist.clear()
             msg = 'SystemError'
@@ -263,18 +263,18 @@ class Rename:
         else:
             self.files.preview(self.data, ui, widget, title)
 
-    def replace_hyphens(self, path, ui, widget, title):
+    def replace_hyphens(self, path, ui, widget, title, case_change):
         logging.info(title)
         self.data['count'] = 0
         self.files.print_title(title, ui, widget)
         self.files.find(path, ui, widget)
         filename = ""
         try:
-            for path in self.files.filelist:
+            for f in self.files.filelist:
                 logging.info("------------------------------")
-                logging.info('path: %s', path)
+                logging.info('Path(f)   : %s', Path(f))
                 self.file.clear()
-                self.file = self.files.split_name(path, ui, widget, title)
+                self.file = self.files.split_name(f, ui, widget, title)
 
                 filename = self.check_options(ui, widget)
 
@@ -283,7 +283,7 @@ class Rename:
 
                 self.update_options(ui, widget)
 
-                self.files.compare(self.file, self.data, ui, widget, title)
+                self.files.compare(self.file, self.data, ui, widget, title, case_change)
         except SystemError:
             self.files.filelist.clear()
             msg = 'SystemError'
@@ -291,18 +291,19 @@ class Rename:
         else:
             self.files.preview(self.data, ui, widget, title)
 
-    def lower_case(self, path, ui, widget, title):
+    def lower_case(self, path, ui, widget, title, case_change):
         logging.info(title)
+        logging.info('path: %s', path)
         self.data['count'] = 0
         self.files.print_title(title, ui, widget)
         self.files.find(path, ui, widget)
         filename = ""
         try:
-            for path in self.files.filelist:
+            for f in self.files.filelist:
                 logging.info("------------------------------")
-                logging.info('path: %s', path)
+                logging.info('Path(f)   : %s', Path(f))
                 self.file.clear()
-                self.file = self.files.split_name(path, ui, widget, title)
+                self.file = self.files.split_name(f, ui, widget, title)
 
                 filename = self.check_options(ui, widget)
 
@@ -310,7 +311,7 @@ class Rename:
 
                 self.update_options(ui, widget)
 
-                self.files.compare(self.file, self.data, ui, widget, title)
+                self.files.compare(self.file, self.data, ui, widget, title, case_change)
         except SystemError:
             self.files.filelist.clear()
             msg = 'SystemError'
@@ -318,18 +319,18 @@ class Rename:
         else:
             self.files.preview(self.data, ui, widget, title)
 
-    def title_case(self, path, ui, widget, title):
+    def title_case(self, path, ui, widget, title, case_change):
         logging.info(title)
         self.data['count'] = 0
         self.files.print_title(title, ui, widget)
         self.files.find(path, ui, widget)
         filename = ""
         try:
-            for path in self.files.filelist:
+            for f in self.files.filelist:
                 logging.info("------------------------------")
-                logging.info('path: %s', path)
+                logging.info('Path(f)   : %s', Path(f))
                 self.file.clear()
-                self.file = self.files.split_name(path, ui, widget, title)
+                self.file = self.files.split_name(f, ui, widget, title)
 
                 filename = self.check_options(ui, widget)
 
@@ -337,7 +338,7 @@ class Rename:
 
                 self.update_options(ui, widget)
 
-                self.files.compare(self.file, self.data, ui, widget, title)
+                self.files.compare(self.file, self.data, ui, widget, title, case_change)
         except SystemError:
             self.files.filelist.clear()
             msg = 'SystemError'
@@ -345,7 +346,7 @@ class Rename:
         else:
             self.files.preview(self.data, ui, widget, title)
 
-    def remove_ids(self, path, ui, widget, title):
+    def remove_ids(self, path, ui, widget, title, case_change):
         logging.info(title)
         self.data['count'] = 0
         self.files.print_title(title, ui, widget)
@@ -353,11 +354,11 @@ class Rename:
         filename = ""
         regex = ""
         try:
-            for path in self.files.filelist:
+            for f in self.files.filelist:
                 logging.info("------------------------------")
-                logging.info('path: %s', path)
+                logging.info('Path(f)   : %s', Path(f))
                 self.file.clear()
-                self.file = self.files.split_name(path, ui, widget, title)
+                self.file = self.files.split_name(f, ui, widget, title)
 
                 filename = self.check_options(ui, widget)
 
@@ -377,7 +378,7 @@ class Rename:
 
                 self.update_options(ui, widget)
 
-                self.files.compare(self.file, self.data, ui, widget, title)
+                self.files.compare(self.file, self.data, ui, widget, title, case_change)
         except SystemError:
             self.files.filelist.clear()
             msg = 'SystemError'
@@ -385,7 +386,7 @@ class Rename:
         else:
             self.files.preview(self.data, ui, widget, title)
 
-    def search_replace(self, path, ui, widget, title):
+    def search_replace(self, path, ui, widget, title, case_change):
         logging.info(title)
         self.data['count'] = 0
         self.files.print_title(title, ui, widget)
@@ -401,11 +402,11 @@ class Rename:
         logging.info('char: %s', char)
 
         try:
-            for path in self.files.filelist:
+            for f in self.files.filelist:
                 logging.info("------------------------------")
-                logging.info('path: %s', path)
+                logging.info('Path(f)   : %s', Path(f))
                 self.file.clear()
-                self.file = self.files.split_name(path, ui, widget, title)
+                self.file = self.files.split_name(f, ui, widget, title)
 
                 filename = self.check_options(ui, widget)
 
@@ -418,7 +419,7 @@ class Rename:
 
                     result = p.search(filename)
                     if result:
-                        logging.info('result.group(): %s', result.group())                        
+                        logging.info('result.group(): %s', result.group())
                         replace = ui.replace.displayText()
                         raw_replace = repr(replace)[1:-1] # raw string
                         self.file['new'] = filename.replace(result.group(),
@@ -433,13 +434,12 @@ class Rename:
                         logging.info('result.group(): %s', result.group())
                         replace = ui.replace.displayText()
                         logging.info('replace: %s', replace)
-                        # replace = re.escape(replace)
                         self.file['new'] = filename.replace(result.group(), replace)
                     else:
                         self.file['new'] = filename
 
                 self.update_options(ui, widget)
-                self.files.compare(self.file, self.data, ui, widget, title)
+                self.files.compare(self.file, self.data, ui, widget, title, case_change)
 
         except SystemError:
             self.files.filelist.clear()
@@ -448,6 +448,6 @@ class Rename:
         else:
             self.files.preview(self.data, ui, widget, title)
 
-    def rename_files(self, path, ui, widget, title):
+    def rename_files(self, path, ui, widget, title, case_change):
         self.files.print_title(title, ui, widget)
         self.files.rename(path, ui, widget, title)
