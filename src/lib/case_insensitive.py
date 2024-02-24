@@ -1,4 +1,5 @@
-import os, logging
+import os
+import logging
 from pathlib import Path
 from abc import ABC, abstractmethod
 
@@ -31,10 +32,10 @@ class CaseInsensitive(CaseSensitive):
 
     def check(self, path):
         count = 0
-        if len(path):
+        if len(str(path)):
             pass
         else:
-            path =  os.path.expanduser('~') + '/Test'
+            path = os.path.expanduser('~') + '/Test'
         self.new_file_1 = Path(os.path.join(path), self.new_file_1)
         self.new_file_2 = Path(os.path.join(path), self.new_file_2)
         try:
@@ -71,4 +72,3 @@ class CaseInsensitive(CaseSensitive):
             os.remove(self.new_file_1)
 
         return self.insensitive
-
