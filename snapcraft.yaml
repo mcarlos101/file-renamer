@@ -1,0 +1,30 @@
+name: file-renamer
+base: core18
+version: '1.0.1'
+summary: A desktop GUI app for renaming files.
+description: |
+  Rename files using a GUI desktop app for Linux, Windows & macOS.
+
+grade: stable # must be 'stable' to release into candidate/stable channels
+confinement: strict # use 'strict' once you have the right plugs and slots
+  
+parts:
+    my-part:
+    plugin: python
+    source-type: git
+    source: https://github.com/mcarlos101/file-renamer
+
+apps:
+    file-renamer:
+        command: bin/file-renamer
+        plugs:
+            - home
+            - network
+
+architectures:
+  - build-on: s390x
+  - build-on: ppc64el
+  - build-on: arm64
+  - build-on: armhf
+  - build-on: amd64
+  - build-on: i386
