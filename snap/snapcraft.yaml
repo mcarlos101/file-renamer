@@ -12,14 +12,22 @@ parts:
     file-renamer:
         plugin: python
         source-type: git
-        source: https://github.com/mcarlos101/file-renamer
+        source: ./file-renamer
+
+architectures:
+- build-on: amd64
 
 apps:
     file-renamer:
-        command: file-renamer
+        command: bin/file-renamer
         plugs:
             - home
             - network
-
-architectures:
-  - build-on: amd64
+            - network-bind
+            - desktop
+            - desktop-legacy
+            - wayland
+            - unity7
+            - opengl
+            - removable-media
+            - gsettings
