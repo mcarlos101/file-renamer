@@ -19,7 +19,7 @@ architectures:
 
 apps:
     file-renamer:
-        command: bin/file-renamer
+        command: file-renamer
         plugs:
             - home
             - network
