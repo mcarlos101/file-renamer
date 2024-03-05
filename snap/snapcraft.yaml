@@ -12,7 +12,7 @@ parts:
     file-renamer:
         plugin: python
         source-type: git
-        source: ./file-renamer
+        source: https://github.com/mcarlos101/file-renamer
 
 architectures:
 - build-on: amd64
