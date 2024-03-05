@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 packages = ["file-renamer"]
 
 [project]
-name = "file-renamer"
+name = "src"
 version = "1.0.1"
 authors = [
   { name="Carlos", email="mcarlos@tuta.io" },
