@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'form.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -117,7 +117,8 @@ class Ui_Widget(object):
 
         self.search = QLineEdit(self.search_replace)
         self.search.setObjectName(u"search")
-        self.search.setFocusPolicy(Qt.ClickFocus)
+        self.search.setTabletTracking(False)
+        self.search.setFocusPolicy(Qt.TabFocus)
         self.search.setText(u"")
         self.search.setPlaceholderText(u"")
 
@@ -130,7 +131,8 @@ class Ui_Widget(object):
 
         self.replace = QLineEdit(self.search_replace)
         self.replace.setObjectName(u"replace")
-        self.replace.setFocusPolicy(Qt.ClickFocus)
+        self.replace.setTabletTracking(False)
+        self.replace.setFocusPolicy(Qt.TabFocus)
 
         self.horizontalLayout_2.addWidget(self.replace)
 
@@ -147,6 +149,18 @@ class Ui_Widget(object):
 
         self.gridLayout.addWidget(self.search_replace, 4, 0, 1, 1)
 
+        QWidget.setTabOrder(self.dir_btn, self.dir_txt)
+        QWidget.setTabOrder(self.dir_txt, self.dir_output)
+        QWidget.setTabOrder(self.dir_output, self.recursively)
+        QWidget.setTabOrder(self.recursively, self.id)
+        QWidget.setTabOrder(self.id, self.extension)
+        QWidget.setTabOrder(self.extension, self.comboBox)
+        QWidget.setTabOrder(self.comboBox, self.clear_btn)
+        QWidget.setTabOrder(self.clear_btn, self.rename_btn)
+        QWidget.setTabOrder(self.rename_btn, self.search)
+        QWidget.setTabOrder(self.search, self.replace)
+        QWidget.setTabOrder(self.replace, self.regex)
+        QWidget.setTabOrder(self.regex, self.find_btn)
 
         self.retranslateUi(Widget)
         self.dir_btn.clicked.connect(Widget.open_dir)

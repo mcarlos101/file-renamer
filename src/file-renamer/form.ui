@@ -169,8 +169,11 @@
       </item>
       <item>
        <widget class="QLineEdit" name="search">
+        <property name="tabletTracking">
+         <bool>false</bool>
+        </property>
         <property name="focusPolicy">
-         <enum>Qt::ClickFocus</enum>
+         <enum>Qt::TabFocus</enum>
         </property>
         <property name="text">
          <string notr="true"/>
@@ -189,8 +192,11 @@
       </item>
       <item>
        <widget class="QLineEdit" name="replace">
+        <property name="tabletTracking">
+         <bool>false</bool>
+        </property>
         <property name="focusPolicy">
-         <enum>Qt::ClickFocus</enum>
+         <enum>Qt::TabFocus</enum>
         </property>
         <property name="text">
          <string/>
@@ -216,6 +222,21 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>dir_btn</tabstop>
+  <tabstop>dir_txt</tabstop>
+  <tabstop>dir_output</tabstop>
+  <tabstop>recursively</tabstop>
+  <tabstop>id</tabstop>
+  <tabstop>extension</tabstop>
+  <tabstop>comboBox</tabstop>
+  <tabstop>clear_btn</tabstop>
+  <tabstop>rename_btn</tabstop>
+  <tabstop>search</tabstop>
+  <tabstop>replace</tabstop>
+  <tabstop>regex</tabstop>
+  <tabstop>find_btn</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
