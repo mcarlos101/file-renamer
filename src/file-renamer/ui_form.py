@@ -29,6 +29,7 @@ class Ui_Widget(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.browse = QGroupBox(Widget)
         self.browse.setObjectName(u"browse")
+        self.browse.setFocusPolicy(Qt.StrongFocus)
         self.formLayout = QFormLayout(self.browse)
         self.formLayout.setObjectName(u"formLayout")
         self.dir_btn = QPushButton(self.browse)
@@ -118,7 +119,7 @@ class Ui_Widget(object):
         self.search = QLineEdit(self.search_replace)
         self.search.setObjectName(u"search")
         self.search.setTabletTracking(False)
-        self.search.setFocusPolicy(Qt.TabFocus)
+        self.search.setFocusPolicy(Qt.StrongFocus)
         self.search.setText(u"")
         self.search.setPlaceholderText(u"")
 
@@ -132,7 +133,7 @@ class Ui_Widget(object):
         self.replace = QLineEdit(self.search_replace)
         self.replace.setObjectName(u"replace")
         self.replace.setTabletTracking(False)
-        self.replace.setFocusPolicy(Qt.TabFocus)
+        self.replace.setFocusPolicy(Qt.StrongFocus)
 
         self.horizontalLayout_2.addWidget(self.replace)
 
@@ -178,7 +179,7 @@ class Ui_Widget(object):
     # setupUi
 
     def retranslateUi(self, Widget):
-        Widget.setWindowTitle(QCoreApplication.translate("Widget", u"RENAMER", None))
+        Widget.setWindowTitle(QCoreApplication.translate("Widget", u"File Renamer", None))
         self.browse.setTitle("")
         self.dir_btn.setText(QCoreApplication.translate("Widget", u"Browse", None))
         self.options.setTitle("")

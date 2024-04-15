@@ -11,11 +11,14 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>RENAMER</string>
+   <string>File Renamer</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QGroupBox" name="browse">
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="title">
       <string/>
      </property>
@@ -173,7 +176,7 @@
          <bool>false</bool>
         </property>
         <property name="focusPolicy">
-         <enum>Qt::TabFocus</enum>
+         <enum>Qt::StrongFocus</enum>
         </property>
         <property name="text">
          <string notr="true"/>
@@ -196,7 +199,7 @@
          <bool>false</bool>
         </property>
         <property name="focusPolicy">
-         <enum>Qt::TabFocus</enum>
+         <enum>Qt::StrongFocus</enum>
         </property>
         <property name="text">
          <string/>
