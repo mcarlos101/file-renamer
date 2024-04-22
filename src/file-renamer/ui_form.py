@@ -166,7 +166,7 @@ class Ui_Widget(object):
         self.retranslateUi(Widget)
         self.dir_btn.clicked.connect(Widget.open_dir)
         self.dir_btn.clicked.connect(self.dir_txt.update)
-        self.clear_btn.clicked.connect(self.dir_output.clear)
+        self.clear_btn.clicked.connect(Widget.clear)
         self.comboBox.activated.connect(Widget.index_changed)
         self.rename_btn.clicked.connect(Widget.rename_files)
         self.recursively.clicked.connect(Widget.add_recursively)

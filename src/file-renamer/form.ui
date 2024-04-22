@@ -277,7 +277,7 @@
   <connection>
    <sender>clear_btn</sender>
    <signal>clicked()</signal>
-   <receiver>dir_output</receiver>
+   <receiver>Widget</receiver>
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -285,8 +285,8 @@
      <y>519</y>
     </hint>
     <hint type="destinationlabel">
-     <x>411</x>
-     <y>395</y>
+     <x>399</x>
+     <y>299</y>
     </hint>
    </hints>
   </connection>
@@ -413,5 +413,6 @@
   <slot>search_replace()</slot>
   <slot>regex()</slot>
   <slot>find()</slot>
+  <slot>clear()</slot>
  </slots>
 </ui>

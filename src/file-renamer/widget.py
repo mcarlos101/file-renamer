@@ -150,6 +150,10 @@ class Widget(QWidget):
                 elif index == 9:
                     self.rename.remove_ids(**self.params)
 
+    def clear(self):
+        self.params["ui"].dir_output.clear()
+        self.params["ui"].rename_btn.setEnabled(False)
+
     def rename_files(self):
         self.params["title"] = ""
         index = self.params["ui"].comboBox.currentIndex()

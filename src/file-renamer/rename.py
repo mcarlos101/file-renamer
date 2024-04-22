@@ -436,14 +436,6 @@ class Rename:
         pattern = ''
         replace = ''
 
-        """
-        # Metachars
-        char = [".", "^", "$", "*", "+", "?", "{", "}", "[", "]" "\\", "|"]
-        char.append("(")
-        char.append(")")
-        logging.info('char: %s', char)
-        """
-
         try:
             for filename in self.files.filelist:
                 logging.info("------------------------------")
@@ -466,11 +458,7 @@ class Rename:
                         logging.info('result.group(): %s', result.group())
                         replace = params["ui"].replace.displayText()
                         raw_replace = repr(replace)[1:-1]  # raw string
-                        self.file['new'] = filename2.replace(
-                            result.group(),
-                            raw_replace,
-                            1
-                        )
+                        self.file['new'] = re.sub(pattern, replace, filename2)
                     else:
                         self.file['new'] = filename2
                 else:
