@@ -1,0 +1,12 @@
+[Desktop Entry]
+Comment=File Renamer
+Encoding=UTF-8
+
+# Update path
+Exec=/path/file-renamer
+Icon=/path/file-renamer.png
+
+Name=File Renamer
+Terminal=false
+Type=Application
+Version=1.0
