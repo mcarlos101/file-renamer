@@ -29,12 +29,12 @@ Regular Expression Renamed
 ### Create a virtual environment (venv)
 ```sh
 # For example
-python3 -m venv "${HOME}/venv/file-renamer"
+python3.11 -m venv "${HOME}/file-renamer/venv"
 ```
 
 ### Activate venv
 ```sh
-source "${HOME}/venv/file-renamer/bin/activate"
+source "${HOME}/file-renamer/venv/bin/activate"
 ```
 
 ### Install via pip
@@ -44,6 +44,5 @@ pip install file-renamer
 
 ### Run
 ```sh
-cd "${HOME}/venv/file-renamer/lib/python3.12/site-packages/file-renamer"
-python widget.py
+python "${HOME}/file-renamer/venv/lib/python3.11/site-packages/file-renamer/widget.py"
 ```
