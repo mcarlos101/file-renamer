@@ -17,10 +17,11 @@ default-tag = "1.0.0"
 packages = ["file-renamer"]
 
 [project]
+title = "File Renamer"
 name = "file-renamer"
 dynamic = ["version"]
 authors = [
-  { name="Carlos", email="mcarlos@tuta.io" },
+  { name="Carlos"},
 ]
 description = "Rename files using a GUI desktop app for Linux & Windows. MacOS not yet tested."
 readme = "README.md"
