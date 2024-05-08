@@ -1,13 +1,24 @@
 [build-system]
-requires = ["hatchling"]
+requires = [
+    "hatchling",
+    "versioningit",
+]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "versioningit"
+
+[tool.versioningit.vcs]
+method = "git"
+match = ["v*"]  # Parameters to pass to the method:
+default-tag = "1.0.0"
 
 [tool.hatch.build.targets.wheel]
 packages = ["file-renamer"]
 
 [project]
 name = "file-renamer"
-version = "1.0.2"
+dynamic = ["version"]
 authors = [
   { name="Carlos", email="mcarlos@tuta.io" },
 ]
