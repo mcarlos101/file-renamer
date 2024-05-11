@@ -1,0 +1,6 @@
+Github
+https://github.com/mcarlos101/file-renamer/
+
+Python Package Index
+https://pypi.org/project/file-renamer/
+

@@ -8,6 +8,8 @@ from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import (
     QApplication, QWidget, QMainWindow, QTextEdit, QToolBar)
 from widget import Widget
+import toml
+import versioningit
 
 
 class MainWindow(QMainWindow):
@@ -29,10 +31,15 @@ class MainWindow(QMainWindow):
         self.params["platform"] = platform.system()
         self.params["logs"] = os.path.expanduser('~') + "/file-renamer.log"
 
+        self.toml = toml.load("./pyproject.toml")
+        self.title = self.toml['project']['title']
+        self.version = versioningit.get_version(".",)
+
         # Create widget
         self.widget = Widget(**self.params)
         self.widget.show()
         self.setCentralWidget(self.widget)
+        self.setWindowTitle(self.title)
 
         if platform == "Windows":
             self.params["style"] = Path("style/default_win.qss")
@@ -47,10 +54,13 @@ class MainWindow(QMainWindow):
     def menu(self):
         app_menu = self.menuBar().addMenu("&App")
         icon = QIcon.fromTheme("application-exit")
-        app_action = QAction(icon, "&App", self,
+        app_action = QAction(icon, "&Load", self,
                              triggered=self.show_widget)
         app_menu.addAction(app_action)
-        exit_action = QAction(icon, "E&xit", self,
+        version_action = QAction(icon, "&Version", self,
+                                 triggered=self.show_version)
+        app_menu.addAction(version_action)
+        exit_action = QAction(icon, "&Exit", self,
                               shortcut="Ctrl+Q", triggered=self.close)
         app_menu.addAction(exit_action)
 
@@ -70,6 +80,7 @@ class MainWindow(QMainWindow):
         self.widget = Widget(**self.params)
         self.widget.show()
         self.setCentralWidget(self.widget)
+        self.setWindowTitle(self.title)
 
     def output(self):
         if not self.widget:
@@ -90,20 +101,33 @@ class MainWindow(QMainWindow):
         if file.open(QIODevice.ReadOnly | QIODevice.Text):
             while not file.atEnd():
                 text = stream.readAll()
-                self.dir_output.setText(str(text))
+                self.dir_output.append(str(text))
                 self.dir_output.show()
+                self.dir_output.setFocus()
                 self.setWindowTitle(title)
+
+    @Slot()
+    def show_version(self):
+        self.output()
+        self.dir_output.clear()
+        self.dir_output.append(self.title + ' ' + self.version)
+        self.dir_output.append("")
+        file = QFile("docs/Version.txt")
+        title = "Version"
+        self.open_file(file, title)
 
     @Slot()
     def license(self):
         self.output()
-        file = QFile("docs/LICENSE.txt")
+        self.dir_output.clear()
+        file = QFile("docs/License.txt")
         title = "License"
         self.open_file(file, title)
 
     @Slot()
     def qt_for_python(self, data):
         self.output()
+        self.dir_output.clear()
         file = QFile("docs/Qt-for-Python.txt")
         title = "Qt for Python"
         self.open_file(file, title)
