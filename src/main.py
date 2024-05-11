@@ -34,8 +34,6 @@ class MainWindow(QMainWindow):
         self.widget.show()
         self.setCentralWidget(self.widget)
 
-        self.params["widget"] = self.widget
-
         if platform == "Windows":
             self.params["style"] = Path("style/default_win.qss")
         elif platform == "Darwin":
@@ -79,7 +77,6 @@ class MainWindow(QMainWindow):
         self.dir_output = QTextEdit()
         self.dir_output.setObjectName(u"dir_output")
         self.dir_output.setReadOnly(True)
-        # dir_output.hide()
         self.setCentralWidget(self.dir_output)
 
     def toggle(self, checked):
