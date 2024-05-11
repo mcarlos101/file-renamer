@@ -66,12 +66,12 @@ class MainWindow(QMainWindow):
 
         license_menu = self.menuBar().addMenu("&License")
         license_action = QAction(icon, "GPL", self,
-                                 triggered=self.license)
+                                 triggered=self.show_license)
         license_menu.addAction(license_action)
 
         qt_python_menu = self.menuBar().addMenu("&Qt for Python")
         qt_python_action = QAction(icon, "PySide", self,
-                                   triggered=self.qt_for_python)
+                                   triggered=self.show_qt_for_python)
         qt_python_menu.addAction(qt_python_action)
 
     def show_widget(self):
@@ -82,7 +82,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.widget)
         self.setWindowTitle(self.title)
 
-    def output(self):
+    def show_output(self):
         if not self.widget:
             self.widget.hide()
         self.dir_output = QTextEdit()
@@ -90,47 +90,47 @@ class MainWindow(QMainWindow):
         self.dir_output.setReadOnly(True)
         self.setCentralWidget(self.dir_output)
 
-    def toggle(self, checked):
-        if self.isVisible():
-            self.hide()
-        else:
-            self.show()
-
-    def open_file(self, file, title):
+    def open_file(self, file, title, append=False):
         stream = QTextStream(file)
         if file.open(QIODevice.ReadOnly | QIODevice.Text):
             while not file.atEnd():
                 text = stream.readAll()
-                self.dir_output.append(str(text))
+                if append:
+                    self.dir_output.append(str(text))
+                else:
+                    self.dir_output.setText(str(text))
                 self.dir_output.show()
                 self.dir_output.setFocus()
                 self.setWindowTitle(title)
 
     @Slot()
     def show_version(self):
-        self.output()
+        self.show_output()
         self.dir_output.clear()
         self.dir_output.append(self.title + ' ' + self.version)
         self.dir_output.append("")
         file = QFile("docs/Version.txt")
         title = "Version"
-        self.open_file(file, title)
+        append = True
+        self.open_file(file, title, append)
 
     @Slot()
-    def license(self):
-        self.output()
+    def show_license(self):
+        self.show_output()
         self.dir_output.clear()
         file = QFile("docs/License.txt")
         title = "License"
-        self.open_file(file, title)
+        append = False
+        self.open_file(file, title, append)
 
     @Slot()
-    def qt_for_python(self, data):
-        self.output()
+    def show_qt_for_python(self, data):
+        self.show_output()
         self.dir_output.clear()
         file = QFile("docs/Qt-for-Python.txt")
         title = "Qt for Python"
-        self.open_file(file, title)
+        append = False
+        self.open_file(file, title, append)
 
 
 if __name__ == '__main__':
