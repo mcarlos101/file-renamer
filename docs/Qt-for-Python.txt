@@ -1,0 +1,16 @@
+Qt for Python
+
+Qt for Python offers the official Python bindings for Qt, which enables you to use Python to write your Qt applications. The project has two main components:
+
+    1. PySide6, so that you can use Qt6 APIs in your Python applications, and
+
+    2. Shiboken6, a binding generator tool, which can be used to expose C++ projects to Python, and a Python module with some utility functions.
+
+This project is available under the LGPLv3/GPLv3 and the Qt commercial license.
+
+Qt for Python
+https://www.qt.io/qt-for-python
+
+Docs
+https://doc.qt.io/qtforpython-6/
+

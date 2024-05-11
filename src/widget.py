@@ -1,9 +1,7 @@
 # This Python file uses the following encoding: utf-8
-import sys
 import os
 import logging
-import platform
-from PySide6.QtWidgets import QApplication, QWidget, QFileDialog
+from PySide6.QtWidgets import QWidget, QFileDialog
 from pathlib import Path
 
 from rename import Rename
@@ -162,37 +160,3 @@ class Widget(QWidget):
         else:
             self.params["title"] = self.params["ui"].comboBox.currentText()
         self.rename.rename_files(**self.params)
-
-
-if __name__ == "__main__":
-    params = dict(
-        platform="", app=None, widget=None, ui=None, style="", path="",
-        base="", dir="", name="", ext="", id="", new="", current="", logs=""
-    )
-    params["platform"] = platform.system()
-    params["logs"] = os.path.expanduser('~') + "/file-renamer.log"
-
-    # Create widget
-    app = QApplication(sys.argv)
-    widget = Widget(**params)
-    widget.show()
-    params["widget"] = widget
-
-    if platform == "Windows":
-        params["style"] = Path("style/default_win.qss")
-    elif platform == "Darwin":
-        params["style"] = Path("style/default_macos.qss")
-    else:
-        params["style"] = Path("style/default.qss")
-
-    logging.info('platform: %s', params["platform"])
-    logging.info('filename: %s', params["style"])
-
-    """
-    # Open the qss styles file and read in the CSS-alike styling code
-    with open(filename, 'r') as f:
-        style = f.read()
-        app.setStyleSheet(style)
-    """
-
-    sys.exit(app.exec())
