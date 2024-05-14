@@ -1,3 +1,5 @@
+File Renamer 1.0.3
+
 Github
 https://github.com/mcarlos101/file-renamer/
 
