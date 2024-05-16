@@ -1,13 +1,12 @@
-import sys
 import os
 import logging
 import platform
 from pathlib import Path
-from PySide6.QtCore import Slot, QFile
+from PySide6.QtCore import Slot, QFile, QDir
 from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import (
     QApplication, QWidget, QMainWindow, QTextEdit, QToolBar)
-from widget import Widget
+from .widget import Widget
 
 
 class MainWindow(QMainWindow):
@@ -87,6 +86,7 @@ class MainWindow(QMainWindow):
     def open_file(self, title, filename):
         text = ""
         error = "ERROR"
+        qdir = QDir()
         try:
             if QFile.exists(filename):
                 input = QFile(filename)
@@ -98,6 +98,8 @@ class MainWindow(QMainWindow):
                 raise FileNotFoundError()
         except FileNotFoundError:
             print(error)
+            print('qdir.currentPath: ', qdir.currentPath())
+            print('qdir.curren     : ', qdir.current())
         else:
             self.dir_output.setText(text)
             self.dir_output.show()
@@ -125,11 +127,3 @@ class MainWindow(QMainWindow):
         title = "Qt for Python"
         filename = "docs/Qt-for-Python.txt"
         self.open_file(title, filename)
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = MainWindow()
-    window.resize(800, 600)
-    window.show()
-    app.exec()
