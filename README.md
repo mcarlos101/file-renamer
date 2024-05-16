@@ -1,48 +1,38 @@
-# [file-renamer](https://github.com/mcarlos101/file-renamer)
-
+# File Renamer
 Rename files using a GUI desktop app for Linux, Windows & macOS. macOS not yet tested.
 
-# Screenshots
+1. [Github](https://github.com/mcarlos101/file-renamer)
+1. [PyPi](https://pypi.org/project/file-renamer/)
 
-Launch App
-![file-renamer app](https://raw.githubusercontent.com/mcarlos101/file-renamer/main/screenshots/file-renamer-01-desktop-app.png)
+## Screenshots
 
-***
-
-List Files
-![List Files](https://raw.githubusercontent.com/mcarlos101/file-renamer/main/screenshots/file-renamer-02-list-files.png)
+App
+![file-renamer app](https://raw.githubusercontent.com/mcarlos101/file-renamer/main/screenshots/file-renamer-01-app.png)
 
 ***
 
-Regular Expression Preview
-![Regular Expression Preview](https://raw.githubusercontent.com/mcarlos101/file-renamer/main/screenshots/file-renamer-17-search-replace-regular-expression-preview.png)
+Preview
+![Preview](https://raw.githubusercontent.com/mcarlos101/file-renamer/main/screenshots/file-renamer-02-preview.png)
 
 ***
 
-Regular Expression Renamed
-![Regular Expression Renamed](https://raw.githubusercontent.com/mcarlos101/file-renamer/main/screenshots/file-renamer-18-search-replace-regular-expression-renamed.png)
+Renamed
+![Renamed](https://raw.githubusercontent.com/mcarlos101/file-renamer/main/screenshots/file-renamer-03-renamed.png)
 
-# [Installation](https://pypi.org/project/file-renamer/)
+***
 
-## Linux
+## Installation
 
-### Create a virtual environment (venv)
-```sh
-# For example
-python3.11 -m venv "${HOME}/file-renamer/venv"
-```
+### Linux
 
-### Activate venv
-```sh
-source "${HOME}/file-renamer/venv/bin/activate"
-```
+1. Download latest [release](https://github.com/mcarlos101/file-renamer/releases)
+1. Unzip file & change into dir
+1. ./file-renamer
 
-### Install via pip
-```sh
-pip install file-renamer
-```
+### Windows
+1. Download latest [release](https://github.com/mcarlos101/file-renamer/releases)
+1. Unzip file & change into dir
+1. ./file-renamer.exe (or double click .exe)
 
-### Run
-```sh
-python "${HOME}/file-renamer/venv/lib/python3.11/site-packages/file-renamer/widget.py"
-```
+### macOS (Not tested)
+1. Install from [PyPi](https://pypi.org/project/file-renamer/)
