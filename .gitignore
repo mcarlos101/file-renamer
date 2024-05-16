@@ -76,3 +76,4 @@ CMakeLists.txt.user*
 dist/*
 venv/*
 __pycache__/*
+build/*
