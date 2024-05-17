@@ -7,7 +7,7 @@ from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import (
     QApplication, QWidget, QMainWindow, QTextEdit, QToolBar)
 from .widget import Widget
-
+from .rc_docs import qt_resource_data
 
 class MainWindow(QMainWindow):
 
@@ -33,6 +33,8 @@ class MainWindow(QMainWindow):
         self.widget.show()
         self.setCentralWidget(self.widget)
         self.setWindowTitle(self.title)
+
+        self.qdir = QDir()
 
         if platform == "Windows":
             self.params["style"] = Path("style/default_win.qss")
@@ -86,7 +88,6 @@ class MainWindow(QMainWindow):
     def open_file(self, title, filename):
         text = ""
         error = "ERROR"
-        qdir = QDir()
         try:
             if QFile.exists(filename):
                 input = QFile(filename)
@@ -98,8 +99,8 @@ class MainWindow(QMainWindow):
                 raise FileNotFoundError()
         except FileNotFoundError:
             print(error)
-            print('qdir.currentPath: ', qdir.currentPath())
-            print('qdir.curren     : ', qdir.current())
+            print('self.qdir.currentPath: ', self.qdir.currentPath())
+            print('self.qdir.current:     ', self.qdir.current())
         else:
             self.dir_output.setText(text)
             self.dir_output.show()
@@ -109,7 +110,7 @@ class MainWindow(QMainWindow):
     def show_version(self):
         self.show_output()
         title = "Version"
-        filename = "docs/Version.txt"
+        filename = ":docs/version_txt"
         self.open_file(title, filename)
 
     @Slot()
@@ -117,7 +118,7 @@ class MainWindow(QMainWindow):
         self.show_output()
         self.dir_output.clear()
         title = "License"
-        filename = "docs/License.txt"
+        filename = ":docs/license_txt"
         self.open_file(title, filename)
 
     @Slot()
@@ -125,5 +126,5 @@ class MainWindow(QMainWindow):
         self.show_output()
         self.dir_output.clear()
         title = "Qt for Python"
-        filename = "docs/Qt-for-Python.txt"
+        filename = ":docs/qt_for_python_txt"
         self.open_file(title, filename)
