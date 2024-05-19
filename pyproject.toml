@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 packages = ["src/file_renamer"]
 
 [tool.hatch.build.targets.wheel.force-include]
-"icons" = "file_renamer/icons"
+"icons" = "src/file_renamer/icons"
 
 [project]
 name = "file_renamer"
@@ -14,7 +14,7 @@ version = "1.0.5"
 authors = [
   { name="Carlos"},
 ]
-description = "Rename files using a GUI desktop app for Linux & Windows. MacOS not yet tested."
+description = "Rename files using a GUI desktop app for Linux & Windows. macOS not yet tested."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -32,7 +32,7 @@ classifiers = [
 ]
 
 [project.scripts]
-file-renamer = "file_renamer.cli:cli"
+file-renamer = "file_renamer.cli:start_app"
 
 [project.urls]
 Homepage = "https://github.com/mcarlos101/file-renamer"

@@ -5,8 +5,8 @@ from pathlib import Path
 import os.path
 from abc import ABC, abstractmethod
 from PySide6.QtCore import Slot
-from .exceptions import AppError
-from .case_insensitive import CaseInsensitive
+from file_renamer.lib.exceptions import AppError
+from file_renamer.lib.case_insensitive import CaseInsensitive
 
 
 class File(ABC):

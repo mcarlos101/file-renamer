@@ -1,8 +1,0 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
-    <qresource prefix="docs">
-        <file alias="license_txt">docs/license.txt</file>
-        <file alias="qt_for_python_txt">docs/qt-for-python.txt</file>
-        <file alias="version_txt">docs/version.txt</file>
-    </qresource>
-</RCC>

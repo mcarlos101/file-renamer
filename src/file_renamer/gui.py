@@ -1,13 +1,16 @@
+import sys
 import os
 import logging
 import platform
 from pathlib import Path
+from PySide6 import QtCore
 from PySide6.QtCore import Slot, QFile, QDir
 from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import (
-    QApplication, QWidget, QMainWindow, QTextEdit, QToolBar)
-from .widget import Widget
-from .rc_docs import qt_resource_data
+    QWidget, QMainWindow, QTextEdit, QToolBar)
+from PySide6.QtWebEngineWidgets import QWebEngineView
+from file_renamer.widget import Widget
+
 
 class MainWindow(QMainWindow):
 
@@ -77,54 +80,39 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.widget)
         self.setWindowTitle(self.title)
 
-    def show_output(self):
-        if not self.widget:
-            self.widget.hide()
-        self.dir_output = QTextEdit()
-        self.dir_output.setObjectName(u"dir_output")
-        self.dir_output.setReadOnly(True)
-        self.setCentralWidget(self.dir_output)
-
     def open_file(self, title, filename):
-        text = ""
         error = "ERROR"
+        qweb = QWebEngineView()
+        qfile = self.qdir.currentPath() + filename
+
         try:
-            if QFile.exists(filename):
-                input = QFile(filename)
-                if input.open(QFile.ReadOnly):
-                    data = input.readAll()
-                    text = str(data, encoding='utf-8')
+            if QFile.exists(qfile):
+                qweb.load(QtCore.QUrl("file:///" + qfile))
             else:
-                error = "File Not Found: " + filename
+                error = "File Not Found: " + qfile
                 raise FileNotFoundError()
         except FileNotFoundError:
             print(error)
+            print('qfile: ', qfile)
             print('self.qdir.currentPath: ', self.qdir.currentPath())
-            print('self.qdir.current:     ', self.qdir.current())
         else:
-            self.dir_output.setText(text)
-            self.dir_output.show()
+            self.setCentralWidget(qweb)
             self.setWindowTitle(title)
 
     @Slot()
     def show_version(self):
-        self.show_output()
-        title = "Version"
-        filename = ":docs/version_txt"
+        title = "License"
+        filename = "/src/file_renamer/html/version.html"
         self.open_file(title, filename)
 
     @Slot()
     def show_license(self):
-        self.show_output()
-        self.dir_output.clear()
         title = "License"
-        filename = ":docs/license_txt"
+        filename = "/src/file_renamer/html/license.html"
         self.open_file(title, filename)
 
     @Slot()
     def show_qt_for_python(self):
-        self.show_output()
-        self.dir_output.clear()
         title = "Qt for Python"
-        filename = ":docs/qt_for_python_txt"
+        filename = "/src/file_renamer/html/qt-for-python.html"
         self.open_file(title, filename)

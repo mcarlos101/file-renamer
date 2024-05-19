@@ -2,8 +2,8 @@ import re
 import logging
 import unidecode
 from pathlib import Path
-from .lib.files import Files
-from .lib.exceptions import AppError
+from file_renamer.lib.files import Files
+from file_renamer.lib.exceptions import AppError
 
 
 class Rename:
