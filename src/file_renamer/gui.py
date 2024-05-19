@@ -92,9 +92,11 @@ class MainWindow(QMainWindow):
                 error = "File Not Found: " + qfile
                 raise FileNotFoundError()
         except FileNotFoundError:
-            print(error)
-            print('qfile: ', qfile)
-            print('self.qdir.currentPath: ', self.qdir.currentPath())
+            print('logs: ', self.params["logs"])
+            logging.info('error: %s', error)
+            logging.info('qfile: %s', qfile)
+            logging.info('self.qdir.currentPath: %s', self.qdir.currentPath())
+
         else:
             self.setCentralWidget(qweb)
             self.setWindowTitle(title)
@@ -102,17 +104,17 @@ class MainWindow(QMainWindow):
     @Slot()
     def show_version(self):
         title = "License"
-        filename = "/src/file_renamer/html/version.html"
+        filename = "/html/version.html"
         self.open_file(title, filename)
 
     @Slot()
     def show_license(self):
         title = "License"
-        filename = "/src/file_renamer/html/license.html"
+        filename = "/html/license.html"
         self.open_file(title, filename)
 
     @Slot()
     def show_qt_for_python(self):
         title = "Qt for Python"
-        filename = "/src/file_renamer/html/qt-for-python.html"
+        filename = "/html/qt-for-python.html"
         self.open_file(title, filename)
