@@ -5,13 +5,7 @@ a = Analysis(
     ['src/file_renamer/__main__.py'],
     pathex=[],
     binaries=[],
-    datas=[
-        ('html/license.html', '.'),
-        ('html/qt-for-python.html', '.'),
-        ('html/version.html', '.'),
-        ('css/bootstrap.min.css', '.'),
-        ('js/bootstrap.bundle.min.js', '.')
-    ],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
