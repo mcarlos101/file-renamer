@@ -1,36 +1,27 @@
 # -*- coding: utf-8 -*-
+"""
+Form generated from reading UI file 'form.ui'
+Created by: Qt User Interface Compiler version 6.7.0
+WARNING! All changes made in this file will be lost when recompiling UI file!
+"""
 
-################################################################################
-## Form generated from reading UI file 'form.ui'
-##
-## Created by: Qt User Interface Compiler version 6.6.2
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
+from PySide6.QtCore import (QCoreApplication, QMetaObject, Qt)
+from PySide6.QtWidgets import (
+    QCheckBox, QComboBox, QFormLayout, QGridLayout, QGroupBox, QHBoxLayout,
+    QLabel, QLineEdit, QPushButton, QTextEdit, QWidget
+)
 
-
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFormLayout,
-    QGridLayout, QGroupBox, QHBoxLayout, QLabel,
-    QLineEdit, QPushButton, QSizePolicy, QTextEdit,
-    QWidget)
 
 class Ui_Widget(object):
     def setupUi(self, Widget):
         if not Widget.objectName():
             Widget.setObjectName(u"Widget")
-        Widget.resize(800, 600)
+        Widget.resize(1280, 720)
         self.gridLayout = QGridLayout(Widget)
         self.gridLayout.setObjectName(u"gridLayout")
         self.browse = QGroupBox(Widget)
         self.browse.setObjectName(u"browse")
-        self.browse.setFocusPolicy(Qt.StrongFocus)
+        self.browse.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.formLayout = QFormLayout(self.browse)
         self.formLayout.setObjectName(u"formLayout")
         self.dir_btn = QPushButton(self.browse)
@@ -43,8 +34,6 @@ class Ui_Widget(object):
         self.dir_txt.setReadOnly(True)
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.dir_txt)
-
-
         self.gridLayout.addWidget(self.browse, 0, 0, 1, 1)
 
         self.dir_output = QTextEdit(Widget)
@@ -71,8 +60,6 @@ class Ui_Widget(object):
         self.extension.setObjectName(u"extension")
 
         self.horizontalLayout_3.addWidget(self.extension)
-
-
         self.gridLayout.addWidget(self.options, 2, 0, 1, 1)
 
         self.groupBox = QGroupBox(Widget)
@@ -104,8 +91,6 @@ class Ui_Widget(object):
         self.rename_btn.setEnabled(False)
 
         self.horizontalLayout.addWidget(self.rename_btn)
-
-
         self.gridLayout.addWidget(self.groupBox, 3, 0, 1, 1)
 
         self.search_replace = QGroupBox(Widget)
@@ -120,7 +105,7 @@ class Ui_Widget(object):
         self.search = QLineEdit(self.search_replace)
         self.search.setObjectName(u"search")
         self.search.setTabletTracking(False)
-        self.search.setFocusPolicy(Qt.StrongFocus)
+        self.search.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.search.setText(u"")
         self.search.setPlaceholderText(u"")
 
@@ -134,7 +119,7 @@ class Ui_Widget(object):
         self.replace = QLineEdit(self.search_replace)
         self.replace.setObjectName(u"replace")
         self.replace.setTabletTracking(False)
-        self.replace.setFocusPolicy(Qt.StrongFocus)
+        self.replace.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
 
         self.horizontalLayout_2.addWidget(self.replace)
 
@@ -147,8 +132,6 @@ class Ui_Widget(object):
         self.find_btn.setObjectName(u"find_btn")
 
         self.horizontalLayout_2.addWidget(self.find_btn)
-
-
         self.gridLayout.addWidget(self.search_replace, 4, 0, 1, 1)
 
         QWidget.setTabOrder(self.dir_btn, self.dir_txt)
@@ -180,32 +163,71 @@ class Ui_Widget(object):
     # setupUi
 
     def retranslateUi(self, Widget):
-        Widget.setWindowTitle(QCoreApplication.translate("Widget", u"File Renamer", None))
+        Widget.setWindowTitle(QCoreApplication.translate(
+            "Widget", u"File Renamer", None)
+        )
         self.browse.setTitle("")
-        self.dir_btn.setText(QCoreApplication.translate("Widget", u"Browse", None))
+        self.dir_btn.setText(QCoreApplication.translate(
+            "Widget", u"Browse", None)
+        )
         self.options.setTitle("")
-        self.recursively.setText(QCoreApplication.translate("Widget", u"Add Files Recursively", None))
+        self.recursively.setText(QCoreApplication.translate(
+            "Widget", u"Add Files Recursively", None)
+        )
         self.id.setText(QCoreApplication.translate("Widget", u"Keep ID", None))
-        self.extension.setText(QCoreApplication.translate("Widget", u"Keep Extension", None))
+        self.extension.setText(QCoreApplication.translate(
+            "Widget", u"Keep Extension", None)
+        )
         self.groupBox.setTitle("")
-        self.comboBox.setItemText(0, QCoreApplication.translate("Widget", u"PREVIEW", None))
-        self.comboBox.setItemText(1, QCoreApplication.translate("Widget", u"Remove Non-Alphanum Chars", None))
-        self.comboBox.setItemText(2, QCoreApplication.translate("Widget", u"Remove Accents", None))
-        self.comboBox.setItemText(3, QCoreApplication.translate("Widget", u"Trim Spaces", None))
-        self.comboBox.setItemText(4, QCoreApplication.translate("Widget", u"Replace Spaces With Hyphens", None))
-        self.comboBox.setItemText(5, QCoreApplication.translate("Widget", u"Replace Dots With Hyphens", None))
-        self.comboBox.setItemText(6, QCoreApplication.translate("Widget", u"Replace Hyphens With Spaces", None))
-        self.comboBox.setItemText(7, QCoreApplication.translate("Widget", u"Lower Case", None))
-        self.comboBox.setItemText(8, QCoreApplication.translate("Widget", u"Title Case", None))
-        self.comboBox.setItemText(9, QCoreApplication.translate("Widget", u"Remove ID", None))
+        self.comboBox.setItemText(0, QCoreApplication.translate(
+            "Widget", u"PREVIEW", None)
+        )
+        self.comboBox.setItemText(1, QCoreApplication.translate(
+            "Widget", u"Remove Non-Alphanum Chars", None)
+        )
+        self.comboBox.setItemText(2, QCoreApplication.translate(
+            "Widget", u"Remove Accents", None)
+        )
+        self.comboBox.setItemText(3, QCoreApplication.translate(
+            "Widget", u"Trim Spaces", None)
+        )
+        self.comboBox.setItemText(4, QCoreApplication.translate(
+            "Widget", u"Replace Spaces With Hyphens", None)
+        )
+        self.comboBox.setItemText(5, QCoreApplication.translate(
+            "Widget", u"Replace Dots With Hyphens", None)
+        )
+        self.comboBox.setItemText(6, QCoreApplication.translate(
+            "Widget", u"Replace Hyphens With Spaces", None)
+        )
+        self.comboBox.setItemText(7, QCoreApplication.translate(
+            "Widget", u"Lower Case", None)
+        )
+        self.comboBox.setItemText(8, QCoreApplication.translate(
+            "Widget", u"Title Case", None)
+        )
+        self.comboBox.setItemText(9, QCoreApplication.translate(
+            "Widget", u"Remove ID", None)
+        )
 
-        self.clear_btn.setText(QCoreApplication.translate("Widget", u"CLEAR", None))
-        self.rename_btn.setText(QCoreApplication.translate("Widget", u"RENAME", None))
+        self.clear_btn.setText(QCoreApplication.translate(
+            "Widget", u"CLEAR", None)
+        )
+        self.rename_btn.setText(QCoreApplication.translate(
+            "Widget", u"RENAME", None)
+        )
         self.search_replace.setTitle("")
-        self.search_label.setText(QCoreApplication.translate("Widget", u"Search", None))
-        self.replace_label.setText(QCoreApplication.translate("Widget", u"Replace", None))
+        self.search_label.setText(QCoreApplication.translate(
+            "Widget", u"Search", None)
+        )
+        self.replace_label.setText(QCoreApplication.translate(
+            "Widget", u"Replace", None)
+        )
         self.replace.setText("")
-        self.regex.setText(QCoreApplication.translate("Widget", u"Regular Expression", None))
-        self.find_btn.setText(QCoreApplication.translate("Widget", u"Find", None))
+        self.regex.setText(QCoreApplication.translate(
+            "Widget", u"Regular Expression", None)
+        )
+        self.find_btn.setText(QCoreApplication.translate(
+            "Widget", u"Find", None)
+        )
     # retranslateUi
-
