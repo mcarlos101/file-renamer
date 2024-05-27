@@ -7,13 +7,10 @@ packages = ["src/file_renamer"]
 
 [tool.hatch.build.targets.wheel.force-include]
 "icons" = "src/file_renamer/icons"
-"html" = "src/file_renamer/html"
-"css" = "src/file_renamer/css"
-"js" = "src/file_renamer/js"
 
 [project]
 name = "file_renamer"
-version = "1.0.5"
+version = "1.0.6"
 authors = [
   { name="Carlos"},
 ]
