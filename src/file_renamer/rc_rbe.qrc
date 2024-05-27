@@ -1,0 +1,6 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file alias="venus_project_mp4">media/The-Lost-Children-Of-Babylon-The-Venus-Project-2010.mp4</file>
+    </qresource>
+</RCC>

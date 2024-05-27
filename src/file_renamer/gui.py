@@ -10,7 +10,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from file_renamer.widget import Widget
 from file_renamer.lib.html import WebUI
-import file_renamer.rc_media
+import file_renamer.rc_imagine
+import file_renamer.rc_rbe
 
 
 class MainWindow(QMainWindow):

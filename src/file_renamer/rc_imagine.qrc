@@ -1,0 +1,6 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file alias="imagine_mp4">media/John-Lennon-Imagine-1971.mp4</file>
+    </qresource>
+</RCC>
