@@ -26,10 +26,11 @@ class MainWindow(QMainWindow):
         self.addToolBar(tool_bar)
         self.menu()
 
+        self.logs = Path(os.path.expanduser('~') + "/file-renamer.log")
         self.params = dict(
             platform="", app=None, widget=None, ui=None, style="", path="",
             base="", dir="", name="", ext="", id="", new="", current="",
-            logs=os.path.expanduser('~') + "/file-renamer.log"
+            logs=self.logs
         )
 
         # Logs
