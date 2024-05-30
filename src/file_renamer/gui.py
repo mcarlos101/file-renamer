@@ -77,7 +77,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.widget)
         self.setWindowTitle(self.title)
 
-    def open_file(self, **html_params):
+    def render_html(self, **html_params):
         qweb = QWebEngineView()
         webui = WebUI(**html_params)
         html = webui.html_page.strip()
@@ -104,7 +104,7 @@ class MainWindow(QMainWindow):
             title=title,
             body=body
         )
-        self.open_file(**html_params)
+        self.render_html(**html_params)
 
     @Slot()
     def show_license(self):
@@ -131,7 +131,7 @@ class MainWindow(QMainWindow):
             title=title,
             body=body
         )
-        self.open_file(**html_params)
+        self.render_html(**html_params)
 
     @Slot()
     def show_qt_for_python(self):
@@ -164,7 +164,7 @@ class MainWindow(QMainWindow):
             title=title,
             body=body
         )
-        self.open_file(**html_params)
+        self.render_html(**html_params)
 
     @Slot()
     def show_peace(self):
@@ -200,7 +200,7 @@ class MainWindow(QMainWindow):
             title=title,
             body=body
         )
-        self.open_file(**html_params)
+        self.render_html(**html_params)
 
     @Slot()
     def show_rbe(self):
@@ -240,4 +240,4 @@ class MainWindow(QMainWindow):
             title=title,
             body=body
         )
-        self.open_file(**html_params)
+        self.render_html(**html_params)
