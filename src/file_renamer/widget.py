@@ -21,14 +21,7 @@ class Widget(QWidget):
 
         self.params = params
 
-        # Logs
-        logging.basicConfig(
-            filename=self.params["logs"],
-            filemode='w',
-            level=logging.INFO
-        )
-        logging.info("Widget __init__")
-        logging.info('self.params["platform"]: %s', self.params["platform"])
+        logging.info("%sWidget __init__", params['tab'])
 
         # UI
         self.params["ui"] = Ui_Widget()

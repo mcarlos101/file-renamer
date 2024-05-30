@@ -16,8 +16,13 @@ import file_renamer.html.rc_rbe
 
 class MainWindow(QMainWindow):
 
-    def __init__(self, parent: QWidget = None):
+    def __init__(self, parent: QWidget = None, **params):
         super().__init__(parent)
+
+        self.params = params
+        logging.info('filename: %s', 'gui.py')
+        logging.info('%sMainWindow __init__', self.params['tab'])
+
         self.title = "File Renamer"
         self.qdir = QDir()
         self.dir_output = QTextEdit()
@@ -25,22 +30,6 @@ class MainWindow(QMainWindow):
         tool_bar = QToolBar()
         self.addToolBar(tool_bar)
         self.menu()
-
-        self.logs = Path(os.path.expanduser('~') + "/file-renamer.log")
-        self.params = dict(
-            platform="", app=None, widget=None, ui=None, style="", path="",
-            base="", dir="", name="", ext="", id="", new="", current="",
-            logs=self.logs
-        )
-
-        # Logs
-        logging.basicConfig(
-            filename=self.params["logs"],
-            filemode='w',
-            level=logging.INFO
-        )
-        self.params["platform"] = platform.system()
-        logging.info('platform: %s', self.params["platform"])
 
         # Create widget
         self.widget = Widget(**self.params)

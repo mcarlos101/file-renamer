@@ -11,13 +11,6 @@ class Rename:
     def __init__(self, **params):
         """The __init__ method is a constructor"""
 
-        # Logs
-        logging.basicConfig(
-            filename=params["logs"],
-            filemode='w',
-            level=logging.INFO
-        )
-
         logging.info("Rename __init__")
         # self.platform = platform
         self.files = Files(**params)

@@ -29,12 +29,6 @@ class File(ABC):
 class Files(File):
 
     def __init__(self, **params):
-        # Logs
-        logging.basicConfig(
-            filename=params["logs"],
-            filemode='w',
-            level=logging.INFO
-        )
         logging.info("Files __init__")
         self.filelist = []  # List of files in directory
         self.changed = {}
