@@ -79,16 +79,18 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.widget)
         self.setWindowTitle(self.title)
 
-    def render_html(self, **html_params):
+    def render_html(self):
         logging.info('%s%s.render_html()', self.params['tab'], self.name)
+        logging.info('%sself.params: %s', self.params['tab'], self.params)
         qweb = QWebEngineView()
-        webui = WebUI(**html_params)
+        logging.info("%sself.params: %s", self.params['tab'], self.params)
+        webui = WebUI(**self.params)
         html = webui.html_page.strip()
         logging.info("%shtml: %s", self.params['tab'], html)
         logging.info('%sset html', self.params['tab'])
         qweb.setHtml(html)
         self.setCentralWidget(qweb)
-        self.setWindowTitle(html_params['title'])
+        self.setWindowTitle(self.params['html_title'])
 
     @Slot()
     def show_version(self):
@@ -104,11 +106,9 @@ class MainWindow(QMainWindow):
                 https://pypi.org/project/file-renamer/
             </p>
         </div>"""
-        html_params = dict(
-            title=title,
-            body=body
-        )
-        self.render_html(**html_params)
+        self.params['html_title'] = title
+        self.params['html_body'] = body
+        self.render_html()
 
     @Slot()
     def show_license(self):
@@ -132,11 +132,9 @@ class MainWindow(QMainWindow):
             License along with this program.  If not, see
             https://www.gnu.org/licenses/.</p>
         </div>"""
-        html_params = dict(
-            title=title,
-            body=body
-        )
-        self.render_html(**html_params)
+        self.params['html_title'] = title
+        self.params['html_body'] = body
+        self.render_html()
 
     @Slot()
     def show_qt_for_python(self):
@@ -168,11 +166,9 @@ class MainWindow(QMainWindow):
             <p>Docs<br>
             https://doc.qt.io/qtforpython-6/</p>
         </div>"""
-        html_params = dict(
-            title=title,
-            body=body
-        )
-        self.render_html(**html_params)
+        self.params['html_title'] = title
+        self.params['html_body'] = body
+        self.render_html()
 
     @Slot()
     def show_peace(self):
@@ -205,11 +201,9 @@ class MainWindow(QMainWindow):
             </p>
         </div>
 """
-        html_params = dict(
-            title=title,
-            body=body
-        )
-        self.render_html(**html_params)
+        self.params['html_title'] = title
+        self.params['html_body'] = body
+        self.render_html()
 
     @Slot()
     def show_rbe(self):
@@ -246,8 +240,6 @@ class MainWindow(QMainWindow):
                 copyright infringement is intended.
             </p>
         </div>"""
-        html_params = dict(
-            title=title,
-            body=body
-        )
-        self.render_html(**html_params)
+        self.params['html_title'] = title
+        self.params['html_body'] = body
+        self.render_html()

@@ -34,21 +34,26 @@ class UI(ABC):
 
 class WebUI(UI):
 
-    def __init__(self, **html_params):
-        self.html_params = html_params
+    def __init__(self, **params):
+        self.name = "WebUI"
+        self.params = params
+        logging.info(Path('lib/html.py'))
+        logging.info('%s%s()', self.params['tab'], self.name)
+        logging.info('%sself.params: %s', self.params['tab'], self.params)
+
         self.html_top = self.top()
-        self.html_body = self.html_params['body'].strip()
+        self.html_body = self.params['html_body'].strip()
         self.html_bottom = self.bottom()
         self.html_page = self.html_top + self.html_body + self.html_bottom
 
     def top(self):
-        logging.info('self.html_params: %s', self.html_params)
+        logging.info('%s%s.top()', self.params['tab'], self.name)
         html_top = """<!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>""" + self.html_params['title'] + """</title>
+        <title>""" + self.params['html_title'] + """</title>
         <link href='qrc:/css/bootstrap.min.css' rel="stylesheet">
         <script src='qrc:/js/bootstrap.bundle.min.js'></script>
     </head>
@@ -56,6 +61,7 @@ class WebUI(UI):
         return html_top
 
     def bottom(self):
+        logging.info('%s%s.bottom()', self.params['tab'], self.name)
         html_bottom = """
     </body>
 </html>"""
