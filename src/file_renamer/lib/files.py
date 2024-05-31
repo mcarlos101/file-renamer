@@ -28,11 +28,11 @@ class File(ABC):
 
 class Files(File):
 
-    def __init__(self, **params):
+    def __init__(self, **fr):
         self.name = "MainWindow"
-        self.params = params
+        self.fr = fr
         logging.info('files.py')
-        logging.info('%s%s()', self.params['tab'], self.name)
+        logging.info('%s%s()', self.fr['tab'], self.name)
         self.filelist = []  # List of files in directory
         self.changed = {}
         self.file = dict(
@@ -60,36 +60,36 @@ class Files(File):
         return self
 
     @Slot()
-    def print_title(self, **params):
-        logging.info('%s%s.print_title()', self.params['tab'], self.name)
-        self.params = params
+    def print_title(self, **fr):
+        logging.info('%s%s.print_title()', self.fr['tab'], self.name)
+        self.fr = fr
         logging.info("Print Title")
-        logging.info('self.params: %s', self.params)
-        self.params["ui"].dir_output.clear()
-        text = '<span style="font-weight: bold">' + self.params["title"] + \
+        logging.info('self.fr: %s', self.fr)
+        self.fr["ui"].dir_output.clear()
+        text = '<span style="font-weight: bold">' + self.fr["title"] + \
                '</span>'
-        self.params["ui"].dir_output.append(text)
-        self.params["ui"].dir_output.append("")
+        self.fr["ui"].dir_output.append(text)
+        self.fr["ui"].dir_output.append("")
 
-    def find(self, **params):
-        logging.info('%s%s.find()', self.params['tab'], self.name)
-        self.params = params
+    def find(self, **fr):
+        logging.info('%s%s.find()', self.fr['tab'], self.name)
+        self.fr = fr
         self.filelist.clear()
         self.changed.clear()
         count = 0
         try:
-            if self.params["ui"].recursively.isChecked():
-                for file in Path(params["path"]).rglob('*'):
+            if self.fr["ui"].recursively.isChecked():
+                for file in Path(fr["path"]).rglob('*'):
                     if os.path.isfile(file):
                         if count <= self.limit:
                             self.filelist.append(file)
                             count += 1
                         else:
                             self.filelist.clear()
-                            self.params["ui"].dir_output.clear()
+                            self.fr["ui"].dir_output.clear()
                             raise AppError()
             else:
-                for file in Path(params["path"]).iterdir():
+                for file in Path(fr["path"]).iterdir():
                     if os.path.isfile(file):
                         if count <= self.limit:
                             self.filelist.append(file)
@@ -100,57 +100,57 @@ class Files(File):
             if count == 0:
                 raise FileNotFoundError()
         except FileNotFoundError:
-            self.params["ui"].rename_btn.setEnabled(False)
+            self.fr["ui"].rename_btn.setEnabled(False)
             self.filelist.clear()
-            self.params["ui"].dir_output.clear()
+            self.fr["ui"].dir_output.clear()
             text = '<span style="color: red; font-weight: bold">' + \
                    'NO FILES FOUND!</span>'
-            self.params["ui"].dir_output.append(text)
+            self.fr["ui"].dir_output.append(text)
         except AppError:
             self.filelist.clear()
-            self.params["msg"] = 'FILE LIMIT REACHED: ' + str(self.limit)
+            self.fr["msg"] = 'FILE LIMIT REACHED: ' + str(self.limit)
             # msg = 'FILE LIMIT REACHED: ' + str(self.limit)
-            self.app_error.print(**params)
+            self.app_error.print(**fr)
         else:
             self.filelist.sort()
-            self.params["case_insensitive_val"] = \
-                self.case_insensitive.check(params["path"])
+            self.fr["case_insensitive_val"] = \
+                self.case_insensitive.check(fr["path"])
             logging.info(
-                'self.params["case_insensitive_val"]: %s',
-                self.params["case_insensitive_val"]
+                'self.fr["case_insensitive_val"]: %s',
+                self.fr["case_insensitive_val"]
             )
 
     @Slot()
-    def list(self, **params):
-        logging.info('%s%s.list()', self.params['tab'], self.name)
-        self.params = params
+    def list(self, **fr):
+        logging.info('%s%s.list()', self.fr['tab'], self.name)
+        self.fr = fr
         text = ""
         if self.filelist:
-            self.params["title"] = "List Files"
-            self.print_title(**params)
+            self.fr["title"] = "List Files"
+            self.print_title(**fr)
             for file in self.filelist:
-                self.params["ui"].dir_output.append(str(file))
-            self.params["ui"].dir_output.append("")
+                self.fr["ui"].dir_output.append(str(file))
+            self.fr["ui"].dir_output.append("")
             text = 'Total Files: ' + str(len(self.filelist))
-            self.params["ui"].dir_output.append(text)
-            self.params["ui"].dir_output.append("")
+            self.fr["ui"].dir_output.append(text)
+            self.fr["ui"].dir_output.append("")
 
-    def split_name(self, **params):
-        logging.info('%s%s.split_name()', self.params['tab'], self.name)
-        self.params = params
-        logging.info('%sself.params: %s', self.params['tab'], self.params)
+    def split_name(self, **fr):
+        logging.info('%s%s.split_name()', self.fr['tab'], self.name)
+        self.fr = fr
+        logging.info('%sself.fr: %s', self.fr['tab'], self.fr)
         filename = ""
         try:
-            if os.path.exists(params["filename"]):
-                self.file["path"] = self.params["filename"]
-                self.file["base"] = os.path.basename(params["filename"])
-                self.file["dir"] = os.path.dirname(params["filename"])
+            if os.path.exists(fr["filename"]):
+                self.file["path"] = self.fr["filename"]
+                self.file["base"] = os.path.basename(fr["filename"])
+                self.file["dir"] = os.path.dirname(fr["filename"])
                 split_tup = os.path.splitext(self.file["base"])
                 self.file["name"] = split_tup[0]
                 self.file["ext"] = split_tup[1]
 
                 filename = ""
-                if self.params["ui"].extension.isChecked():
+                if self.fr["ui"].extension.isChecked():
                     filename = self.file['name']
                 else:
                     filename = self.file['base']
@@ -168,23 +168,23 @@ class Files(File):
             return self.file
 
     @Slot()
-    def compare(self, file, data, **params):
-        logging.info('%s%s.compare()', self.params['tab'], self.name)
-        self.params = params
-        logging.info("%sdata: %s", self.params['tab'], data)
+    def compare(self, file, data, **fr):
+        logging.info('%s%s.compare()', self.fr['tab'], self.name)
+        self.fr = fr
+        logging.info("%sdata: %s", self.fr['tab'], data)
         file["current"] = ""
         text = ""
         file_exists = True
-        logging.info('%sfile["name"]: %s', self.params['tab'], file["name"])
-        logging.info('%sfile["base"]: %s', self.params['tab'], file["base"])
-        logging.info('%sfile["new"] : %s', self.params['tab'], file["new"])
-        logging.info('%sfile["dir"] : %s', self.params['tab'], file["dir"])
+        logging.info('%sfile["name"]: %s', self.fr['tab'], file["name"])
+        logging.info('%sfile["base"]: %s', self.fr['tab'], file["base"])
+        logging.info('%sfile["new"] : %s', self.fr['tab'], file["new"])
+        logging.info('%sfile["dir"] : %s', self.fr['tab'], file["dir"])
         logging.info(
-            '%sself.params["ui"].extension.isChecked(): %s',
-            self.params['tab'],
-            self.params["ui"].extension.isChecked()
+            '%sself.fr["ui"].extension.isChecked(): %s',
+            self.fr['tab'],
+            self.fr["ui"].extension.isChecked()
         )
-        if self.params["ui"].extension.isChecked():
+        if self.fr["ui"].extension.isChecked():
             if file["name"] != file["new"] and file['new'] != "":
                 file["current"] = file["name"] + file["ext"]
         else:
@@ -195,56 +195,56 @@ class Files(File):
 
         logging.info(
             '%sfile["current"]: %s',
-            self.params['tab'],
+            self.fr['tab'],
             file["current"]
         )
         logging.info(
             '%sself.case_insensitive_val: %s',
-            self.params['tab'],
+            self.fr['tab'],
             self.case_insensitive_val
         )
         if self.case_insensitive_val:
             logging.info(
                 '%sfile["current"].lower(): %s',
-                self.params['tab'],
+                self.fr['tab'],
                 file["current"].lower()
             )
             logging.info(
                 '%sfile["new"].lower()    : %s',
-                self.params['tab'],
+                self.fr['tab'],
                 file["new"].lower()
             )
             if file["current"] == file["new"]:
-                logging.info('%sNo change', self.params['tab'])
+                logging.info('%sNo change', self.fr['tab'])
                 file_exists = True
             elif file["current"] != file["new"]:
-                logging.info('%sChanged', self.params['tab'])
+                logging.info('%sChanged', self.fr['tab'])
                 # Track lower or title case change
                 logging.info(
-                    '%sself.params["case_change"]: %s',
-                    self.params['tab'],
-                    self.params["case_change"]
+                    '%sself.fr["case_change"]: %s',
+                    self.fr['tab'],
+                    self.fr["case_change"]
                 )
-                if self.params["case_change"]:
+                if self.fr["case_change"]:
                     if file["current"].lower() == file["new"].lower():
                         file_exists = False
                         logging.info(
                             '%sfile_exists: %s',
-                            self.params['tab'],
+                            self.fr['tab'],
                             file_exists
                         )
                     elif file["current"].lower() != file["new"].lower():
                         file_exists = False
                         logging.info(
                             '%sfile_exists: %s',
-                            self.params['tab'],
+                            self.fr['tab'],
                             file_exists
                         )
                 else:
                     file_exists = False
                     logging.info(
                         '%sfile_exists: %s',
-                        self.params['tab'],
+                        self.fr['tab'],
                         file_exists
                     )
         else:
@@ -253,7 +253,7 @@ class Files(File):
             )
             logging.info(
                 '%sfile_exists full path: %s',
-                self.params['tab'],
+                self.fr['tab'],
                 file_exists
             )
 
@@ -270,30 +270,30 @@ class Files(File):
             )
             logging.info(
                 '%sself.changed[num]["path"]: %s',
-                self.params['tab'],
+                self.fr['tab'],
                 self.changed[num]["path"]
             )
             logging.info(
                 '%sself.changed[num]["new"]: %s',
-                self.params['tab'],
+                self.fr['tab'],
                 self.changed[num]["new"]
             )
             logging.info(
                 '%sdata["count"]: %s',
-                self.params['tab'],
+                self.fr['tab'],
                 data["count"]
             )
             text = '<span style="color: blue; font-weight: bold;">' + \
                 'Preview</span>'
-            self.params["ui"].dir_output.append(text)
-            self.params["ui"].dir_output.append(str(self.changed[num]["path"]))
-            self.params["ui"].dir_output.append(str(self.changed[num]["new"]))
-            self.params["ui"].dir_output.append("")
+            self.fr["ui"].dir_output.append(text)
+            self.fr["ui"].dir_output.append(str(self.changed[num]["path"]))
+            self.fr["ui"].dir_output.append(str(self.changed[num]["new"]))
+            self.fr["ui"].dir_output.append("")
 
     @Slot()
-    def rename(self, **params):
-        logging.info('%s%s.rename()', self.params['tab'], self.name)
-        self.params = params
+    def rename(self, **fr):
+        logging.info('%s%s.rename()', self.fr['tab'], self.name)
+        self.fr = fr
         count = 0
         current_file = ""
         new_file = ""
@@ -309,26 +309,26 @@ class Files(File):
             count += 1
             text = '<span style="color: red; font-weight: bold;">' + \
                 'Renamed</span>'
-            self.params["ui"].dir_output.append(text)
-            self.params["ui"].dir_output.append(
+            self.fr["ui"].dir_output.append(text)
+            self.fr["ui"].dir_output.append(
                 os.path.basename(self.changed[key]['path'])
             )
-            self.params["ui"].dir_output.append(
+            self.fr["ui"].dir_output.append(
                 os.path.basename(self.changed[key]['new'])
             )
-            self.params["ui"].dir_output.append("")
-            self.params["ui"].rename_btn.setEnabled(False)
+            self.fr["ui"].dir_output.append("")
+            self.fr["ui"].rename_btn.setEnabled(False)
 
     @Slot()
-    def preview(self, data, **params):
-        logging.info('%s%s.preview()', self.params['tab'], self.name)
-        self.params = params
-        logging.info('%sdata: %s', self.params['tab'], data)
+    def preview(self, data, **fr):
+        logging.info('%s%s.preview()', self.fr['tab'], self.name)
+        self.fr = fr
+        logging.info('%sdata: %s', self.fr['tab'], data)
         if data["count"] == 0:
-            self.params["ui"].dir_output.append("No changes")
-            self.params["ui"].dir_output.append("")
-            self.params["ui"].rename_btn.setEnabled(False)
+            self.fr["ui"].dir_output.append("No changes")
+            self.fr["ui"].dir_output.append("")
+            self.fr["ui"].rename_btn.setEnabled(False)
         elif data["count"] > 0:
-            self.params["ui"].rename_btn.setEnabled(True)
+            self.fr["ui"].rename_btn.setEnabled(True)
         else:
-            logging.info('%sUnkown', self.params['tab'])
+            logging.info('%sUnkown', self.fr['tab'])

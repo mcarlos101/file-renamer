@@ -15,13 +15,13 @@ import file_renamer.html.rc_rbe
 
 class MainWindow(QMainWindow):
 
-    def __init__(self, parent: QWidget = None, **params):
+    def __init__(self, parent: QWidget = None, **fr):
         super().__init__(parent)
         self.name = "MainWindow"
-        self.params = params
+        self.fr = fr
         logging.info('gui.py')
-        logging.info('%s%s()', self.params['tab'], self.name)
-        logging.info('%sself.params: %s', self.params['tab'], self.params)
+        logging.info('%s%s()', self.fr['tab'], self.name)
+        logging.info('%sself.fr: %s', self.fr['tab'], self.fr)
 
         self.title = "File Renamer"
         self.qdir = QDir()
@@ -32,13 +32,13 @@ class MainWindow(QMainWindow):
         self.menu()
 
         # Create widget
-        self.widget = Widget(**self.params)
+        self.widget = Widget(**self.fr)
         self.widget.show()
         self.setCentralWidget(self.widget)
         self.setWindowTitle(self.title)
 
     def menu(self):
-        logging.info('%s%s.menu()', self.params['tab'], self.name)
+        logging.info('%s%s.menu()', self.fr['tab'], self.name)
         app_menu = self.menuBar().addMenu("&App")
         icon = QIcon.fromTheme("application-exit")
         app_action = QAction(icon, "&Load", self,
@@ -71,30 +71,30 @@ class MainWindow(QMainWindow):
         imagine_menu.addAction(rbe_action)
 
     def show_widget(self):
-        logging.info('%s%s.show_widget()', self.params['tab'], self.name)
+        logging.info('%s%s.show_widget()', self.fr['tab'], self.name)
         if not self.dir_output:
             self.dir_output.hide()
-        self.widget = Widget(**self.params)
+        self.widget = Widget(**self.fr)
         self.widget.show()
         self.setCentralWidget(self.widget)
         self.setWindowTitle(self.title)
 
     def render_html(self):
-        logging.info('%s%s.render_html()', self.params['tab'], self.name)
-        logging.info('%sself.params: %s', self.params['tab'], self.params)
+        logging.info('%s%s.render_html()', self.fr['tab'], self.name)
+        logging.info('%sself.fr: %s', self.fr['tab'], self.fr)
         qweb = QWebEngineView()
-        logging.info("%sself.params: %s", self.params['tab'], self.params)
-        webui = WebUI(**self.params)
+        logging.info("%sself.fr: %s", self.fr['tab'], self.fr)
+        webui = WebUI(**self.fr)
         html = webui.html_page.strip()
-        logging.info("%shtml: %s", self.params['tab'], html)
-        logging.info('%sset html', self.params['tab'])
+        logging.info("%shtml: %s", self.fr['tab'], html)
+        logging.info('%sset html', self.fr['tab'])
         qweb.setHtml(html)
         self.setCentralWidget(qweb)
-        self.setWindowTitle(self.params['html_title'])
+        self.setWindowTitle(self.fr['html_title'])
 
     @Slot()
     def show_version(self):
-        logging.info('%s%s.show_version()', self.params['tab'], self.name)
+        logging.info('%s%s.show_version()', self.fr['tab'], self.name)
         title = "Version"
         body = """
         <div class="container">
@@ -106,13 +106,13 @@ class MainWindow(QMainWindow):
                 https://pypi.org/project/file-renamer/
             </p>
         </div>"""
-        self.params['html_title'] = title
-        self.params['html_body'] = body
+        self.fr['html_title'] = title
+        self.fr['html_body'] = body
         self.render_html()
 
     @Slot()
     def show_license(self):
-        logging.info('%s%s.show_license()', self.params['tab'], self.name)
+        logging.info('%s%s.show_license()', self.fr['tab'], self.name)
         title = "License"
         body = """
         <div class="container">
@@ -132,14 +132,14 @@ class MainWindow(QMainWindow):
             License along with this program.  If not, see
             https://www.gnu.org/licenses/.</p>
         </div>"""
-        self.params['html_title'] = title
-        self.params['html_body'] = body
+        self.fr['html_title'] = title
+        self.fr['html_body'] = body
         self.render_html()
 
     @Slot()
     def show_qt_for_python(self):
         logging.info(
-            '%s%s.show_qt_for_python()', self.params['tab'], self.name
+            '%s%s.show_qt_for_python()', self.fr['tab'], self.name
         )
         title = "Qt for Python"
         body = """
@@ -166,13 +166,13 @@ class MainWindow(QMainWindow):
             <p>Docs<br>
             https://doc.qt.io/qtforpython-6/</p>
         </div>"""
-        self.params['html_title'] = title
-        self.params['html_body'] = body
+        self.fr['html_title'] = title
+        self.fr['html_body'] = body
         self.render_html()
 
     @Slot()
     def show_peace(self):
-        logging.info('%s%s.show_peace()', self.params['tab'], self.name)
+        logging.info('%s%s.show_peace()', self.fr['tab'], self.name)
         title = "Imagine Peace On Earth"
         body = """
         <div class="container text-center">
@@ -201,13 +201,13 @@ class MainWindow(QMainWindow):
             </p>
         </div>
 """
-        self.params['html_title'] = title
-        self.params['html_body'] = body
+        self.fr['html_title'] = title
+        self.fr['html_body'] = body
         self.render_html()
 
     @Slot()
     def show_rbe(self):
-        logging.info('%s%s.show_rbe()', self.params['tab'], self.name)
+        logging.info('%s%s.show_rbe()', self.fr['tab'], self.name)
         title = "Resource Based Economy"
         body = """
         <div class="container text-center">
@@ -240,6 +240,6 @@ class MainWindow(QMainWindow):
                 copyright infringement is intended.
             </p>
         </div>"""
-        self.params['html_title'] = title
-        self.params['html_body'] = body
+        self.fr['html_title'] = title
+        self.fr['html_body'] = body
         self.render_html()

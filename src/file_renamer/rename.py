@@ -9,16 +9,16 @@ from file_renamer.lib.exceptions import AppError
 
 class Rename:
 
-    def __init__(self, **params):
+    def __init__(self, **fr):
         """The __init__ method is a constructor"""
         self.name = "Rename"
-        self.params = params
+        self.fr = fr
         logging.info('rename.py')
-        logging.info('%s%s()', self.params['tab'], self.name)
-        logging.info('%sself.params: %s', self.params['tab'], self.params)
+        logging.info('%s%s()', self.fr['tab'], self.name)
+        logging.info('%sself.fr: %s', self.fr['tab'], self.fr)
 
         # self.platform = platform
-        self.files = Files(**self.params)
+        self.files = Files(**self.fr)
         self.file = {}
         self.data = {
             "preview": True,
@@ -27,29 +27,29 @@ class Rename:
         self.chars = [' ', '.', '-', '_', '[', ']']  # Chars allowed
         self.app_error = AppError()
 
-    def list_files(self, **params):
-        logging.info('%s%s.list_files()', self.params['tab'], self.name)
-        self.params = params
-        self.files.find(**self.params)
-        self.files.list(**self.params)
+    def list_files(self, **fr):
+        logging.info('%s%s.list_files()', self.fr['tab'], self.name)
+        self.fr = fr
+        self.files.find(**self.fr)
+        self.files.list(**self.fr)
 
-    def check_options(self, **params):
-        logging.info('%s%s.check_options()', self.params['tab'], self.name)
-        self.params = params
+    def check_options(self, **fr):
+        logging.info('%s%s.check_options()', self.fr['tab'], self.name)
+        self.fr = fr
         filename = ""
 
-        if self.params["ui"].extension.isChecked():
+        if self.fr["ui"].extension.isChecked():
             filename = self.file['name']
         else:
             filename = self.file['base']
 
         # Keep id
-        if self.params["ui"].id.isChecked():
+        if self.fr["ui"].id.isChecked():
             filename = filename.replace(self.file['id'], "")
         else:
             pass
 
-        if self.params["ui"].extension.isChecked() and self.params["ui"].id.isChecked():
+        if self.fr["ui"].extension.isChecked() and self.fr["ui"].id.isChecked():
             filename = self.file['name']
             filename = filename.replace(self.file['id'], "")
         else:
@@ -57,28 +57,28 @@ class Rename:
 
         return filename
 
-    def update_options(self, **params):
-        self.params = params
-        logging.info('%s%s.update_options()', self.params['tab'], self.name)
+    def update_options(self, **fr):
+        self.fr = fr
+        logging.info('%s%s.update_options()', self.fr['tab'], self.name)
         logging.info("self.file['new']: %s", self.file['new'])
         if self.file['new'] != "":
-            if (params["ui"].extension.isChecked() and
-                    self.params["ui"].id.isChecked()):
+            if (fr["ui"].extension.isChecked() and
+                    self.fr["ui"].id.isChecked()):
                 self.file['new'] = self.file['new'] + self.file['id'] + \
                     self.file['ext']
 
-            elif self.params["ui"].extension.isChecked() and \
-                    self.params["ui"].id.isChecked() is False:
+            elif self.fr["ui"].extension.isChecked() and \
+                    self.fr["ui"].id.isChecked() is False:
                 self.file['new'] = self.file['new'] + self.file['ext']
 
-            elif self.params["ui"].extension.isChecked() is False and \
-                    self.params["ui"].id.isChecked():
+            elif self.fr["ui"].extension.isChecked() is False and \
+                    self.fr["ui"].id.isChecked():
                 index = self.file['new'].find(self.file['ext'])
                 self.file['new'] = self.file['new'][:index] + self.file['id'] \
                     + self.file['new'][index:]
 
-            elif self.params["ui"].extension.isChecked() is False and \
-                    self.params["ui"].id.isChecked() is False:
+            elif self.fr["ui"].extension.isChecked() is False and \
+                    self.fr["ui"].id.isChecked() is False:
                 pass
 
             else:
@@ -86,25 +86,25 @@ class Rename:
         else:
             pass
 
-    def remove_chars(self, **params):
-        logging.info('%s%s.remove_chars()', self.params['tab'], self.name)
-        self.params = params
-        logging.info(params["title"])
+    def remove_chars(self, **fr):
+        logging.info('%s%s.remove_chars()', self.fr['tab'], self.name)
+        self.fr = fr
+        logging.info(fr["title"])
         self.data['count'] = 0
-        self.files.print_title(**self.params)
-        self.files.find(**self.params)
+        self.files.print_title(**self.fr)
+        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.params["msg"] = ""
+        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
-                self.params["filename"] = Path(filename)
-                logging.info('params["filename"]: %s', self.params["filename"])
+                self.fr["filename"] = Path(filename)
+                logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
-                self.file = self.files.split_name(**self.params)
+                self.file = self.files.split_name(**self.fr)
                 logging.info('self.file: %s', self.file)
 
-                filename2 = self.check_options(**self.params)
+                filename2 = self.check_options(**self.fr)
 
                 self.file['new'] = ""
                 logging.info('filename2: %s', filename2)
@@ -112,48 +112,48 @@ class Rename:
                     if elem.isalnum() or elem in self.chars:
                         self.file['new'] += elem
 
-                self.update_options(**self.params)
+                self.update_options(**self.fr)
 
-                self.files.compare(self.file, self.data, **self.params)
+                self.files.compare(self.file, self.data, **self.fr)
         except AppError:
-            self.app_error.print(**self.params)
+            self.app_error.print(**self.fr)
         else:
-            self.files.preview(self.data, **self.params)
+            self.files.preview(self.data, **self.fr)
 
-    def remove_accents(self, **params):
-        logging.info('%s%s.remove_accents()', self.params['tab'], self.name)
-        self.params = params
-        logging.info(params["title"])
+    def remove_accents(self, **fr):
+        logging.info('%s%s.remove_accents()', self.fr['tab'], self.name)
+        self.fr = fr
+        logging.info(fr["title"])
         self.data['count'] = 0
-        self.files.print_title(**self.params)
-        self.files.find(**self.params)
+        self.files.print_title(**self.fr)
+        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.params["msg"] = ""
+        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 logging.info("------------------------------")
-                self.params["filename"] = Path(filename)
-                logging.info('params["filename"]: %s', self.params["filename"])
+                self.fr["filename"] = Path(filename)
+                logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
-                self.file = self.files.split_name(**self.params)
+                self.file = self.files.split_name(**self.fr)
 
-                filename2 = self.check_options(**self.params)
+                filename2 = self.check_options(**self.fr)
 
                 self.file['new'] = ""
                 for i in range(len(filename2)):
                     # remove ascents
                     self.file['new'] += unidecode.unidecode(filename2[i])
 
-                self.update_options(**self.params)
+                self.update_options(**self.fr)
 
-                self.files.compare(self.file, self.data, **self.params)
+                self.files.compare(self.file, self.data, **self.fr)
         except SystemError:
             self.files.filelist.clear()
-            self.params["msg"] = 'SystemError'
-            self.app_error.print(**self.params)
+            self.fr["msg"] = 'SystemError'
+            self.app_error.print(**self.fr)
         else:
-            self.files.preview(self.data, **self.params)
+            self.files.preview(self.data, **self.fr)
 
     @staticmethod
     def remove_dots(string):
@@ -195,58 +195,58 @@ class Rename:
         pattern = re.compile(r'-{1,}')
         return re.sub(pattern, ' ', string)
 
-    def trim_spaces(self, **params):
-        self.params = params
-        logging.info(params["title"])
+    def trim_spaces(self, **fr):
+        self.fr = fr
+        logging.info(fr["title"])
         self.data['count'] = 0
-        self.files.print_title(**self.params)
-        self.files.find(**self.params)
+        self.files.print_title(**self.fr)
+        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.params["msg"] = ""
+        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 logging.info("------------------------------")
-                self.params["filename"] = Path(filename)
-                logging.info('params["filename"]: %s', self.params["filename"])
+                self.fr["filename"] = Path(filename)
+                logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
-                self.file = self.files.split_name(**self.params)
+                self.file = self.files.split_name(**self.fr)
 
-                filename2 = self.check_options(**self.params)
+                filename2 = self.check_options(**self.fr)
 
                 self.file['new'] = filename2.strip()
                 self.file['new'] = self.replace_dup_dots_w_spaces(
                     self.file['new'])
                 self.file['new'] = self.remove_dup_spaces(self.file['new'])
 
-                self.update_options(**self.params)
+                self.update_options(**self.fr)
 
-                self.files.compare(self.file, self.data, **self.params)
+                self.files.compare(self.file, self.data, **self.fr)
         except SystemError:
             self.files.filelist.clear()
-            self.params["msg"] = 'SystemError'
-            self.app_error.print(**self.params)
+            self.fr["msg"] = 'SystemError'
+            self.app_error.print(**self.fr)
         else:
-            self.files.preview(self.data, **self.params)
+            self.files.preview(self.data, **self.fr)
 
-    def replace_spaces(self, **params):
-        self.params = params
-        logging.info(params["title"])
+    def replace_spaces(self, **fr):
+        self.fr = fr
+        logging.info(fr["title"])
         self.data['count'] = 0
-        self.files.print_title(**self.params)
-        self.files.find(**self.params)
+        self.files.print_title(**self.fr)
+        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.params["msg"] = ""
+        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 logging.info("------------------------------")
-                self.params["filename"] = Path(filename)
-                logging.info('params["filename"]: %s', self.params["filename"])
+                self.fr["filename"] = Path(filename)
+                logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
-                self.file = self.files.split_name(**self.params)
+                self.file = self.files.split_name(**self.fr)
 
-                filename2 = self.check_options(**self.params)
+                filename2 = self.check_options(**self.fr)
 
                 self.file['new'] = self.replace_spaces_w_hyphens(
                     filename2)
@@ -257,161 +257,161 @@ class Rename:
                 self.file['new'] = self.remove_dup_hyphens(
                     self.file['new'])
 
-                self.update_options(**self.params)
+                self.update_options(**self.fr)
 
-                self.files.compare(self.file, self.data, **self.params)
+                self.files.compare(self.file, self.data, **self.fr)
         except SystemError:
             self.files.filelist.clear()
-            self.params["msg"] = 'SystemError'
-            self.app_error.print(**self.params)
+            self.fr["msg"] = 'SystemError'
+            self.app_error.print(**self.fr)
         else:
-            self.files.preview(self.data, **self.params)
+            self.files.preview(self.data, **self.fr)
 
-    def replace_dots(self, **params):
-        self.params = params
-        logging.info(params["title"])
+    def replace_dots(self, **fr):
+        self.fr = fr
+        logging.info(fr["title"])
         self.data['count'] = 0
-        self.files.print_title(**self.params)
-        self.files.find(**self.params)
+        self.files.print_title(**self.fr)
+        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.params["msg"] = ""
+        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 logging.info("------------------------------")
-                self.params["filename"] = Path(filename)
-                logging.info('params["filename"]: %s', self.params["filename"])
+                self.fr["filename"] = Path(filename)
+                logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
-                self.file = self.files.split_name(**self.params)
+                self.file = self.files.split_name(**self.fr)
 
-                filename2 = self.check_options(**self.params)
+                filename2 = self.check_options(**self.fr)
 
                 self.file['new'] = self.replace_dots_w_hyphens(
                     filename2)
 
-                self.update_options(**self.params)
+                self.update_options(**self.fr)
 
-                self.files.compare(self.file, self.data, **self.params)
+                self.files.compare(self.file, self.data, **self.fr)
         except SystemError:
             self.files.filelist.clear()
-            self.params["msg"] = 'SystemError'
-            self.app_error.print(**self.params)
+            self.fr["msg"] = 'SystemError'
+            self.app_error.print(**self.fr)
         else:
-            self.files.preview(self.data, **self.params)
+            self.files.preview(self.data, **self.fr)
 
-    def replace_hyphens(self, **params):
-        self.params = params
-        logging.info(params["title"])
+    def replace_hyphens(self, **fr):
+        self.fr = fr
+        logging.info(fr["title"])
         self.data['count'] = 0
-        self.files.print_title(**self.params)
-        self.files.find(**self.params)
+        self.files.print_title(**self.fr)
+        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.params["msg"] = ""
+        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 logging.info("------------------------------")
-                self.params["filename"] = Path(filename)
-                logging.info('params["filename"]: %s', self.params["filename"])
+                self.fr["filename"] = Path(filename)
+                logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
-                self.file = self.files.split_name(**self.params)
+                self.file = self.files.split_name(**self.fr)
 
-                filename2 = self.check_options(**self.params)
+                filename2 = self.check_options(**self.fr)
 
                 self.file['new'] = self.replace_hyphens_w_spaces(
                     filename2)
 
-                self.update_options(**self.params)
+                self.update_options(**self.fr)
 
-                self.files.compare(self.file, self.data, **self.params)
+                self.files.compare(self.file, self.data, **self.fr)
         except SystemError:
             self.files.filelist.clear()
-            self.params["msg"] = 'SystemError'
-            self.app_error.print(**self.params)
+            self.fr["msg"] = 'SystemError'
+            self.app_error.print(**self.fr)
         else:
-            self.files.preview(self.data, **self.params)
+            self.files.preview(self.data, **self.fr)
 
-    def lower_case(self, **params):
-        self.params = params
-        logging.info('self.params["title"]: %s', self.params["title"])
+    def lower_case(self, **fr):
+        self.fr = fr
+        logging.info('self.fr["title"]: %s', self.fr["title"])
         self.data['count'] = 0
-        self.files.print_title(**self.params)
-        self.files.find(**self.params)
+        self.files.print_title(**self.fr)
+        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.params["msg"] = ""
+        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 logging.info("------------------------------")
-                self.params["filename"] = Path(filename)
-                logging.info('params["filename"]: %s', self.params["filename"])
+                self.fr["filename"] = Path(filename)
+                logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
-                self.file = self.files.split_name(**self.params)
+                self.file = self.files.split_name(**self.fr)
 
-                filename2 = self.check_options(**self.params)
+                filename2 = self.check_options(**self.fr)
 
                 self.file['new'] = filename2.lower()
 
-                self.update_options(**self.params)
+                self.update_options(**self.fr)
 
-                self.files.compare(self.file, self.data, **self.params)
+                self.files.compare(self.file, self.data, **self.fr)
         except SystemError:
             self.files.filelist.clear()
-            self.params["msg"] = 'SystemError'
-            self.app_error.print(**self.params)
+            self.fr["msg"] = 'SystemError'
+            self.app_error.print(**self.fr)
         else:
-            self.files.preview(self.data, **self.params)
+            self.files.preview(self.data, **self.fr)
 
-    def title_case(self, **params):
-        self.params = params
-        logging.info('self.params["title"]: %s', self.params["title"])
+    def title_case(self, **fr):
+        self.fr = fr
+        logging.info('self.fr["title"]: %s', self.fr["title"])
         self.data['count'] = 0
-        self.files.print_title(**self.params)
-        self.files.find(**self.params)
+        self.files.print_title(**self.fr)
+        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.params["msg"] = ""
+        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 logging.info("------------------------------")
-                self.params["filename"] = Path(filename)
-                logging.info('params["filename"]: %s', self.params["filename"])
+                self.fr["filename"] = Path(filename)
+                logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
-                self.file = self.files.split_name(**self.params)
+                self.file = self.files.split_name(**self.fr)
 
-                filename2 = self.check_options(**self.params)
+                filename2 = self.check_options(**self.fr)
 
                 self.file['new'] = filename2.title()
 
-                self.update_options(**self.params)
+                self.update_options(**self.fr)
 
-                self.files.compare(self.file, self.data, **self.params)
+                self.files.compare(self.file, self.data, **self.fr)
         except SystemError:
             self.files.filelist.clear()
-            self.params["msg"] = 'SystemError'
-            self.app_error.print(**self.params)
+            self.fr["msg"] = 'SystemError'
+            self.app_error.print(**self.fr)
         else:
-            self.files.preview(self.data, **self.params)
+            self.files.preview(self.data, **self.fr)
 
-    def remove_ids(self, **params):
-        self.params = params
-        logging.info('self.params["title"]: %s', self.params["title"])
+    def remove_ids(self, **fr):
+        self.fr = fr
+        logging.info('self.fr["title"]: %s', self.fr["title"])
         self.data['count'] = 0
-        self.files.print_title(**self.params)
-        self.files.find(**self.params)
+        self.files.print_title(**self.fr)
+        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.params["msg"] = ""
+        self.fr["msg"] = ""
         regex = ""
         try:
             for filename in self.files.filelist:
                 logging.info("------------------------------")
-                self.params["filename"] = Path(filename)
-                logging.info('params["filename"]: %s', self.params["filename"])
+                self.fr["filename"] = Path(filename)
+                logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
-                self.file = self.files.split_name(**self.params)
+                self.file = self.files.split_name(**self.fr)
 
-                filename2 = self.check_options(**self.params)
+                filename2 = self.check_options(**self.fr)
 
                 if len(self.file['id']):
                     regex = (r'([- \.]' + re.escape(self.file['id']) + r')')
@@ -429,49 +429,49 @@ class Rename:
                 else:
                     self.file['new'] = filename2
 
-                self.update_options(**self.params)
+                self.update_options(**self.fr)
 
-                self.files.compare(self.file, self.data, **self.params)
+                self.files.compare(self.file, self.data, **self.fr)
         except SystemError:
             self.files.filelist.clear()
-            self.params["msg"] = 'SystemError'
-            self.app_error.print(**self.params)
+            self.fr["msg"] = 'SystemError'
+            self.app_error.print(**self.fr)
         else:
-            self.files.preview(self.data, **self.params)
+            self.files.preview(self.data, **self.fr)
 
-    def search_replace(self, **params):
-        self.params = params
-        logging.info('self.params["title"]: %s', self.params["title"])
+    def search_replace(self, **fr):
+        self.fr = fr
+        logging.info('self.fr["title"]: %s', self.fr["title"])
         self.data['count'] = 0
-        self.files.print_title(**self.params)
-        self.files.find(**self.params)
+        self.files.print_title(**self.fr)
+        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.params["msg"] = ""
+        self.fr["msg"] = ""
         pattern = ''
         replace = ''
 
         try:
             for filename in self.files.filelist:
                 logging.info("------------------------------")
-                self.params["filename"] = Path(filename)
-                logging.info('params["filename"]: %s', self.params["filename"])
+                self.fr["filename"] = Path(filename)
+                logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
-                self.file = self.files.split_name(**self.params)
+                self.file = self.files.split_name(**self.fr)
 
-                filename2 = self.check_options(**self.params)
+                filename2 = self.check_options(**self.fr)
 
-                if len(params["ui"].search.displayText()):
-                    pattern = self.params["ui"].search.displayText()
+                if len(fr["ui"].search.displayText()):
+                    pattern = self.fr["ui"].search.displayText()
 
-                if self.params["ui"].regex.isChecked():
+                if self.fr["ui"].regex.isChecked():
                     logging.info('pattern: %s', pattern)
                     p = re.compile(pattern)
 
                     result = p.search(filename2)
                     if result:
                         logging.info('result.group(): %s', result.group())
-                        replace = self.params["ui"].replace.displayText()
+                        replace = self.fr["ui"].replace.displayText()
                         raw_replace = repr(replace)[1:-1]  # raw string
                         self.file['new'] = re.sub(pattern, replace, filename2)
                     else:
@@ -482,7 +482,7 @@ class Rename:
                     result = p.search(filename2)
                     if result:
                         logging.info('result.group(): %s', result.group())
-                        replace = self.params["ui"].replace.displayText()
+                        replace = self.fr["ui"].replace.displayText()
                         logging.info('replace: %s', replace)
                         self.file['new'] = filename2.replace(
                             result.group(),
@@ -491,17 +491,17 @@ class Rename:
                     else:
                         self.file['new'] = filename2
 
-                self.update_options(**self.params)
-                self.files.compare(self.file, self.data, **self.params)
+                self.update_options(**self.fr)
+                self.files.compare(self.file, self.data, **self.fr)
 
         except SystemError:
             self.files.filelist.clear()
-            self.params["msg"] = 'SystemError'
-            self.app_error.print(**self.params)
+            self.fr["msg"] = 'SystemError'
+            self.app_error.print(**self.fr)
         else:
-            self.files.preview(self.data, **self.params)
+            self.files.preview(self.data, **self.fr)
 
-    def rename_files(self, **params):
-        self.params = params
-        self.files.print_title(**self.params)
-        self.files.rename(**self.params)
+    def rename_files(self, **fr):
+        self.fr = fr
+        self.files.print_title(**self.fr)
+        self.files.rename(**self.fr)

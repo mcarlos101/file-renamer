@@ -26,7 +26,7 @@ if __name__ == "__main__":
         logging.info('__main__.py')
         logging.info('%splatform: %s', tab, platform)
 
-        params = {
+        fr = {
             "tab": tab,
             "home": home,
             "logs": logs,
@@ -46,4 +46,4 @@ if __name__ == "__main__":
             "html_body": ""
         }
 
-        start_app(**params)
+        start_app(**fr)
