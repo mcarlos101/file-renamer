@@ -22,6 +22,7 @@ class MainWindow(QMainWindow):
         self.params = params
         logging.info('filename: %s', 'gui.py')
         logging.info('%sMainWindow __init__', self.params['tab'])
+        logging.info('self.params: %s', self.params)
 
         self.title = "File Renamer"
         self.qdir = QDir()

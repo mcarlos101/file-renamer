@@ -20,8 +20,9 @@ class Widget(QWidget):
         super().__init__(parent)
 
         self.params = params
-
-        logging.info("%sWidget __init__", params['tab'])
+        logging.info('filename: %s', 'gui.py')
+        logging.info('%sWidget __init__', self.params['tab'])
+        logging.info('self.params: %s', self.params)
 
         # UI
         self.params["ui"] = Ui_Widget()
@@ -52,6 +53,7 @@ class Widget(QWidget):
             self.params["path"] = dir_name
         if os.path.exists(self.params["path"]):
             self.rename.list_files(**self.params)
+            # self.rename.list_files()
         else:
             self.open_dir()
 
