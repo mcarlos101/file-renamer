@@ -23,7 +23,7 @@ if __name__ == "__main__":
         print(f"Type:  {type(err)=}")
         raise
     else:
-        logging.info('filename: %s', '__main__.py')
+        logging.info('__main__.py')
         logging.info('%splatform: %s', tab, platform)
 
         params = {

@@ -2,7 +2,6 @@ import sys
 import os
 import logging
 import platform
-from pathlib import Path
 from PySide6.QtCore import Slot, QDir, QUrl, QFile
 from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import (
@@ -18,11 +17,11 @@ class MainWindow(QMainWindow):
 
     def __init__(self, parent: QWidget = None, **params):
         super().__init__(parent)
-
+        self.name = "MainWindow"
         self.params = params
-        logging.info('filename: %s', 'gui.py')
-        logging.info('%sMainWindow __init__', self.params['tab'])
-        logging.info('self.params: %s', self.params)
+        logging.info('gui.py')
+        logging.info('%s%s()', self.params['tab'], self.name)
+        logging.info('%sself.params: %s', self.params['tab'], self.params)
 
         self.title = "File Renamer"
         self.qdir = QDir()
@@ -39,6 +38,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(self.title)
 
     def menu(self):
+        logging.info('%s%s.menu()', self.params['tab'], self.name)
         app_menu = self.menuBar().addMenu("&App")
         icon = QIcon.fromTheme("application-exit")
         app_action = QAction(icon, "&Load", self,
@@ -71,6 +71,7 @@ class MainWindow(QMainWindow):
         imagine_menu.addAction(rbe_action)
 
     def show_widget(self):
+        logging.info('%s%s.show_widget()', self.params['tab'], self.name)
         if not self.dir_output:
             self.dir_output.hide()
         self.widget = Widget(**self.params)
@@ -79,17 +80,19 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(self.title)
 
     def render_html(self, **html_params):
+        logging.info('%s%s.render_html()', self.params['tab'], self.name)
         qweb = QWebEngineView()
         webui = WebUI(**html_params)
         html = webui.html_page.strip()
-        logging.info("html: %s", html)
-        logging.info('set html')
+        logging.info("%shtml: %s", self.params['tab'], html)
+        logging.info('%sset html', self.params['tab'])
         qweb.setHtml(html)
         self.setCentralWidget(qweb)
         self.setWindowTitle(html_params['title'])
 
     @Slot()
     def show_version(self):
+        logging.info('%s%s.show_version()', self.params['tab'], self.name)
         title = "Version"
         body = """
         <div class="container">
@@ -109,6 +112,7 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def show_license(self):
+        logging.info('%s%s.show_license()', self.params['tab'], self.name)
         title = "License"
         body = """
         <div class="container">
@@ -136,6 +140,9 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def show_qt_for_python(self):
+        logging.info(
+            '%s%s.show_qt_for_python()', self.params['tab'], self.name
+        )
         title = "Qt for Python"
         body = """
         <div class="container">
@@ -169,6 +176,7 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def show_peace(self):
+        logging.info('%s%s.show_peace()', self.params['tab'], self.name)
         title = "Imagine Peace On Earth"
         body = """
         <div class="container text-center">
@@ -205,6 +213,7 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def show_rbe(self):
+        logging.info('%s%s.show_rbe()', self.params['tab'], self.name)
         title = "Resource Based Economy"
         body = """
         <div class="container text-center">

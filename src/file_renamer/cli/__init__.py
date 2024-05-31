@@ -5,8 +5,7 @@ from file_renamer import gui
 
 
 def start_app(**params):
-    filename = '__init__.py'
-    logging.info('filename: %s', filename)
+    logging.info('__init.py__')
     logging.info('%sstart_app', params['tab'])
     app = QApplication(sys.argv)
     window = gui.MainWindow(**params)

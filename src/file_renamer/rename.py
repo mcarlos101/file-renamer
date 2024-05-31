@@ -1,3 +1,4 @@
+import sys
 import re
 import logging
 import unidecode
@@ -10,10 +11,11 @@ class Rename:
 
     def __init__(self, **params):
         """The __init__ method is a constructor"""
+        self.name = "Rename"
         self.params = params
-        logging.info('filename: %s', 'gui.py')
-        logging.info('%sRename __init__', self.params['tab'])
-        logging.info('self.params: %s', self.params)
+        logging.info('rename.py')
+        logging.info('%s%s()', self.params['tab'], self.name)
+        logging.info('%sself.params: %s', self.params['tab'], self.params)
 
         # self.platform = platform
         self.files = Files(**self.params)
@@ -26,15 +28,13 @@ class Rename:
         self.app_error = AppError()
 
     def list_files(self, **params):
-        logging.info('Files.find')
+        logging.info('%s%s.list_files()', self.params['tab'], self.name)
         self.params = params
-        logging.info('self.params: %s', self.params)
         self.files.find(**self.params)
-        # self.files.find()
         self.files.list(**self.params)
-        # self.files.list()
 
     def check_options(self, **params):
+        logging.info('%s%s.check_options()', self.params['tab'], self.name)
         self.params = params
         filename = ""
 
@@ -59,6 +59,7 @@ class Rename:
 
     def update_options(self, **params):
         self.params = params
+        logging.info('%s%s.update_options()', self.params['tab'], self.name)
         logging.info("self.file['new']: %s", self.file['new'])
         if self.file['new'] != "":
             if (params["ui"].extension.isChecked() and
@@ -86,6 +87,7 @@ class Rename:
             pass
 
     def remove_chars(self, **params):
+        logging.info('%s%s.remove_chars()', self.params['tab'], self.name)
         self.params = params
         logging.info(params["title"])
         self.data['count'] = 0
@@ -96,7 +98,6 @@ class Rename:
         self.params["msg"] = ""
         try:
             for filename in self.files.filelist:
-                logging.info("------------------------------")
                 self.params["filename"] = Path(filename)
                 logging.info('params["filename"]: %s', self.params["filename"])
                 self.file.clear()
@@ -120,6 +121,7 @@ class Rename:
             self.files.preview(self.data, **self.params)
 
     def remove_accents(self, **params):
+        logging.info('%s%s.remove_accents()', self.params['tab'], self.name)
         self.params = params
         logging.info(params["title"])
         self.data['count'] = 0

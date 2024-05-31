@@ -29,9 +29,10 @@ class File(ABC):
 class Files(File):
 
     def __init__(self, **params):
+        self.name = "MainWindow"
         self.params = params
-        logging.info('filename: %s', 'gui.py')
-        logging.info('%sFiles __init__', self.params['tab'])
+        logging.info('files.py')
+        logging.info('%s%s()', self.params['tab'], self.name)
         self.filelist = []  # List of files in directory
         self.changed = {}
         self.file = dict(
@@ -60,24 +61,24 @@ class Files(File):
 
     @Slot()
     def print_title(self, **params):
+        logging.info('%s%s.print_title()', self.params['tab'], self.name)
         self.params = params
         logging.info("Print Title")
         logging.info('self.params: %s', self.params)
         self.params["ui"].dir_output.clear()
-        text = '<span style="font-weight: bold">' + self.params["title"] + '</span>'
+        text = '<span style="font-weight: bold">' + self.params["title"] + \
+               '</span>'
         self.params["ui"].dir_output.append(text)
         self.params["ui"].dir_output.append("")
 
     def find(self, **params):
-        logging.info('Files.find')
+        logging.info('%s%s.find()', self.params['tab'], self.name)
         self.params = params
-        logging.info('self.params: %s', self.params)
         self.filelist.clear()
         self.changed.clear()
         count = 0
         try:
             if self.params["ui"].recursively.isChecked():
-                # for file in Path(params["path"]).rglob('*'):
                 for file in Path(params["path"]).rglob('*'):
                     if os.path.isfile(file):
                         if count <= self.limit:
@@ -121,6 +122,7 @@ class Files(File):
 
     @Slot()
     def list(self, **params):
+        logging.info('%s%s.list()', self.params['tab'], self.name)
         self.params = params
         text = ""
         if self.filelist:
@@ -134,9 +136,9 @@ class Files(File):
             self.params["ui"].dir_output.append("")
 
     def split_name(self, **params):
+        logging.info('%s%s.split_name()', self.params['tab'], self.name)
         self.params = params
-        logging.info("Split Name")
-        logging.info('params: %s', params)
+        logging.info('%sself.params: %s', self.params['tab'], self.params)
         filename = ""
         try:
             if os.path.exists(params["filename"]):
@@ -167,18 +169,19 @@ class Files(File):
 
     @Slot()
     def compare(self, file, data, **params):
+        logging.info('%s%s.compare()', self.params['tab'], self.name)
         self.params = params
-        logging.info("Compare")
-        logging.info("data: %s", data)
+        logging.info("%sdata: %s", self.params['tab'], data)
         file["current"] = ""
         text = ""
         file_exists = True
-        logging.info('file["name"]: %s', file["name"])
-        logging.info('file["base"]: %s', file["base"])
-        logging.info('file["new"] : %s', file["new"])
-        logging.info('file["dir"] : %s', file["dir"])
+        logging.info('%sfile["name"]: %s', self.params['tab'], file["name"])
+        logging.info('%sfile["base"]: %s', self.params['tab'], file["base"])
+        logging.info('%sfile["new"] : %s', self.params['tab'], file["new"])
+        logging.info('%sfile["dir"] : %s', self.params['tab'], file["dir"])
         logging.info(
-            'params["ui"].extension.isChecked(): %s',
+            '%sself.params["ui"].extension.isChecked(): %s',
+            self.params['tab'],
             self.params["ui"].extension.isChecked()
         )
         if self.params["ui"].extension.isChecked():
@@ -190,44 +193,69 @@ class Files(File):
             else:
                 file["current"] = file["base"]
 
-        logging.info('file["current"]: %s', file["current"])
-        logging.info('self.params["platform"]: %s', self.params["platform"])
-
         logging.info(
-            'self.case_insensitive_val: %s',
+            '%sfile["current"]: %s',
+            self.params['tab'],
+            file["current"]
+        )
+        logging.info(
+            '%sself.case_insensitive_val: %s',
+            self.params['tab'],
             self.case_insensitive_val
         )
         if self.case_insensitive_val:
             logging.info(
-                'file["current"].lower(): %s',
+                '%sfile["current"].lower(): %s',
+                self.params['tab'],
                 file["current"].lower()
             )
-            logging.info('file["new"].lower()    : %s', file["new"].lower())
+            logging.info(
+                '%sfile["new"].lower()    : %s',
+                self.params['tab'],
+                file["new"].lower()
+            )
             if file["current"] == file["new"]:
-                logging.info('No change')
+                logging.info('%sNo change', self.params['tab'])
                 file_exists = True
             elif file["current"] != file["new"]:
-                logging.info('Changed')
+                logging.info('%sChanged', self.params['tab'])
                 # Track lower or title case change
                 logging.info(
-                    'self.params["case_change"]: %s',
+                    '%sself.params["case_change"]: %s',
+                    self.params['tab'],
                     self.params["case_change"]
                 )
                 if self.params["case_change"]:
                     if file["current"].lower() == file["new"].lower():
                         file_exists = False
-                        logging.info('file_exists: %s', file_exists)
+                        logging.info(
+                            '%sfile_exists: %s',
+                            self.params['tab'],
+                            file_exists
+                        )
                     elif file["current"].lower() != file["new"].lower():
                         file_exists = False
-                        logging.info('file_exists: %s', file_exists)
+                        logging.info(
+                            '%sfile_exists: %s',
+                            self.params['tab'],
+                            file_exists
+                        )
                 else:
                     file_exists = False
-                    logging.info('file_exists: %s', file_exists)
+                    logging.info(
+                        '%sfile_exists: %s',
+                        self.params['tab'],
+                        file_exists
+                    )
         else:
             file_exists = os.path.exists(
                 (Path(os.path.join(file["dir"]), file["new"]))
             )
-            logging.info('file_exists full path: %s', file_exists)
+            logging.info(
+                '%sfile_exists full path: %s',
+                self.params['tab'],
+                file_exists
+            )
 
         logging.info('file_exists: %s', file_exists)
         if file_exists is False:
@@ -241,12 +269,20 @@ class Files(File):
                 os.path.join(file["dir"]), file["new"]
             )
             logging.info(
-                'self.changed[num]["path"]: %s', self.changed[num]["path"]
+                '%sself.changed[num]["path"]: %s',
+                self.params['tab'],
+                self.changed[num]["path"]
             )
             logging.info(
-                'self.changed[num]["new"]: %s', self.changed[num]["new"]
+                '%sself.changed[num]["new"]: %s',
+                self.params['tab'],
+                self.changed[num]["new"]
             )
-            logging.info('data["count"]: %s', data["count"])
+            logging.info(
+                '%sdata["count"]: %s',
+                self.params['tab'],
+                data["count"]
+            )
             text = '<span style="color: blue; font-weight: bold;">' + \
                 'Preview</span>'
             self.params["ui"].dir_output.append(text)
@@ -256,8 +292,8 @@ class Files(File):
 
     @Slot()
     def rename(self, **params):
+        logging.info('%s%s.rename()', self.params['tab'], self.name)
         self.params = params
-        logging.info("Rename")
         count = 0
         current_file = ""
         new_file = ""
@@ -285,9 +321,9 @@ class Files(File):
 
     @Slot()
     def preview(self, data, **params):
+        logging.info('%s%s.preview()', self.params['tab'], self.name)
         self.params = params
-        logging.info("Preview")
-        logging.info('data: %s', data)
+        logging.info('%sdata: %s', self.params['tab'], data)
         if data["count"] == 0:
             self.params["ui"].dir_output.append("No changes")
             self.params["ui"].dir_output.append("")
@@ -295,4 +331,4 @@ class Files(File):
         elif data["count"] > 0:
             self.params["ui"].rename_btn.setEnabled(True)
         else:
-            logging.info("Nada")
+            logging.info('%sUnkown', self.params['tab'])
