@@ -2,6 +2,7 @@ import sys
 import re
 import logging
 import unidecode
+import inspect
 from pathlib import Path
 from file_renamer.lib.files import Files
 from file_renamer.lib.exceptions import AppError
@@ -11,13 +12,16 @@ class Rename:
 
     def __init__(self, **fr):
         """The __init__ method is a constructor"""
-        self.name = "Rename"
-        self.fr = fr
-        logging.info('rename.py')
-        logging.info('%s%s()', self.fr['tab'], self.name)
-        logging.info('%sself.fr: %s', self.fr['tab'], self.fr)
 
-        # self.platform = platform
+        # Log file, class & method names
+        logging.info("")
+        logging.info(__file__)
+        logging.info(self.__class__.__qualname__)
+        logging.info(inspect.stack()[0].function)
+
+        self.fr = fr
+        logging.info('fr: %s', fr)
+
         self.files = Files(**self.fr)
         self.file = {}
         self.data = {
@@ -28,13 +32,13 @@ class Rename:
         self.app_error = AppError()
 
     def list_files(self, **fr):
-        logging.info('%s%s.list_files()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
         self.files.find(**self.fr)
         self.files.list(**self.fr)
 
     def check_options(self, **fr):
-        logging.info('%s%s.check_options()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
         filename = ""
 
@@ -59,7 +63,7 @@ class Rename:
 
     def update_options(self, **fr):
         self.fr = fr
-        logging.info('%s%s.update_options()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         logging.info("self.file['new']: %s", self.file['new'])
         if self.file['new'] != "":
             if (fr["ui"].extension.isChecked() and
@@ -87,9 +91,8 @@ class Rename:
             pass
 
     def remove_chars(self, **fr):
-        logging.info('%s%s.remove_chars()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        logging.info(fr["title"])
         self.data['count'] = 0
         self.files.print_title(**self.fr)
         self.files.find(**self.fr)
@@ -121,9 +124,8 @@ class Rename:
             self.files.preview(self.data, **self.fr)
 
     def remove_accents(self, **fr):
-        logging.info('%s%s.remove_accents()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        logging.info(fr["title"])
         self.data['count'] = 0
         self.files.print_title(**self.fr)
         self.files.find(**self.fr)
@@ -132,7 +134,6 @@ class Rename:
         self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
-                logging.info("------------------------------")
                 self.fr["filename"] = Path(filename)
                 logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
@@ -157,47 +158,55 @@ class Rename:
 
     @staticmethod
     def remove_dots(string):
+        logging.info(inspect.stack()[0].function)  # method name
         pattern = re.compile(r'\.')
         return re.sub(pattern, '', string)
 
     @staticmethod
     def replace_dup_dots_w_spaces(string):
+        logging.info(inspect.stack()[0].function)  # method name
         pattern = re.compile(r'\.{2,}')
         return re.sub(pattern, ' ', string)
 
     @staticmethod
     def replace_dots_w_hyphens(string):
+        logging.info(inspect.stack()[0].function)  # method name
         pattern = re.compile(r'\.{1,}')
         return re.sub(pattern, '-', string)
 
     @staticmethod
     def replace_underscores_w_hyphens(string):
+        logging.info(inspect.stack()[0].function)  # method name
         pattern = re.compile(r'_')
         return re.sub(pattern, '-', string)
 
     @staticmethod
     def remove_dup_spaces(string):
+        logging.info(inspect.stack()[0].function)  # method name
         pattern = re.compile(r'\s{2,}')
         return re.sub(pattern, ' ', string)
 
     @staticmethod
     def replace_spaces_w_hyphens(string):
+        logging.info(inspect.stack()[0].function)  # method name
         pattern = re.compile(r'\s')
         return re.sub(pattern, '-', string)
 
     @staticmethod
     def remove_dup_hyphens(string):
+        logging.info(inspect.stack()[0].function)  # method name
         pattern = re.compile(r'-{2,}')
         return re.sub(pattern, '-', string)
 
     @staticmethod
     def replace_hyphens_w_spaces(string):
+        logging.info(inspect.stack()[0].function)  # method name
         pattern = re.compile(r'-{1,}')
         return re.sub(pattern, ' ', string)
 
     def trim_spaces(self, **fr):
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        logging.info(fr["title"])
         self.data['count'] = 0
         self.files.print_title(**self.fr)
         self.files.find(**self.fr)
@@ -206,7 +215,6 @@ class Rename:
         self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
-                logging.info("------------------------------")
                 self.fr["filename"] = Path(filename)
                 logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
@@ -230,8 +238,8 @@ class Rename:
             self.files.preview(self.data, **self.fr)
 
     def replace_spaces(self, **fr):
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        logging.info(fr["title"])
         self.data['count'] = 0
         self.files.print_title(**self.fr)
         self.files.find(**self.fr)
@@ -240,7 +248,6 @@ class Rename:
         self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
-                logging.info("------------------------------")
                 self.fr["filename"] = Path(filename)
                 logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
@@ -268,8 +275,8 @@ class Rename:
             self.files.preview(self.data, **self.fr)
 
     def replace_dots(self, **fr):
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        logging.info(fr["title"])
         self.data['count'] = 0
         self.files.print_title(**self.fr)
         self.files.find(**self.fr)
@@ -278,7 +285,6 @@ class Rename:
         self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
-                logging.info("------------------------------")
                 self.fr["filename"] = Path(filename)
                 logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
@@ -300,8 +306,8 @@ class Rename:
             self.files.preview(self.data, **self.fr)
 
     def replace_hyphens(self, **fr):
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        logging.info(fr["title"])
         self.data['count'] = 0
         self.files.print_title(**self.fr)
         self.files.find(**self.fr)
@@ -310,7 +316,6 @@ class Rename:
         self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
-                logging.info("------------------------------")
                 self.fr["filename"] = Path(filename)
                 logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
@@ -332,8 +337,8 @@ class Rename:
             self.files.preview(self.data, **self.fr)
 
     def lower_case(self, **fr):
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        logging.info('self.fr["title"]: %s', self.fr["title"])
         self.data['count'] = 0
         self.files.print_title(**self.fr)
         self.files.find(**self.fr)
@@ -342,7 +347,6 @@ class Rename:
         self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
-                logging.info("------------------------------")
                 self.fr["filename"] = Path(filename)
                 logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
@@ -363,8 +367,8 @@ class Rename:
             self.files.preview(self.data, **self.fr)
 
     def title_case(self, **fr):
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        logging.info('self.fr["title"]: %s', self.fr["title"])
         self.data['count'] = 0
         self.files.print_title(**self.fr)
         self.files.find(**self.fr)
@@ -373,7 +377,6 @@ class Rename:
         self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
-                logging.info("------------------------------")
                 self.fr["filename"] = Path(filename)
                 logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
@@ -394,8 +397,8 @@ class Rename:
             self.files.preview(self.data, **self.fr)
 
     def remove_ids(self, **fr):
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        logging.info('self.fr["title"]: %s', self.fr["title"])
         self.data['count'] = 0
         self.files.print_title(**self.fr)
         self.files.find(**self.fr)
@@ -405,7 +408,6 @@ class Rename:
         regex = ""
         try:
             for filename in self.files.filelist:
-                logging.info("------------------------------")
                 self.fr["filename"] = Path(filename)
                 logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
@@ -440,8 +442,8 @@ class Rename:
             self.files.preview(self.data, **self.fr)
 
     def search_replace(self, **fr):
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        logging.info('self.fr["title"]: %s', self.fr["title"])
         self.data['count'] = 0
         self.files.print_title(**self.fr)
         self.files.find(**self.fr)
@@ -453,7 +455,6 @@ class Rename:
 
         try:
             for filename in self.files.filelist:
-                logging.info("------------------------------")
                 self.fr["filename"] = Path(filename)
                 logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
@@ -502,6 +503,7 @@ class Rename:
             self.files.preview(self.data, **self.fr)
 
     def rename_files(self, **fr):
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
         self.files.print_title(**self.fr)
         self.files.rename(**self.fr)

@@ -2,8 +2,9 @@ import sys
 import os
 import re
 import logging
-from pathlib import Path
 import os.path
+import inspect
+from pathlib import Path
 from abc import ABC, abstractmethod
 from PySide6.QtCore import Slot, QDir, QUrl, QFile
 from PySide6.QtGui import QAction, QIcon
@@ -35,11 +36,15 @@ class UI(ABC):
 class WebUI(UI):
 
     def __init__(self, **fr):
-        self.name = "WebUI"
+
+        # Log file, class & method names
+        logging.info("")
+        logging.info(__file__)
+        logging.info(self.__class__.__qualname__)
+        logging.info(inspect.stack()[0].function)
+
         self.fr = fr
-        logging.info(Path('lib/html.py'))
-        logging.info('%s%s()', self.fr['tab'], self.name)
-        logging.info('%sself.fr: %s', self.fr['tab'], self.fr)
+        logging.info('fr: %s', fr)
 
         self.html_top = self.top()
         self.html_body = self.fr['html_body'].strip()
@@ -47,7 +52,7 @@ class WebUI(UI):
         self.html_page = self.html_top + self.html_body + self.html_bottom
 
     def top(self):
-        logging.info('%s%s.top()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         html_top = """<!doctype html>
 <html lang="en">
     <head>
@@ -61,11 +66,12 @@ class WebUI(UI):
         return html_top
 
     def bottom(self):
-        logging.info('%s%s.bottom()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         html_bottom = """
     </body>
 </html>"""
         return html_bottom
 
     def validate(self, value):
+        logging.info(inspect.stack()[0].function)  # method name
         logging.info("validate")

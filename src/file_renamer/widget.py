@@ -2,8 +2,9 @@
 import sys
 import os
 import logging
-from PySide6.QtWidgets import QWidget, QFileDialog
+import inspect
 from pathlib import Path
+from PySide6.QtWidgets import QWidget, QFileDialog
 from file_renamer.rename import Rename
 from file_renamer.lib.exceptions import AppError
 
@@ -18,11 +19,15 @@ from file_renamer.ui_form import Ui_Widget
 class Widget(QWidget):
     def __init__(self, parent=None, **fr):
         super().__init__(parent)
-        self.name = 'Widget'
+
+        # Log file, class & method names
+        logging.info("")
+        logging.info(__file__)
+        logging.info(self.__class__.__qualname__)
+        logging.info(inspect.stack()[0].function)
+
         self.fr = fr
-        logging.info('widget.py')
-        logging.info('%s%s()', self.fr['tab'], self.name)
-        logging.info('%sself.fr: %s', self.fr['tab'], self.fr)
+        logging.info('fr: %s', fr)
 
         # UI
         self.fr["ui"] = Ui_Widget()
@@ -37,7 +42,7 @@ class Widget(QWidget):
         self.fr["case_change"] = False
 
     def open_dir(self):
-        logging.info('%s%s.open_dir()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         dir_name = QFileDialog.getExistingDirectory(self, "Select a Directory")
         if dir_name:
             self.fr["path"] = Path(dir_name)
@@ -45,7 +50,7 @@ class Widget(QWidget):
             self.rename.list_files(**self.fr)
 
     def add_recursively(self):
-        logging.info('%s%s.add_recursively()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         dir_name = ""
         if self.fr["ui"].comboBox.currentIndex() > 0:
             self.fr["ui"].comboBox.setCurrentIndex(0)
@@ -59,7 +64,7 @@ class Widget(QWidget):
             self.open_dir()
 
     def keep_id(self):
-        logging.info('%s%s.keep_id()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         index = self.fr["ui"].comboBox.currentIndex()
         if index == 0:
             self.search_replace()
@@ -67,7 +72,7 @@ class Widget(QWidget):
             self.index_changed(index)
 
     def keep_ext(self):
-        logging.info('%s%s.keep_ext()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         index = self.fr["ui"].comboBox.currentIndex()
         if index == 0:
             self.search_replace()
@@ -75,13 +80,13 @@ class Widget(QWidget):
             self.index_changed(index)
 
     def search_replace(self):
-        logging.info('%s%s.search_replace()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr["title"] = "Search & Replace"
         if len(self.fr["ui"].search.displayText()):
             self.rename.search_replace(**self.fr)
 
     def find(self):
-        logging.info('%s%s.find()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr["title"] = "Search & Replace"
         if self.fr["title"] != self.fr["ui"].comboBox.currentText():
             self.fr["ui"].comboBox.setCurrentIndex(0)
@@ -92,17 +97,12 @@ class Widget(QWidget):
             self.fr["ui"].search.setFocus()
 
     def regex(self):
-        logging.info('%s%s.regex()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         self.search_replace()
 
     def index_changed(self, index):
-        logging.info('%s%s.index_changed()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr["title"] = ""
-        logging.info(
-            '%sself.fr["path"]: %s',
-            self.fr['tab'],
-            self.fr["path"]
-        )
 
         # Track lower or title case change
         if index == 7 or index == 8:
@@ -155,12 +155,12 @@ class Widget(QWidget):
                     self.rename.remove_ids(**self.fr)
 
     def clear(self):
-        logging.info('%s%s.clear()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr["ui"].dir_output.clear()
         self.fr["ui"].rename_btn.setEnabled(False)
 
     def rename_files(self):
-        logging.info('%s%s.rename_files()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr["title"] = ""
         index = self.fr["ui"].comboBox.currentIndex()
         if index == 0:

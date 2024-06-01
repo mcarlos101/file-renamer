@@ -1,5 +1,6 @@
 import os
 import logging
+import inspect
 from pathlib import Path
 from abc import ABC, abstractmethod
 
@@ -22,15 +23,27 @@ class CaseSensitive(ABC):
 
 
 class CaseInsensitive(CaseSensitive):
-    def __init__(self):
+    def __init__(self, **fr):
+
+        # Log file, class & method names
+        logging.info("")
+        logging.info(__file__)
+        logging.info(self.__class__.__qualname__)
+        logging.info(inspect.stack()[0].function)
+
+        self.fr = fr
+        logging.info('fr: %s', fr)
+
         self.insensitive = "UNKOWN"
         self.new_file_1 = "case-sensitive.txt.tmp"
         self.new_file_2 = "CASE-SENSITIVE.TXT.TMP"
 
     def validate(self, value):
+        logging.info(inspect.stack()[0].function)  # method name
         logging.info("validate")
 
     def check(self, path):
+        logging.info(inspect.stack()[0].function)  # method name
         count = 0
         if len(str(path)):
             pass

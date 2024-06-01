@@ -2,36 +2,38 @@ if __name__ == "__main__":
     import os
     import logging
     import platform
+    import inspect
     from pathlib import Path
     from file_renamer.cli import start_app
 
     tab = '   '  # 3 spaces
     home = os.path.expanduser('~')
-    logs = Path(home + "/file-renamer.log")
+
+    # Logs
+    logfile = Path(home + "/file-renamer.log")
+    logger = logging.getLogger(__name__)
+    logging.basicConfig(
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        filename=logfile,
+        encoding='utf-8',
+        filemode='w',
+        level=logging.DEBUG
+    )
+
     try:
         platform = platform.system()
-
-        # Logs
-        logging.basicConfig(
-            format='%(asctime)s %(message)s',
-            filename=logs,
-            filemode='w',
-            level=logging.DEBUG
-        )
     except Exception as err:
-        print(f"Error: {err=}")
-        print(f"Type:  {type(err)=}")
-        raise
+        print('See logs: ', logfile)
+        logger.exception(err)
     else:
-        logging.info('__main__.py')
-        logging.info('%splatform: %s', tab, platform)
+        logger.info(__file__)
+        name = '__main__'
+        logger.info(name)
+        logger.info('platform: %s', platform)
 
         fr = {
-            "tab": tab,
             "home": home,
-            "logs": logs,
             "platform": platform,
-            "app": None,
             "widget": None,
             "ui": None,
             "path": "",

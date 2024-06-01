@@ -2,6 +2,8 @@ import sys
 import os
 import logging
 import platform
+import inspect
+from pathlib import Path
 from PySide6.QtCore import Slot, QDir, QUrl, QFile
 from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import (
@@ -17,11 +19,15 @@ class MainWindow(QMainWindow):
 
     def __init__(self, parent: QWidget = None, **fr):
         super().__init__(parent)
-        self.name = "MainWindow"
+
+        # Log file, class & method names
+        logging.info("")
+        logging.info(__file__)
+        logging.info(self.__class__.__qualname__)
+        logging.info(inspect.stack()[0].function)
+
         self.fr = fr
-        logging.info('gui.py')
-        logging.info('%s%s()', self.fr['tab'], self.name)
-        logging.info('%sself.fr: %s', self.fr['tab'], self.fr)
+        logging.info('fr: %s', fr)
 
         self.title = "File Renamer"
         self.qdir = QDir()
@@ -38,7 +44,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(self.title)
 
     def menu(self):
-        logging.info('%s%s.menu()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         app_menu = self.menuBar().addMenu("&App")
         icon = QIcon.fromTheme("application-exit")
         app_action = QAction(icon, "&Load", self,
@@ -71,7 +77,7 @@ class MainWindow(QMainWindow):
         imagine_menu.addAction(rbe_action)
 
     def show_widget(self):
-        logging.info('%s%s.show_widget()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         if not self.dir_output:
             self.dir_output.hide()
         self.widget = Widget(**self.fr)
@@ -80,21 +86,19 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(self.title)
 
     def render_html(self):
-        logging.info('%s%s.render_html()', self.fr['tab'], self.name)
-        logging.info('%sself.fr: %s', self.fr['tab'], self.fr)
+        logging.info(inspect.stack()[0].function)  # method name
         qweb = QWebEngineView()
-        logging.info("%sself.fr: %s", self.fr['tab'], self.fr)
         webui = WebUI(**self.fr)
         html = webui.html_page.strip()
-        logging.info("%shtml: %s", self.fr['tab'], html)
-        logging.info('%sset html', self.fr['tab'])
+        logging.info("html: %s", html)
+        logging.info('set html')
         qweb.setHtml(html)
         self.setCentralWidget(qweb)
         self.setWindowTitle(self.fr['html_title'])
 
     @Slot()
     def show_version(self):
-        logging.info('%s%s.show_version()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         title = "Version"
         body = """
         <div class="container">
@@ -112,7 +116,7 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def show_license(self):
-        logging.info('%s%s.show_license()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         title = "License"
         body = """
         <div class="container">
@@ -138,9 +142,7 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def show_qt_for_python(self):
-        logging.info(
-            '%s%s.show_qt_for_python()', self.fr['tab'], self.name
-        )
+        logging.info(inspect.stack()[0].function)  # method name
         title = "Qt for Python"
         body = """
         <div class="container">
@@ -172,7 +174,7 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def show_peace(self):
-        logging.info('%s%s.show_peace()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         title = "Imagine Peace On Earth"
         body = """
         <div class="container text-center">
@@ -207,7 +209,7 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def show_rbe(self):
-        logging.info('%s%s.show_rbe()', self.fr['tab'], self.name)
+        logging.info(inspect.stack()[0].function)  # method name
         title = "Resource Based Economy"
         body = """
         <div class="container text-center">
