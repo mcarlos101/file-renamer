@@ -46,27 +46,32 @@ class MainWindow(QMainWindow):
     def menu(self):
         logging.info(inspect.stack()[0].function)  # method name
         app_menu = self.menuBar().addMenu("&App")
-        icon = QIcon.fromTheme("application-exit")
+        icon = QIcon('icons/file-renamer-32x32.png')
         app_action = QAction(icon, "&Load", self,
                              triggered=self.show_widget)
         app_menu.addAction(app_action)
+        icon = QIcon.fromTheme("text-html")
         version_action = QAction(icon, "&Version", self,
                                  triggered=self.show_version)
         app_menu.addAction(version_action)
+        icon = QIcon.fromTheme("application-exit")
         exit_action = QAction(icon, "&Exit", self,
                               shortcut="Ctrl+Q", triggered=self.close)
         app_menu.addAction(exit_action)
 
+        icon = QIcon.fromTheme("text-html")
         license_menu = self.menuBar().addMenu("&License")
         license_action = QAction(icon, "GPL", self,
                                  triggered=self.show_license)
         license_menu.addAction(license_action)
 
         qt_python_menu = self.menuBar().addMenu("&Qt for Python")
+        icon = QIcon.fromTheme("text-html")
         qt_python_action = QAction(icon, "PySide", self,
                                    triggered=self.show_qt_for_python)
         qt_python_menu.addAction(qt_python_action)
 
+        icon = QIcon.fromTheme("video-x-generic")
         imagine_menu = self.menuBar().addMenu("&Imagine")
         peace_action = QAction(icon, "Peace on Earth", self,
                                triggered=self.show_peace)
