@@ -43,9 +43,28 @@ def start_app(**fr):
         "html_body": ""
     }
 
-    # Launch app
+    # File Renamer app
     app = QApplication(sys.argv)
-    window = gui.MainWindow(**fr)
-    window.resize(1280, 720)
-    window.show()
-    app.exec()
+
+    # Default screen resolution
+    width = 1280
+    height = 720
+
+    try:
+        # Detect screen resolution
+        detected_width,detected_height = app.primaryScreen().size().toTuple()
+        logger.info('detected_width: %s', detected_width)
+        logger.info('detected_height: %s', detected_height)
+        if detected_width > width and detected_height > height:
+            width = detected_width
+            height = detected_height
+    except Exception as err:
+        print('See logs: ', logfile)
+        logger.exception(err)
+    else:
+        logger.info('width: %s', width)
+        logger.info('height: %s', height)
+        window = gui.MainWindow(**fr)
+        window.resize(width, height)
+        window.show()
+        app.exec()
