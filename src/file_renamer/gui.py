@@ -4,6 +4,7 @@ import logging
 import platform
 import inspect
 from pathlib import Path
+import PySide6.QtCore
 from PySide6.QtCore import Slot, QDir, QUrl, QFile
 from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import (
@@ -152,6 +153,20 @@ class MainWindow(QMainWindow):
         body = """
         <div class="container">
             <h1>Qt for Python</h1>
+
+            <div class="p-3 text-primary-emphasis bg-primary-subtle border \
+                border-primary-subtle rounded-3">
+                Versions
+                <ul>
+                    <li>
+                        <strong>Qt</strong>:&nbsp;&nbsp;""" \
+                        + PySide6.QtCore.__version__ + """
+                    </li>
+                    <li><strong>PySide6</strong>:&nbsp;&nbsp;""" \
+                        + PySide6.__version__ + """
+                    </li>
+                </ul>
+            </div>
 
             <p>Qt for Python offers the official Python bindings for Qt, which
             enables you to use Python to write your Qt applications. The
