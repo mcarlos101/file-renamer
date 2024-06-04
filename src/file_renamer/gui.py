@@ -105,10 +105,14 @@ class MainWindow(QMainWindow):
     @Slot()
     def show_version(self):
         logging.info(inspect.stack()[0].function)  # method name
+
+        from file_renamer.version import __version__
+        logging.info('version: %s' , __version__)
+
         title = "Version"
         body = """
         <div class="container">
-            <h1>File Renamer 1.0.6</h1>
+            <h1>File Renamer """ + __version__ + """</h1>
             <p>GitHub<br>
                 https://github.com/mcarlos101/file-renamer/
             </p>
