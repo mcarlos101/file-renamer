@@ -28,6 +28,7 @@ def start_app(**fr):
     # File Renamer dict
     fr = {
         "home": home,
+        "logfile":logfile,
         "platform": platform,
         "widget": None,
         "ui": None,
