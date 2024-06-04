@@ -107,7 +107,7 @@ class MainWindow(QMainWindow):
         logging.info(inspect.stack()[0].function)  # method name
 
         from file_renamer.version import __version__
-        logging.info('version: %s' , __version__)
+        logging.info('version: %s', __version__)
 
         title = "Version"
         body = """
