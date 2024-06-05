@@ -79,3 +79,4 @@ __pycache__/*
 build/*
 file-renamer.pyproject
 file-renamer.pyproject.user
+.idea/*
