@@ -12,8 +12,6 @@ from PySide6.QtWidgets import (
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from file_renamer.widget import Widget
 from file_renamer.lib.html import WebUI
-import file_renamer.html.rc_imagine
-import file_renamer.html.rc_rbe
 
 
 class MainWindow(QMainWindow):
@@ -199,6 +197,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def show_peace(self):
         logging.info(inspect.stack()[0].function)  # method name
+        import file_renamer.html.rc_imagine
         title = "Imagine Peace On Earth"
         body = """
         <div class="container text-center">
@@ -234,6 +233,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def show_rbe(self):
         logging.info(inspect.stack()[0].function)  # method name
+        import file_renamer.html.rc_rbe
         title = "Resource Based Economy"
         body = """
         <div class="container text-center">
