@@ -54,7 +54,7 @@ class WebUI(UI):
     def top(self):
         logging.info(inspect.stack()[0].function)  # method name
         html_top = """<!doctype html>
-<html lang="en" data-bs-theme='""" + self.fr['theme']+ """'>
+<html lang="en" data-bs-theme='""" + self.fr['theme'] + """'>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
