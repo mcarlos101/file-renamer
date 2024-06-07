@@ -147,16 +147,18 @@ class MainWindow(QMainWindow):
     @Slot()
     def set_dark_theme(self):
         logging.info(inspect.stack()[0].function)  # method name
-        self.fr['theme'] = 'dark'
-        logging.info('self.fr["theme"]: %s', self.fr["theme"])
-        self.set_theme()
+        if self.fr['theme'] == 'light':
+            self.fr['theme'] = 'dark'
+            logging.info('self.fr["theme"]: %s', self.fr["theme"])
+            self.set_theme()
 
     @Slot()
     def set_light_theme(self):
         logging.info(inspect.stack()[0].function)  # method name
-        self.fr['theme'] = 'light'
-        logging.info('self.fr["theme"]: %s', self.fr["theme"])
-        self.set_theme()
+        if self.fr['theme'] == 'dark':
+            self.fr['theme'] = 'light'
+            logging.info('self.fr["theme"]: %s', self.fr["theme"])
+            self.set_theme()
 
     @Slot()
     def show_license(self):
