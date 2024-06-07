@@ -59,6 +59,17 @@ class MainWindow(QMainWindow):
         app_menu.addAction(exit_action)
 
         icon = QIcon.fromTheme("text-html")
+        theme_menu = self.menuBar().addMenu("&Theme")
+        dark_theme_action = QAction(
+            icon, 'Dark', self, triggered=self.set_dark_theme
+        )
+        theme_menu.addAction(dark_theme_action)
+        light_theme_action = QAction(
+            icon, 'Light', self, triggered=self.set_light_theme
+        )
+        theme_menu.addAction(light_theme_action)
+
+        icon = QIcon.fromTheme("text-html")
         license_menu = self.menuBar().addMenu("&License")
         license_action = QAction(icon, "GPL", self,
                                  triggered=self.show_license)
@@ -93,6 +104,7 @@ class MainWindow(QMainWindow):
         logging.info(inspect.stack()[0].function)  # method name
         qweb = QWebEngineView()
         webui = WebUI(**self.fr)
+        logging.info("self.fr: %s", self.fr)
         html = webui.html_page.strip()
         logging.info("html: %s", html)
         logging.info('set html')
@@ -103,10 +115,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def show_version(self):
         logging.info(inspect.stack()[0].function)  # method name
-
         from file_renamer.version import __version__
-        logging.info('version: %s', __version__)
-
         title = "Version"
         body = """
         <div class="container">
@@ -120,7 +129,34 @@ class MainWindow(QMainWindow):
         </div>"""
         self.fr['html_title'] = title
         self.fr['html_body'] = body
+        self.fr['html_page'] = 'show_version'
         self.render_html()
+
+    def set_theme(self):
+        if self.fr['html_page'] == 'show_version':
+            self.show_version()
+        elif self.fr['html_page'] == 'show_license':
+            self.show_license()
+        elif self.fr['html_page'] == 'show_qt_for_python':
+            self.show_qt_for_python()
+        elif self.fr['html_page'] == 'show_peace':
+            self.show_peace()
+        elif self.fr['html_page'] == 'show_rbe':
+            self.show_rbe()
+
+    @Slot()
+    def set_dark_theme(self):
+        logging.info(inspect.stack()[0].function)  # method name
+        self.fr['theme'] = 'dark'
+        logging.info('self.fr["theme"]: %s', self.fr["theme"])
+        self.set_theme()
+
+    @Slot()
+    def set_light_theme(self):
+        logging.info(inspect.stack()[0].function)  # method name
+        self.fr['theme'] = 'light'
+        logging.info('self.fr["theme"]: %s', self.fr["theme"])
+        self.set_theme()
 
     @Slot()
     def show_license(self):
@@ -146,6 +182,7 @@ class MainWindow(QMainWindow):
         </div>"""
         self.fr['html_title'] = title
         self.fr['html_body'] = body
+        self.fr['html_page'] = 'show_license'
         self.render_html()
 
     @Slot()
@@ -192,6 +229,7 @@ class MainWindow(QMainWindow):
         </div>"""
         self.fr['html_title'] = title
         self.fr['html_body'] = body
+        self.fr['html_page'] = 'show_qt_for_python'
         self.render_html()
 
     @Slot()
@@ -228,6 +266,7 @@ class MainWindow(QMainWindow):
 """
         self.fr['html_title'] = title
         self.fr['html_body'] = body
+        self.fr['html_page'] = 'show_peace'
         self.render_html()
 
     @Slot()
@@ -268,4 +307,5 @@ class MainWindow(QMainWindow):
         </div>"""
         self.fr['html_title'] = title
         self.fr['html_body'] = body
+        self.fr['html_page'] = 'show_rbe'
         self.render_html()

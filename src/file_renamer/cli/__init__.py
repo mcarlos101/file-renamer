@@ -44,7 +44,9 @@ def start_app(**fr):
         "new": "",
         "current": "",
         "html_title": "",
-        "html_body": ""
+        "html_body": "",
+        "html_page": "",
+        "theme": "light"
     }
 
     # File Renamer app
