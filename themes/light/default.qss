@@ -1,0 +1,72 @@
+QMainWindow {
+    background-color: white;
+    color: black;
+}
+
+QMenu {
+    background-color: white;
+    color: black;
+    border: 1px solid gray;
+}
+
+QMenu::item {
+    background-color: transparent;
+}
+
+QMenu::item:selected {
+    background-color: gray;
+}
+
+QToolBar {
+    background-color: white;
+    color: black;
+}
+
+QGroupBox {
+    /* border: 1px solid gray;*/
+}
+
+QLabel {
+    background-color: white;
+    color: black;
+}
+
+QLineEdit, QTextEdit {
+    background-color: white;
+    color: black;
+}
+
+QCheckBox {
+    color: black;
+}
+
+QPushButton {
+    background-color: white;
+    color: black;
+    padding: 4px 5px;
+}
+
+QPushButton:pressed {
+    background-color: white;
+    color: black;
+}
+
+QComboBox {
+    background-color: white;
+    color: black;
+}
+
+QComboBox QAbstractItemView {
+    border: none;
+    background-color: white;
+}
+
+QComboBox::item {
+    background-color: white;
+    color: black;
+}
+
+QComboBox::item:selected {
+    background-color: gray;
+    color: white;
+}

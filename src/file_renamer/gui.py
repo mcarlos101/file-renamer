@@ -41,6 +41,7 @@ class MainWindow(QMainWindow):
         self.widget.show()
         self.setCentralWidget(self.widget)
         self.setWindowTitle(self.title)
+        self.fr['page-id'] = 'app'
 
     def menu(self):
         logging.info(inspect.stack()[0].function)  # method name
@@ -100,6 +101,7 @@ class MainWindow(QMainWindow):
         self.widget.show()
         self.setCentralWidget(self.widget)
         self.setWindowTitle(self.title)
+        self.fr['page-id'] = 'app'
 
     def render_html(self):
         logging.info(inspect.stack()[0].function)  # method name
@@ -130,19 +132,23 @@ class MainWindow(QMainWindow):
         </div>"""
         self.fr['html_title'] = title
         self.fr['html_body'] = body
-        self.fr['html_page'] = 'show_version'
+        self.fr['page-id'] = 'show_version'
         self.render_html()
 
     def set_theme(self):
-        if self.fr['html_page'] == 'show_version':
+        self.fr['theme-path'] = Path('themes/' + self.fr['theme'] + '/default.qss')
+        with open(self.fr['theme-path'], "r") as f:
+            _style = f.read()
+            self.fr['app'].setStyleSheet(_style)
+        if self.fr['page-id'] == 'show_version':
             self.show_version()
-        elif self.fr['html_page'] == 'show_license':
+        elif self.fr['page-id'] == 'show_license':
             self.show_license()
-        elif self.fr['html_page'] == 'show_qt_for_python':
+        elif self.fr['page-id'] == 'show_qt_for_python':
             self.show_qt_for_python()
-        elif self.fr['html_page'] == 'show_peace':
+        elif self.fr['page-id'] == 'show_peace':
             self.show_peace()
-        elif self.fr['html_page'] == 'show_rbe':
+        elif self.fr['page-id'] == 'show_rbe':
             self.show_rbe()
 
     @Slot()
@@ -185,7 +191,7 @@ class MainWindow(QMainWindow):
         </div>"""
         self.fr['html_title'] = title
         self.fr['html_body'] = body
-        self.fr['html_page'] = 'show_license'
+        self.fr['page-id'] = 'show_license'
         self.render_html()
 
     @Slot()
@@ -232,7 +238,7 @@ class MainWindow(QMainWindow):
         </div>"""
         self.fr['html_title'] = title
         self.fr['html_body'] = body
-        self.fr['html_page'] = 'show_qt_for_python'
+        self.fr['page-id'] = 'show_qt_for_python'
         self.render_html()
 
     @Slot()
@@ -269,7 +275,7 @@ class MainWindow(QMainWindow):
 """
         self.fr['html_title'] = title
         self.fr['html_body'] = body
-        self.fr['html_page'] = 'show_peace'
+        self.fr['page-id'] = 'show_peace'
         self.render_html()
 
     @Slot()
@@ -310,5 +316,5 @@ class MainWindow(QMainWindow):
         </div>"""
         self.fr['html_title'] = title
         self.fr['html_body'] = body
-        self.fr['html_page'] = 'show_rbe'
+        self.fr['page-id'] = 'show_rbe'
         self.render_html()

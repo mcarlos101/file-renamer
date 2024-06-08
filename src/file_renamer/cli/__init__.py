@@ -32,6 +32,7 @@ def start_app(**fr):
     fr = {
         "home": home,
         "logfile": logfile,
+        "app": "",
         "platform": platform,
         "widget": None,
         "ui": None,
@@ -45,12 +46,16 @@ def start_app(**fr):
         "current": "",
         "html_title": "",
         "html_body": "",
-        "html_page": "",
-        "theme": "light"
+        "page-id": "app",
+        "theme": "dark",
+        "theme-path": ""
     }
+
+    fr['theme-path'] = Path('themes/' + fr['theme'] + '/default.qss')
 
     # File Renamer app
     app = QApplication(sys.argv)
+    fr['app'] = app
 
     # Default screen resolution
     width = 1280
@@ -73,4 +78,7 @@ def start_app(**fr):
         window = MainWindow(**fr)
         window.resize(width, height)
         window.show()
+        with open(fr['theme-path'], "r") as f:
+            _style = f.read()
+            app.setStyleSheet(_style)
         app.exec()
