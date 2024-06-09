@@ -60,8 +60,8 @@ def start_app(**fr):
     fr['app'] = app
 
     # Default screen resolution
-    width = 1280
-    height = 720
+    width = 800
+    height = 600
 
     try:
         # Detect screen resolution

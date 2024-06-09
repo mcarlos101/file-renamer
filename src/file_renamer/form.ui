@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
-    <height>720</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,6 +15,13 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>PREVIEW</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
     <widget class="QGroupBox" name="browse">
      <property name="focusPolicy">
       <enum>Qt::FocusPolicy::StrongFocus</enum>
@@ -22,7 +29,7 @@
      <property name="title">
       <string/>
      </property>
-     <layout class="QFormLayout" name="formLayout">
+     <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
        <widget class="QPushButton" name="dir_btn">
         <property name="text">
@@ -40,34 +47,34 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="2" column="0">
     <widget class="QTextEdit" name="dir_output">
      <property name="readOnly">
       <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="3" column="0">
     <widget class="QGroupBox" name="options">
      <property name="title">
       <string/>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
        <widget class="QCheckBox" name="recursively">
         <property name="text">
          <string>Add Files Recursively</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="1">
        <widget class="QCheckBox" name="id">
         <property name="text">
          <string>Keep ID</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="2">
        <widget class="QCheckBox" name="extension">
         <property name="text">
          <string>Keep Extension</string>
@@ -77,17 +84,17 @@
      </layout>
     </widget>
    </item>
-   <item row="3" column="0">
+   <item row="4" column="0">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string/>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
        <widget class="QComboBox" name="comboBox">
         <item>
          <property name="text">
-          <string>PREVIEW</string>
+          <string>Select</string>
          </property>
         </item>
         <item>
@@ -137,14 +144,14 @@
         </item>
        </widget>
       </item>
-      <item>
+      <item row="0" column="1">
        <widget class="QPushButton" name="clear_btn">
         <property name="text">
          <string>CLEAR</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="2">
        <widget class="QPushButton" name="rename_btn">
         <property name="enabled">
          <bool>false</bool>
@@ -157,20 +164,20 @@
      </layout>
     </widget>
    </item>
-   <item row="4" column="0">
+   <item row="5" column="0">
     <widget class="QGroupBox" name="search_replace">
      <property name="title">
       <string/>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0">
        <widget class="QLabel" name="search_label">
         <property name="text">
          <string>Search</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="1">
        <widget class="QLineEdit" name="search">
         <property name="tabletTracking">
          <bool>false</bool>
@@ -186,14 +193,14 @@
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="2">
        <widget class="QLabel" name="replace_label">
         <property name="text">
          <string>Replace</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="3">
        <widget class="QLineEdit" name="replace">
         <property name="tabletTracking">
          <bool>false</bool>
@@ -206,14 +213,14 @@
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="4">
        <widget class="QCheckBox" name="regex">
         <property name="text">
          <string>Regular Expression</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="5">
        <widget class="QPushButton" name="find_btn">
         <property name="text">
          <string>Find</string>
