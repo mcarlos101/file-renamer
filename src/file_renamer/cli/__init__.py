@@ -47,8 +47,10 @@ def start_app(**fr):
         "html_title": "",
         "html_body": "",
         "page-id": "app",
-        "theme": "dark",
-        "theme-path": ""
+        "theme": "light",
+        "theme-path": "",
+        "error-title": "ERROR",
+        "error-msg": "Unknown"
     }
 
     fr['theme-path'] = Path('themes/' + fr['theme'] + '/default.qss')
