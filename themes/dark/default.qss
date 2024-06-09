@@ -32,6 +32,11 @@ QLabel {
     color: #dce0e4;
 }
 
+QLabel#label {
+    color: #dce0e4;
+    font-weight: bold;
+}
+
 QLineEdit, QTextEdit {
     background-color: #212529;
     color: #dce0e4;
