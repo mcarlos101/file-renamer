@@ -5,8 +5,9 @@ import inspect
 import os.path
 from pathlib import Path
 from abc import ABC, abstractmethod
-from PySide6.QtCore import Slot
-from file_renamer.lib.exceptions import AppError
+from PySide6.QtCore import Slot, Qt
+from PySide6.QtWidgets import QLabel, QFrame, QErrorMessage
+from file_renamer.lib.exceptions import Errors
 from file_renamer.lib.case_insensitive import CaseInsensitive
 
 
@@ -49,8 +50,7 @@ class Files(File):
         self.limit = 1000  # max number in self.filelist
         self.separator = r"[- \.]"  # hyphen or space or dot
 
-        self.app_error = AppError()
-        self.error = dict(name="", exit=True, err="", file="")
+        # self.error = dict(name="", exit=True, err="", file="")
 
         # Regex id
         self.regexid = r'\[.+\]'
@@ -94,7 +94,7 @@ class Files(File):
                         else:
                             self.filelist.clear()
                             self.fr["ui"].dir_output.clear()
-                            raise AppError()
+                            raise Exception()
             else:
                 for file in Path(fr["path"]).iterdir():
                     if os.path.isfile(file):
@@ -103,21 +103,20 @@ class Files(File):
                             count += 1
                         else:
                             self.filelist.clear()
-                            raise AppError()
+                            raise Exception()
             if count == 0:
                 raise FileNotFoundError()
         except FileNotFoundError:
             self.fr["ui"].rename_btn.setEnabled(False)
             self.filelist.clear()
             self.fr["ui"].dir_output.clear()
-            text = '<span style="color: red; font-weight: bold">' + \
-                   'NO FILES FOUND!</span>'
-            self.fr["ui"].dir_output.append(text)
-        except AppError:
+            self.fr['error-msg'] = 'NO FILES FOUND!'
+            errors = Errors(**self.fr)
+        except Exception:
             self.filelist.clear()
-            self.fr["msg"] = 'FILE LIMIT REACHED: ' + str(self.limit)
-            # msg = 'FILE LIMIT REACHED: ' + str(self.limit)
-            self.app_error.print(**fr)
+            self.fr['error-msg'] = 'FILE LIMIT REACHED: ' + str(self.limit)
+            errors = Errors(**self.fr)
+
         else:
             self.filelist.sort()
             self.fr["case_insensitive_val"] = \
@@ -168,7 +167,8 @@ class Files(File):
             else:
                 raise FileNotFoundError()
         except FileNotFoundError:
-            logging.info("FileNotFoundError")
+            self.fr['error-msg'] = 'FILE NOT FOUND!'
+            errors = Errors(**self.fr)
             return None
         else:
             return self.file
@@ -255,9 +255,15 @@ class Files(File):
                 'self.changed[num]["new"]: %s', self.changed[num]["new"]
             )
             logging.info('data["count"]: %s', data["count"])
-            text = '<span style="color: blue; font-weight: bold;">' + \
-                'Preview</span>'
-            self.fr["ui"].dir_output.append(text)
+                        # text = '<span style="color: blue; font-weight: bold;">' + 'Preview</span>'
+            # text = '<span class="preview">Preview</span>'
+            # label = QLabel(self)
+            # label = QLabel("Preview")
+            # label.setFrameStyle(QFrame.Panel | QFrame.Sunken)
+            # label.setText("Preview")
+            # label.setAlignment(Qt.AlignBottom | Qt.AlignRight)
+            # label.setProperty("cssClass", "preview")
+            self.fr["ui"].dir_output.append(label)
             self.fr["ui"].dir_output.append(str(self.changed[num]["path"]))
             self.fr["ui"].dir_output.append(str(self.changed[num]["new"]))
             self.fr["ui"].dir_output.append("")

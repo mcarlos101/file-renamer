@@ -6,7 +6,7 @@ import inspect
 from pathlib import Path
 from PySide6.QtWidgets import QWidget, QFileDialog
 from file_renamer.rename import Rename
-from file_renamer.lib.exceptions import AppError
+from file_renamer.lib.exceptions import Errors
 
 # Important:
 # You need to run the following command to generate the ui_form.py file
@@ -35,8 +35,6 @@ class Widget(QWidget):
 
         # Create rename
         self.rename = Rename(**self.fr)
-
-        self.app_error = AppError()
 
         # Track lower or title case change
         self.fr["case_change"] = False

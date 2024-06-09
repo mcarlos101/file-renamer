@@ -5,7 +5,7 @@ import unidecode
 import inspect
 from pathlib import Path
 from file_renamer.lib.files import Files
-from file_renamer.lib.exceptions import AppError
+from file_renamer.lib.exceptions import Errors
 
 
 class Rename:
@@ -29,7 +29,6 @@ class Rename:
             "count": 0
         }
         self.chars = [' ', '.', '-', '_', '[', ']']  # Chars allowed
-        self.app_error = AppError()
 
     def list_files(self, **fr):
         logging.info(inspect.stack()[0].function)  # method name
@@ -98,7 +97,6 @@ class Rename:
         self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
@@ -118,8 +116,9 @@ class Rename:
                 self.update_options(**self.fr)
 
                 self.files.compare(self.file, self.data, **self.fr)
-        except AppError:
-            self.app_error.print(**self.fr)
+        except Errors as err:
+            self.fr['error-msg'] = err
+            errors = Errors(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -131,7 +130,6 @@ class Rename:
         self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
@@ -149,10 +147,10 @@ class Rename:
                 self.update_options(**self.fr)
 
                 self.files.compare(self.file, self.data, **self.fr)
-        except SystemError:
+        except SystemError as err:
             self.files.filelist.clear()
-            self.fr["msg"] = 'SystemError'
-            self.app_error.print(**self.fr)
+            self.fr['error-msg'] = err
+            errors = Errors(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -212,7 +210,6 @@ class Rename:
         self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
@@ -230,10 +227,10 @@ class Rename:
                 self.update_options(**self.fr)
 
                 self.files.compare(self.file, self.data, **self.fr)
-        except SystemError:
+        except SystemError as err:
             self.files.filelist.clear()
-            self.fr["msg"] = 'SystemError'
-            self.app_error.print(**self.fr)
+            self.fr['error-msg'] = err
+            errors = Errors(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -245,7 +242,6 @@ class Rename:
         self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
@@ -267,10 +263,10 @@ class Rename:
                 self.update_options(**self.fr)
 
                 self.files.compare(self.file, self.data, **self.fr)
-        except SystemError:
+        except SystemError as err:
             self.files.filelist.clear()
-            self.fr["msg"] = 'SystemError'
-            self.app_error.print(**self.fr)
+            self.fr['error-msg'] = err
+            errors = Errors(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -282,7 +278,6 @@ class Rename:
         self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
@@ -298,10 +293,10 @@ class Rename:
                 self.update_options(**self.fr)
 
                 self.files.compare(self.file, self.data, **self.fr)
-        except SystemError:
+        except SystemError as err:
             self.files.filelist.clear()
-            self.fr["msg"] = 'SystemError'
-            self.app_error.print(**self.fr)
+            self.fr['error-msg'] = err
+            errors = Errors(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -313,7 +308,6 @@ class Rename:
         self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
@@ -329,10 +323,10 @@ class Rename:
                 self.update_options(**self.fr)
 
                 self.files.compare(self.file, self.data, **self.fr)
-        except SystemError:
+        except SystemError as err:
             self.files.filelist.clear()
-            self.fr["msg"] = 'SystemError'
-            self.app_error.print(**self.fr)
+            self.fr['error-msg'] = err
+            errors = Errors(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -344,7 +338,6 @@ class Rename:
         self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
@@ -359,10 +352,10 @@ class Rename:
                 self.update_options(**self.fr)
 
                 self.files.compare(self.file, self.data, **self.fr)
-        except SystemError:
+        except SystemError as err:
             self.files.filelist.clear()
-            self.fr["msg"] = 'SystemError'
-            self.app_error.print(**self.fr)
+            self.fr['error-msg'] = err
+            errors = Errors(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -374,7 +367,6 @@ class Rename:
         self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.fr["msg"] = ""
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
@@ -389,10 +381,10 @@ class Rename:
                 self.update_options(**self.fr)
 
                 self.files.compare(self.file, self.data, **self.fr)
-        except SystemError:
+        except SystemError as err:
             self.files.filelist.clear()
-            self.fr["msg"] = 'SystemError'
-            self.app_error.print(**self.fr)
+            self.fr['error-msg'] = err
+            errors = Errors(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -404,7 +396,6 @@ class Rename:
         self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.fr["msg"] = ""
         regex = ""
         try:
             for filename in self.files.filelist:
@@ -434,10 +425,10 @@ class Rename:
                 self.update_options(**self.fr)
 
                 self.files.compare(self.file, self.data, **self.fr)
-        except SystemError:
+        except SystemError as err:
             self.files.filelist.clear()
-            self.fr["msg"] = 'SystemError'
-            self.app_error.print(**self.fr)
+            self.fr['error-msg'] = err
+            errors = Errors(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -449,7 +440,6 @@ class Rename:
         self.files.find(**self.fr)
         filename = ""
         filename2 = ""
-        self.fr["msg"] = ""
         pattern = ''
         replace = ''
 
@@ -495,10 +485,10 @@ class Rename:
                 self.update_options(**self.fr)
                 self.files.compare(self.file, self.data, **self.fr)
 
-        except SystemError:
+        except SystemError as err:
             self.files.filelist.clear()
-            self.fr["msg"] = 'SystemError'
-            self.app_error.print(**self.fr)
+            self.fr['error-msg'] = err
+            errors = Errors(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
