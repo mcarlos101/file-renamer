@@ -45,6 +45,7 @@ class Widget(QWidget):
         if dir_name:
             self.fr["path"] = Path(dir_name)
             self.fr["ui"].dir_txt.setText(str(self.fr["path"]))
+            self.fr["ui"].label.setText('LIST FILES')
             self.rename.list_files(**self.fr)
 
     def add_recursively(self):
@@ -59,6 +60,7 @@ class Widget(QWidget):
         if os.path.exists(self.fr["path"]):
             self.rename.list_files(**self.fr)
         else:
+            self.fr["ui"].label.setText('LIST FILES')
             self.open_dir()
 
     def keep_id(self):

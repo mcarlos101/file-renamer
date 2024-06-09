@@ -73,10 +73,7 @@ class Files(File):
         logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
         self.fr["ui"].dir_output.clear()
-        text = '<span style="font-weight: bold">' + self.fr["title"] + \
-               '</span>'
-        self.fr["ui"].dir_output.append(text)
-        self.fr["ui"].dir_output.append("")
+        self.fr["ui"].label.setText(self.fr["title"])
 
     def find(self, **fr):
         logging.info(inspect.stack()[0].function)  # method name
@@ -132,7 +129,7 @@ class Files(File):
         self.fr = fr
         text = ""
         if self.filelist:
-            self.fr["title"] = "List Files"
+            self.fr["title"] = "LIST FILES"
             self.print_title(**fr)
             for file in self.filelist:
                 self.fr["ui"].dir_output.append(str(file))
@@ -255,15 +252,7 @@ class Files(File):
                 'self.changed[num]["new"]: %s', self.changed[num]["new"]
             )
             logging.info('data["count"]: %s', data["count"])
-                        # text = '<span style="color: blue; font-weight: bold;">' + 'Preview</span>'
-            # text = '<span class="preview">Preview</span>'
-            # label = QLabel(self)
-            # label = QLabel("Preview")
-            # label.setFrameStyle(QFrame.Panel | QFrame.Sunken)
-            # label.setText("Preview")
-            # label.setAlignment(Qt.AlignBottom | Qt.AlignRight)
-            # label.setProperty("cssClass", "preview")
-            self.fr["ui"].dir_output.append(label)
+            self.fr["ui"].label.setText('PREVIEW -> ' + self.fr["title"])
             self.fr["ui"].dir_output.append(str(self.changed[num]["path"]))
             self.fr["ui"].dir_output.append(str(self.changed[num]["new"]))
             self.fr["ui"].dir_output.append("")
@@ -285,17 +274,14 @@ class Files(File):
             else:
                 os.replace(current_file, new_file)
             count += 1
-            text = '<span style="color: red; font-weight: bold;">' + \
-                'Renamed</span>'
-            self.fr["ui"].dir_output.append(text)
-            self.fr["ui"].dir_output.append(
-                os.path.basename(self.changed[key]['path'])
-            )
-            self.fr["ui"].dir_output.append(
-                os.path.basename(self.changed[key]['new'])
-            )
+            self.fr["ui"].label.setText('RENAMED -> ' + self.fr["title"])
+            self.fr["ui"].dir_output.append(str(self.changed[key]['path']))
+            self.fr["ui"].dir_output.append(str(self.changed[key]['new']))
             self.fr["ui"].dir_output.append("")
-            self.fr["ui"].rename_btn.setEnabled(False)
+        text = 'Total Files: ' + str(len(self.filelist))
+        self.fr["ui"].dir_output.append(text)
+        self.fr["ui"].dir_output.append("")
+        self.fr["ui"].rename_btn.setEnabled(False)
 
     @Slot()
     def preview(self, data, **fr):
@@ -307,6 +293,9 @@ class Files(File):
             self.fr["ui"].dir_output.append("")
             self.fr["ui"].rename_btn.setEnabled(False)
         elif data["count"] > 0:
+            text = 'Total Files: ' + str(len(self.filelist))
+            self.fr["ui"].dir_output.append(text)
+            self.fr["ui"].dir_output.append("")
             self.fr["ui"].rename_btn.setEnabled(True)
         else:
             logging.info('Unkown')
