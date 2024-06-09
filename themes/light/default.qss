@@ -51,6 +51,13 @@ QPushButton {
     padding: 4px 5px;
 }
 
+QPushButton:hover {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    padding: 4px 5px;
+}
+
 QPushButton:pressed {
     background-color: white;
     color: black;
