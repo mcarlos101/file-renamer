@@ -88,3 +88,8 @@ QComboBox::item:selected {
     background-color: #dce0e4;
     color: #212529;
 }
+
+QMessageBox {
+    background-color: #212529;
+    color: #dce0e4;
+}

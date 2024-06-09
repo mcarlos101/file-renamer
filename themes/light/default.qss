@@ -82,3 +82,8 @@ QComboBox::item:selected {
     background-color: gray;
     color: white;
 }
+
+QMessageBox {
+    background-color: white;
+    color: black;
+}
