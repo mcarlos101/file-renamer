@@ -1,12 +1,14 @@
+import sys
 import logging
 import inspect
+from PySide6.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox, QPushButton
 from PySide6.QtCore import Slot
 
 
-class AppError(Exception):
-    """ Custom exception class """
+class Errors(QMainWindow):
 
-    def __init__(self, parent=None):
+    def __init__(self, **fr):
+        super().__init__()
 
         # Log file, class & method names
         logging.info("")
@@ -14,17 +16,9 @@ class AppError(Exception):
         logging.info(self.__class__.__qualname__)
         logging.info(inspect.stack()[0].function)
 
-        self.msg = "ERROR!"
-
-    @Slot()
-    def print(self, **fr):
-        logging.info(inspect.stack()[0].function)  # method name
-        fr["ui"].rename_btn.setEnabled(False)
-        fr["ui"].dir_output.clear()
-        style = "color: red;" "font-weight: bold;"
-        if len(fr["msg"]):
-            msg = '<span style="' + style + '">' + fr["msg"] + '</span>'
-            fr["ui"].dir_output.append(msg)
-        else:
-            fr["ui"].dir_output.append(self.msg)
-            self.msg = '<span style="' + style + '">' + self.msg + '</span>'
+        self.fr = fr
+        button = QMessageBox.critical(
+            self,
+            self.fr['error-title'],
+            self.fr['error-msg'],
+        )
