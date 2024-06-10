@@ -7,8 +7,8 @@ from pathlib import Path
 from abc import ABC, abstractmethod
 from PySide6.QtCore import Slot, Qt
 from PySide6.QtWidgets import QLabel, QFrame, QErrorMessage
-from file_renamer.lib.exceptions import Errors
-from file_renamer.lib.case_insensitive import CaseInsensitive
+from src.file_renamer.lib.exceptions import Errors
+from src.file_renamer.lib.case_insensitive import CaseInsensitive
 
 
 class File(ABC):

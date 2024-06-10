@@ -10,9 +10,9 @@ from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import (
     QWidget, QMainWindow, QTextEdit, QToolBar, QApplication)
 from PySide6.QtWebEngineWidgets import QWebEngineView
-from file_renamer.widget import Widget
-from file_renamer.lib.html import WebUI
-from file_renamer.lib.exceptions import Errors
+from src.file_renamer.widget import Widget
+from src.file_renamer.lib.html import WebUI
+from src.file_renamer.lib.exceptions import Errors
 
 
 class MainWindow(QMainWindow):
@@ -119,7 +119,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def show_version(self):
         logging.info(inspect.stack()[0].function)  # method name
-        from file_renamer.version import __version__
+        from src.file_renamer.version import __version__
         title = "Version"
         body = """
         <div class="container">
@@ -256,7 +256,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def show_peace(self):
         logging.info(inspect.stack()[0].function)  # method name
-        import file_renamer.html.rc_imagine
+        import src.file_renamer.html.rc_imagine
         title = "Imagine Peace On Earth"
         body = """
         <div class="container text-center">
@@ -293,7 +293,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def show_rbe(self):
         logging.info(inspect.stack()[0].function)  # method name
-        import file_renamer.html.rc_rbe
+        import src.file_renamer.html.rc_rbe
         title = "Resource Based Economy"
         body = """
         <div class="container text-center">

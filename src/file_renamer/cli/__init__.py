@@ -6,8 +6,8 @@ import inspect
 from pathlib import Path
 from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QDir
-from file_renamer.gui import MainWindow
-from file_renamer.version import __version__
+from src.file_renamer.gui import MainWindow
+from src.file_renamer.version import __version__
 
 
 def start_app(**fr):

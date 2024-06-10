@@ -5,15 +5,15 @@ import logging
 import inspect
 from pathlib import Path
 from PySide6.QtWidgets import QWidget, QFileDialog
-from file_renamer.rename import Rename
-from file_renamer.lib.exceptions import Errors
+from src.file_renamer.rename import Rename
+from src.file_renamer.lib.exceptions import Errors
 
 # Important:
 # You need to run the following command to generate the ui_form.py file
 #     pyside6-uic form.ui -o ui_form.py, or
 #     pyside2-uic form.ui -o ui_form.py
 # from ui_form import Ui_Widget
-from file_renamer.ui_form import Ui_Widget
+from src.file_renamer.ui_form import Ui_Widget
 
 
 class Widget(QWidget):
