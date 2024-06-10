@@ -5,6 +5,7 @@ import platform
 import inspect
 from pathlib import Path
 from PySide6.QtWidgets import QApplication
+from PySide6.QtCore import QDir
 from file_renamer.gui import MainWindow
 from file_renamer.version import __version__
 
@@ -80,7 +81,16 @@ def start_app(**fr):
         window = MainWindow(**fr)
         window.resize(width, height)
         window.show()
-        with open(fr['theme-path'], "r") as f:
-            _style = f.read()
+
+        try:
+            with open(fr['theme-path'], "r") as f:
+                _style = f.read()
+        except FileNotFoundError:
+            error = 'File Not Found: ' + str(fr['theme-path'])
+            logger.error(error)
+            qdir = QDir()
+            logging.error('qdir.currentPath(): %s', qdir.currentPath())
+        else:
             app.setStyleSheet(_style)
-        app.exec()
+        finally:
+            app.exec()

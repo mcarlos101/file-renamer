@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from file_renamer.widget import Widget
 from file_renamer.lib.html import WebUI
+from file_renamer.lib.exceptions import Errors
 
 
 class MainWindow(QMainWindow):
@@ -136,20 +137,31 @@ class MainWindow(QMainWindow):
         self.render_html()
 
     def set_theme(self):
+        logging.info(inspect.stack()[0].function)  # method name
         self.fr['theme-path'] = Path('themes/' + self.fr['theme'] + '/default.qss')
-        with open(self.fr['theme-path'], "r") as f:
-            _style = f.read()
+        try:
+            with open(self.fr['theme-path'], "r") as f:
+                _style = f.read()
+        except FileNotFoundError:
+            self.fr['error-msg'] = 'File Not Found: ' + str(self.fr['theme-path'])
+            # error = 'File Not Found: ' + str(self.fr['theme-path'])
+            logging.error(self.fr['error-msg'])
+            qdir = QDir()
+            logging.error('qdir.currentPath(): %s', qdir.currentPath())
+            errors = Errors(**self.fr)
+        else:
             self.fr['app'].setStyleSheet(_style)
-        if self.fr['page-id'] == 'show_version':
-            self.show_version()
-        elif self.fr['page-id'] == 'show_license':
-            self.show_license()
-        elif self.fr['page-id'] == 'show_qt_for_python':
-            self.show_qt_for_python()
-        elif self.fr['page-id'] == 'show_peace':
-            self.show_peace()
-        elif self.fr['page-id'] == 'show_rbe':
-            self.show_rbe()
+        finally:
+            if self.fr['page-id'] == 'show_version':
+                self.show_version()
+            elif self.fr['page-id'] == 'show_license':
+                self.show_license()
+            elif self.fr['page-id'] == 'show_qt_for_python':
+                self.show_qt_for_python()
+            elif self.fr['page-id'] == 'show_peace':
+                self.show_peace()
+            elif self.fr['page-id'] == 'show_rbe':
+                self.show_rbe()
 
     @Slot()
     def set_dark_theme(self):
