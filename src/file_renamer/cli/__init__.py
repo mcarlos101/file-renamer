@@ -5,7 +5,7 @@ import platform
 import inspect
 from pathlib import Path
 from PySide6.QtWidgets import QApplication
-from PySide6.QtCore import QDir
+from PySide6.QtCore import QDir, QFile, QFileInfo
 from src.file_renamer.gui import MainWindow
 from src.file_renamer.version import __version__
 
@@ -54,7 +54,10 @@ def start_app(**fr):
         "error-msg": "Unknown"
     }
 
-    fr['theme-path'] = Path('themes/' + fr['theme'] + '/default.qss')
+    theme_file = 'themes/' + fr['theme'] + '/default.qss'
+    fr['theme-path'] = Path(theme_file)
+    qfinfo = QFileInfo(theme_file)
+    qfile = QFile(theme_file)
 
     # File Renamer app
     app = QApplication(sys.argv)
@@ -89,8 +92,10 @@ def start_app(**fr):
             error = 'File Not Found: ' + str(fr['theme-path'])
             logger.error(error)
             qdir = QDir()
-            logging.error('qdir.currentPath(): %s', qdir.currentPath())
+            logger.error('qdir.currentPath(): %s', qdir.currentPath())
+            logger.error('qfinfo.absolutePath(): %s', qfinfo.absolutePath())
         else:
             app.setStyleSheet(_style)
+            logger.info('set theme: %s', fr['theme'])
         finally:
             app.exec()
