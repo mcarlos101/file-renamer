@@ -18,7 +18,7 @@ file_renamer() {
 
 		case "$keypress" in
 			1)
-				run;;
+			    run;;
 			2)
 				build_linux_binary;;
 			3)
@@ -40,11 +40,19 @@ file_renamer() {
 	} # menu
 
 	run() {
-        PYTHONPATH=src python -m file_renamer
+        # PYTHONPATH=src python -m file_renamer
+        python -m src.file_renamer
 	}
 
 	build_linux_binary() {
-        pyinstaller app-linux.spec
+        python -m nuitka \
+            --onefile \
+            --output-filename=file-renamer \
+            --output-dir=deploy \
+            --include-data-dir=/data/fr/file-renamer/icons=icons \
+            --include-data-dir=/data/fr/file-renamer/themes=themes \
+            --enable-plugin=pyside6 \
+            /data/fr/file-renamer/src/file_renamer/__main__.py
 	}
 
 	build_whl() {
@@ -52,7 +60,7 @@ file_renamer() {
 	}
 
 	uninstall() {
-        pip uninstall -y PySide6 PySide6_Addons PySide6_Essentials shiboken6 Unidecode file_renamer
+        pip uninstall -y PySide6 PySide6_Addons PySide6_Essentials shiboken6 Unidecode file-renamer
 	}
 
     install_whl() {
@@ -60,7 +68,7 @@ file_renamer() {
     }
 
     pypi_upload_whl() {
-        python -m twine upload dist/*
+        python -m twine upload dist/file_renamer-*.whl
     }
 
     menu
