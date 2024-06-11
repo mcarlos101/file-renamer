@@ -79,7 +79,7 @@ QComboBox::item {
 }
 
 QComboBox::item:selected {
-    background-color: gray;
+    background-color: black;
     color: white;
 }
 
