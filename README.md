@@ -38,7 +38,7 @@ App
 Install from [PyPi](https://pypi.org/project/file-renamer/)
 ```bash
 # Install
-pip install file-renamer`
+pip install file-renamer
 
 # Run
 file-renamer
