@@ -44,8 +44,8 @@ class MainWindow(QMainWindow):
     def menu(self):
         logging.info(inspect.stack()[0].function)  # method name
         app_menu = self.menuBar().addMenu("&App")
-        icon = QIcon('icons/file-renamer-32x32.png')
-        # icon = QIcon.fromTheme("application-x-executable")
+        # icon = QIcon('icons/file-renamer-32x32.png')
+        icon = QIcon.fromTheme("application-x-executable")
         app_action = QAction(icon, "&Load", self,
                              triggered=self.show_widget)
         app_menu.addAction(app_action)
