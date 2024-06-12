@@ -1,8 +1,8 @@
 import logging
 import inspect
-from pathlib import Path
 import PySide6.QtCore
-from PySide6.QtCore import Slot, QDir
+from PySide6.QtCore import (Slot, QDir, QFile, QIODevice,
+                            QTextStream)
 from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import (
     QWidget, QMainWindow, QTextEdit, QToolBar)
@@ -10,6 +10,7 @@ from PySide6.QtWebEngineWidgets import QWebEngineView
 from file_renamer.widget import Widget
 from file_renamer.lib.html import WebUI
 from file_renamer.lib.exceptions import Messages
+import file_renamer.rc_themes
 
 
 class MainWindow(QMainWindow):
@@ -135,23 +136,21 @@ class MainWindow(QMainWindow):
 
     def set_theme(self):
         logging.info(inspect.stack()[0].function)  # method name
-        self.fr['theme-path'] = Path('themes/' + self.fr['theme'] +
-                                     '/default.qss')
+        self.fr['theme-path'] = QFile(':/themes/' + self.fr['theme'] +
+                                      '/default.qss')
         try:
-            with open(self.fr['theme-path'], "r") as f:
-                _style = f.read()
+            if self.fr['theme-path'].open(QIODevice.ReadOnly | QIODevice.Text):
+                stream = QTextStream(self.fr['theme-path'])
+            else:
+                raise FileNotFoundError()
         except FileNotFoundError:
-            error = 'File Not Found: ' + str(self.fr['theme-path'])
-            logging.error(error)
-            qdir = QDir()
-            logging.error('qdir.currentPath(): %s', qdir.currentPath())
+            self.fr['msg-info'] = "Theme Not Found: " + self.fr['theme']
             self.fr['msg-type'] = 'critical'
             self.fr['msg-title'] = 'ERROR'
-            self.fr['msg-info'] = "File Not Found: \n" + \
-                                  str(self.fr['theme-path'])
+            logging.error(self.fr['msg-info'])
             msg = Messages(**self.fr)
         else:
-            self.fr['app'].setStyleSheet(_style)
+            self.fr['app'].setStyleSheet(stream.readAll())
         finally:
             if self.fr['page-id'] == 'show_version':
                 self.show_version()
