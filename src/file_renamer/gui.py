@@ -135,12 +135,14 @@ class MainWindow(QMainWindow):
 
     def set_theme(self):
         logging.info(inspect.stack()[0].function)  # method name
-        self.fr['theme-path'] = Path('themes/' + self.fr['theme'] + '/default.qss')
+        self.fr['theme-path'] = Path('themes/' + self.fr['theme'] +
+                                     '/default.qss')
         try:
             with open(self.fr['theme-path'], "r") as f:
                 _style = f.read()
         except FileNotFoundError:
-            self.fr['error-msg'] = 'File Not Found: ' + str(self.fr['theme-path'])
+            self.fr['error-msg'] = 'File Not Found: ' + \
+                                   str(self.fr['theme-path'])
             # error = 'File Not Found: ' + str(self.fr['theme-path'])
             logging.error(self.fr['error-msg'])
             qdir = QDir()

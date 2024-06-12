@@ -52,7 +52,8 @@ class Rename:
         else:
             pass
 
-        if self.fr["ui"].extension.isChecked() and self.fr["ui"].id.isChecked():
+        if self.fr["ui"].extension.isChecked() and \
+                self.fr["ui"].id.isChecked():
             filename = self.file['name']
             filename = filename.replace(self.file['id'], "")
         else:

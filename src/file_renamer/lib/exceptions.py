@@ -1,7 +1,9 @@
 import sys
 import logging
 import inspect
-from PySide6.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox, QPushButton
+from PySide6.QtWidgets import (
+    QApplication, QDialog, QMainWindow, QMessageBox, QPushButton
+)
 from PySide6.QtCore import Slot
 
 
