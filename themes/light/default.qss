@@ -14,7 +14,9 @@ QMenu::item {
 }
 
 QMenu::item:selected {
-    background-color: gray;
+    color: white;
+    background-color: black;
+    font-weight: bold;
 }
 
 QToolBar {
