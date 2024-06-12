@@ -11,9 +11,9 @@ from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import (
     QWidget, QMainWindow, QTextEdit, QToolBar, QApplication)
 from PySide6.QtWebEngineWidgets import QWebEngineView
-from src.file_renamer.lib.exceptions import Errors
-from src.file_renamer.lib.case_insensitive import CaseInsensitive
-import src.file_renamer.html.rc_ui
+from file_renamer.lib.exceptions import Errors
+from file_renamer.lib.case_insensitive import CaseInsensitive
+import file_renamer.html.rc_ui
 
 
 class UI(ABC):

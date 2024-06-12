@@ -4,8 +4,8 @@ import logging
 import unidecode
 import inspect
 from pathlib import Path
-from src.file_renamer.lib.files import Files
-from src.file_renamer.lib.exceptions import Errors
+from file_renamer.lib.files import Files
+from file_renamer.lib.exceptions import Errors
 
 
 class Rename:

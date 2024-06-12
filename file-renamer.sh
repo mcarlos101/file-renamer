@@ -12,7 +12,6 @@ file_renamer() {
 		printf '%s\n' "6. PyPi Upload Wheel"
 		printf '%s\n' "7. Exit"
 		read -r -s -n 1 -p "Enter Number: " keypress
-		# echo -n "$keypress"
 		printf '%s' "$keypress"
 		printf '\n\n'
 
@@ -40,8 +39,7 @@ file_renamer() {
 	} # menu
 
 	run() {
-        # PYTHONPATH=src python -m file_renamer
-        python -m src.file_renamer
+        PYTHONPATH=src python -m file_renamer
 	}
 
 	build_linux_binary() {
@@ -68,7 +66,7 @@ file_renamer() {
     }
 
     pypi_upload_whl() {
-        python -m twine upload dist/file_renamer-*.whl
+        python -m twine upload dist/file_renamer-*
     }
 
     menu
