@@ -7,7 +7,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Slot
 
 
-class Errors(QMainWindow):
+class Messages(QMainWindow):
 
     def __init__(self, **fr):
         super().__init__()
@@ -19,8 +19,21 @@ class Errors(QMainWindow):
         logging.info(inspect.stack()[0].function)
 
         self.fr = fr
+        if self.fr['msg-type'] == 'info':
+            self.info()
+        elif self.fr['msg-type'] == 'critical':
+            self.critical()
+
+    def info(self):
+        button = QMessageBox.information(
+            self,
+            self.fr['msg-title'],
+            self.fr['msg-info'],
+        )
+
+    def critical(self):
         button = QMessageBox.critical(
             self,
-            self.fr['error-title'],
-            self.fr['error-msg'],
+            self.fr['msg-title'],
+            self.fr['msg-info'],
         )

@@ -5,7 +5,7 @@ import unidecode
 import inspect
 from pathlib import Path
 from file_renamer.lib.files import Files
-from file_renamer.lib.exceptions import Errors
+from file_renamer.lib.exceptions import Messages
 
 
 class Rename:
@@ -118,8 +118,8 @@ class Rename:
 
                 self.files.compare(self.file, self.data, **self.fr)
         except Errors as err:
-            self.fr['error-msg'] = err
-            errors = Errors(**self.fr)
+            self.fr['msg-info'] = err
+            msg = Messages(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -150,8 +150,8 @@ class Rename:
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
             self.files.filelist.clear()
-            self.fr['error-msg'] = err
-            errors = Errors(**self.fr)
+            self.fr['msg-info'] = err
+            msg = Messages(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -230,8 +230,8 @@ class Rename:
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
             self.files.filelist.clear()
-            self.fr['error-msg'] = err
-            errors = Errors(**self.fr)
+            self.fr['msg-info'] = err
+            msg = Messages(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -266,8 +266,8 @@ class Rename:
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
             self.files.filelist.clear()
-            self.fr['error-msg'] = err
-            errors = Errors(**self.fr)
+            self.fr['msg-info'] = err
+            msg = Messages(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -296,8 +296,8 @@ class Rename:
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
             self.files.filelist.clear()
-            self.fr['error-msg'] = err
-            errors = Errors(**self.fr)
+            self.fr['msg-info'] = err
+            msg = Messages(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -326,8 +326,8 @@ class Rename:
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
             self.files.filelist.clear()
-            self.fr['error-msg'] = err
-            errors = Errors(**self.fr)
+            self.fr['msg-info'] = err
+            msg = Messages(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -355,8 +355,8 @@ class Rename:
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
             self.files.filelist.clear()
-            self.fr['error-msg'] = err
-            errors = Errors(**self.fr)
+            self.fr['msg-info'] = err
+            msg = Messages(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -384,8 +384,8 @@ class Rename:
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
             self.files.filelist.clear()
-            self.fr['error-msg'] = err
-            errors = Errors(**self.fr)
+            self.fr['msg-info'] = err
+            msg = Messages(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -428,8 +428,8 @@ class Rename:
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
             self.files.filelist.clear()
-            self.fr['error-msg'] = err
-            errors = Errors(**self.fr)
+            self.fr['msg-info'] = err
+            msg = Messages(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -488,8 +488,8 @@ class Rename:
 
         except SystemError as err:
             self.files.filelist.clear()
-            self.fr['error-msg'] = err
-            errors = Errors(**self.fr)
+            self.fr['msg-info'] = err
+            msg = Messages(**self.fr)
         else:
             self.files.preview(self.data, **self.fr)
 

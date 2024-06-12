@@ -9,7 +9,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from file_renamer.widget import Widget
 from file_renamer.lib.html import WebUI
-from file_renamer.lib.exceptions import Errors
+from file_renamer.lib.exceptions import Messages
 
 
 class MainWindow(QMainWindow):
@@ -141,13 +141,15 @@ class MainWindow(QMainWindow):
             with open(self.fr['theme-path'], "r") as f:
                 _style = f.read()
         except FileNotFoundError:
-            self.fr['error-msg'] = 'File Not Found: ' + \
-                                   str(self.fr['theme-path'])
-            # error = 'File Not Found: ' + str(self.fr['theme-path'])
-            logging.error(self.fr['error-msg'])
+            error = 'File Not Found: ' + str(self.fr['theme-path'])
+            logging.error(error)
             qdir = QDir()
             logging.error('qdir.currentPath(): %s', qdir.currentPath())
-            errors = Errors(**self.fr)
+            self.fr['msg-type'] = 'critical'
+            self.fr['msg-title'] = 'ERROR'
+            self.fr['msg-info'] = "File Not Found: \n" + \
+                                  str(self.fr['theme-path'])
+            msg = Messages(**self.fr)
         else:
             self.fr['app'].setStyleSheet(_style)
         finally:

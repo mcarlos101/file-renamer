@@ -5,9 +5,9 @@ import inspect
 import os.path
 from pathlib import Path
 from abc import ABC, abstractmethod
-from PySide6.QtCore import Slot, Qt
-from PySide6.QtWidgets import QLabel, QFrame, QErrorMessage
-from file_renamer.lib.exceptions import Errors
+from PySide6.QtCore import Slot
+from file_renamer.lib.exceptions import Messages
+
 from file_renamer.lib.case_insensitive import CaseInsensitive
 
 
@@ -107,12 +107,12 @@ class Files(File):
             self.fr["ui"].rename_btn.setEnabled(False)
             self.filelist.clear()
             self.fr["ui"].dir_output.clear()
-            self.fr['error-msg'] = 'NO FILES FOUND!'
-            errors = Errors(**self.fr)
+            self.fr['msg-info'] = 'NO FILES FOUND!'
+            msg = Messages(**self.fr)
         except Exception:
             self.filelist.clear()
-            self.fr['error-msg'] = 'FILE LIMIT REACHED: ' + str(self.limit)
-            errors = Errors(**self.fr)
+            self.fr['msg-info'] = 'FILE LIMIT REACHED: ' + str(self.limit)
+            msg = Messages(**self.fr)
 
         else:
             self.filelist.sort()
@@ -164,8 +164,8 @@ class Files(File):
             else:
                 raise FileNotFoundError()
         except FileNotFoundError:
-            self.fr['error-msg'] = 'FILE NOT FOUND!'
-            errors = Errors(**self.fr)
+            self.fr['msg-info'] = 'FILE NOT FOUND!'
+            msg = Messages(**self.fr)
             return None
         else:
             return self.file
@@ -274,13 +274,17 @@ class Files(File):
             else:
                 os.replace(current_file, new_file)
             count += 1
-            self.fr["ui"].label.setText('RENAMED -> ' + self.fr["title"])
             self.fr["ui"].dir_output.append(str(self.changed[key]['path']))
             self.fr["ui"].dir_output.append(str(self.changed[key]['new']))
             self.fr["ui"].dir_output.append("")
         text = 'Total Files: ' + str(len(self.filelist))
         self.fr["ui"].dir_output.append(text)
         self.fr["ui"].dir_output.append("")
+        self.fr["ui"].label.setText('RENAMED -> ' + self.fr["title"])
+        self.fr['msg-type'] = 'info'
+        self.fr['msg-title'] = 'INFO'
+        self.fr['msg-info'] = 'FILE(S) RENAMED!'
+        msg = Messages(**self.fr)
         self.fr["ui"].rename_btn.setEnabled(False)
 
     @Slot()
@@ -298,4 +302,4 @@ class Files(File):
             self.fr["ui"].dir_output.append("")
             self.fr["ui"].rename_btn.setEnabled(True)
         else:
-            logging.info('Unkown')
+            logging.info('Unknown')

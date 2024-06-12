@@ -50,8 +50,9 @@ def start_app(**fr):
         "page-id": "app",
         "theme": "light",
         "theme-path": "",
-        "error-title": "ERROR",
-        "error-msg": "Unknown"
+        "msg-type": "info",
+        "msg-title": "MESSAGE",
+        "msg-info": "Unknown"
     }
 
     theme_file = 'themes/' + fr['theme'] + '/default.qss'
