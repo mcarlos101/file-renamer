@@ -46,7 +46,7 @@ file_renamer() {
 
 	build_linux_binary() {
         python -m nuitka \
-            --onefile \
+            --standalone \
             --output-filename=file-renamer \
             --output-dir=deploy \
             --include-data-dir=/data/fr/file-renamer/icons=icons \
