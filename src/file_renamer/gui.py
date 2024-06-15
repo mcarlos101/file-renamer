@@ -176,6 +176,17 @@ class MainWindow(QMainWindow):
         if qss:
             self.fr['app'].setStyleSheet(qss)
             logging.info('theme set: %s', self.fr['theme'])
+            if self.fr['page-id'] == 'show_version':
+                self.show_version()
+            elif self.fr['page-id'] == 'show_license':
+                self.show_license()
+            elif self.fr['page-id'] == 'show_qt_for_python':
+                self.show_qt_for_python()
+            elif self.fr['page-id'] == 'show_peace':
+                self.show_peace()
+            elif self.fr['page-id'] == 'show_rbe':
+                self.show_rbe()
+
         else:
             logging.info('theme NOT set: %s', self.fr['theme'])
 
