@@ -16,9 +16,11 @@ class DarkLinux(Theme):
         logging.info(inspect.stack()[0].function)
 
         self.theme = """
-QMainWindow {
+QWidget {
     background-color: #212529;
-    color: #dce0e4;
+    color: white;
+    font-style: normal;
+    font-weight: bold;
 }
 
 QMenu {
@@ -55,6 +57,13 @@ QLabel {
 QLabel#label {
     color: #dce0e4;
     font-weight: bold;
+}
+
+QLabel#search_label, #replace_label {
+    color: #dce0e4;
+    font-weight: bold;
+    padding: 3px 3px;
+    border: 1px solid gray;
 }
 
 QLineEdit, QTextEdit {
