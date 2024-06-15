@@ -10,7 +10,6 @@ from PySide6.QtWebEngineWidgets import QWebEngineView
 from file_renamer.widget import Widget
 from file_renamer.lib.html import WebUI
 from file_renamer.lib.exceptions import Messages
-import file_renamer.rc_themes
 
 
 class MainWindow(QMainWindow):
@@ -44,52 +43,62 @@ class MainWindow(QMainWindow):
 
     def menu(self):
         logging.info(inspect.stack()[0].function)  # method name
+
+        # Linux icons
+        app_icon = QIcon.fromTheme("application-x-executable")
+        # app_icon = QIcon('icons/file-renamer-32x32.png')
+        html_icon = QIcon.fromTheme("text-html")
+        exit_icon = QIcon.fromTheme("application-exit")
+        video_icon = QIcon.fromTheme("video-x-generic")
+
         app_menu = self.menuBar().addMenu("&App")
-        # icon = QIcon('icons/file-renamer-32x32.png')
-        icon = QIcon.fromTheme("application-x-executable")
-        app_action = QAction(icon, "&Load", self,
-                             triggered=self.show_widget)
+        app_action = QAction(
+            app_icon, "&Load", self, triggered=self.show_widget
+        )
         app_menu.addAction(app_action)
-        icon = QIcon.fromTheme("text-html")
-        version_action = QAction(icon, "&Version", self,
-                                 triggered=self.show_version)
+        version_action = QAction(
+            html_icon, "&Version", self, triggered=self.show_version
+        )
         app_menu.addAction(version_action)
-        icon = QIcon.fromTheme("application-exit")
-        exit_action = QAction(icon, "&Exit", self,
-                              shortcut="Ctrl+Q", triggered=self.close)
+        exit_action = QAction(
+            exit_icon, "&Exit", self, shortcut="Ctrl+Q",
+            triggered=self.close
+        )
         app_menu.addAction(exit_action)
 
-        icon = QIcon.fromTheme("text-html")
         theme_menu = self.menuBar().addMenu("&Theme")
         dark_theme_action = QAction(
-            icon, 'Dark', self, triggered=self.set_dark_theme
+            html_icon, 'Dark', self, triggered=self.set_dark_theme
         )
         theme_menu.addAction(dark_theme_action)
+
         light_theme_action = QAction(
-            icon, 'Light', self, triggered=self.set_light_theme
+            html_icon, 'Light', self, triggered=self.set_light_theme
         )
         theme_menu.addAction(light_theme_action)
 
-        icon = QIcon.fromTheme("text-html")
         license_menu = self.menuBar().addMenu("&License")
-        license_action = QAction(icon, "GPL", self,
-                                 triggered=self.show_license)
+        license_action = QAction(
+            html_icon, "GPL", self, triggered=self.show_license
+        )
         license_menu.addAction(license_action)
 
         qt_python_menu = self.menuBar().addMenu("&Qt for Python")
-        icon = QIcon.fromTheme("text-html")
-        qt_python_action = QAction(icon, "PySide", self,
-                                   triggered=self.show_qt_for_python)
+        qt_python_action = QAction(
+            html_icon, "PySide6", self, triggered=self.show_qt_for_python
+        )
         qt_python_menu.addAction(qt_python_action)
 
-        icon = QIcon.fromTheme("video-x-generic")
         imagine_menu = self.menuBar().addMenu("&Imagine")
-        peace_action = QAction(icon, "Peace on Earth", self,
-                               triggered=self.show_peace)
+        peace_action = QAction(
+            video_icon, "Peace on Earth", self, triggered=self.show_peace
+        )
         imagine_menu.addAction(peace_action)
 
-        rbe_action = QAction(icon, "Resource Based Economy", self,
-                             triggered=self.show_rbe)
+        rbe_action = QAction(
+            video_icon, "Resource Based Economy", self,
+            triggered=self.show_rbe
+        )
         imagine_menu.addAction(rbe_action)
 
     def show_widget(self):
@@ -136,37 +145,45 @@ class MainWindow(QMainWindow):
 
     def set_theme(self):
         logging.info(inspect.stack()[0].function)  # method name
-        self.fr['theme-path'] = QFile(':/themes/' + self.fr['theme'] +
-                                      '/default.qss')
-        try:
-            if self.fr['theme-path'].open(QIODevice.ReadOnly | QIODevice.Text):
-                stream = QTextStream(self.fr['theme-path'])
-            else:
-                raise FileNotFoundError()
-        except FileNotFoundError:
-            self.fr['msg-info'] = "Theme Not Found: " + self.fr['theme']
-            self.fr['msg-type'] = 'critical'
-            self.fr['msg-title'] = 'ERROR'
-            logging.error(self.fr['msg-info'])
-            msg = Messages(**self.fr)
+
+        logging.info('self.fr["theme"]: %s', self.fr["theme"])
+        qss = ""
+        logging.info('self.fr["platform"]: %s', self.fr["platform"])
+        if self.fr["platform"] == "Windows":
+            if self.fr['theme'] == 'light':
+                from file_renamer.themes.light.light_windows import (
+                    LightWindows
+                )
+                style = LightWindows()
+                qss = style.theme
+                logging.info('qss: %s', qss)
+            elif self.fr['theme'] == 'dark':
+                from file_renamer.themes.dark.dark_windows import DarkWindows
+                style = DarkWindows()
+                qss = style.theme
+                logging.info('qss: %s', qss)
         else:
-            self.fr['app'].setStyleSheet(stream.readAll())
-        finally:
-            if self.fr['page-id'] == 'show_version':
-                self.show_version()
-            elif self.fr['page-id'] == 'show_license':
-                self.show_license()
-            elif self.fr['page-id'] == 'show_qt_for_python':
-                self.show_qt_for_python()
-            elif self.fr['page-id'] == 'show_peace':
-                self.show_peace()
-            elif self.fr['page-id'] == 'show_rbe':
-                self.show_rbe()
+            if self.fr['theme'] == 'light':
+                from file_renamer.themes.light.light_linux import LightLinux
+                style = LightLinux()
+                qss = style.theme
+                logging.info('qss: %s', qss)
+            elif self.fr['theme'] == 'dark':
+                from file_renamer.themes.dark.dark_linux import DarkLinux
+                style = DarkLinux()
+                qss = style.theme
+                logging.info('qss: %s', qss)
+        if qss:
+            self.fr['app'].setStyleSheet(qss)
+            logging.info('theme set: %s', self.fr['theme'])
+        else:
+            logging.info('theme NOT set: %s', self.fr['theme'])
 
     @Slot()
     def set_dark_theme(self):
         logging.info(inspect.stack()[0].function)  # method name
-        if self.fr['theme'] == 'light':
+        logging.info('self.fr["theme"]: %s', self.fr["theme"])
+        if self.fr['theme'] != 'dark':
             self.fr['theme'] = 'dark'
             logging.info('self.fr["theme"]: %s', self.fr["theme"])
             self.set_theme()
@@ -174,7 +191,8 @@ class MainWindow(QMainWindow):
     @Slot()
     def set_light_theme(self):
         logging.info(inspect.stack()[0].function)  # method name
-        if self.fr['theme'] == 'dark':
+        logging.info('self.fr["theme"]: %s', self.fr["theme"])
+        if self.fr['theme'] != 'light':
             self.fr['theme'] = 'light'
             logging.info('self.fr["theme"]: %s', self.fr["theme"])
             self.set_theme()

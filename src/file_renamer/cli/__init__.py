@@ -8,7 +8,6 @@ from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QDir, QFile, QFileInfo, QIODevice, QTextStream
 from file_renamer.gui import MainWindow
 from file_renamer.version import __version__
-import file_renamer.rc_themes
 
 
 def start_app(**fr):
@@ -28,14 +27,15 @@ def start_app(**fr):
     logger.info(__file__)
     function = inspect.stack()[0].function
     logger.info(function)
-    logger.info('platform: %s', platform.system())
+    sys_platform = platform.system()
+    logger.info('sys_platform: %s', sys_platform)
 
     # File Renamer dict
     fr = {
         "home": home,
         "logfile": logfile,
         "app": "",
-        "platform": platform,
+        "platform": sys_platform,
         "widget": None,
         "ui": None,
         "path": "",
@@ -49,8 +49,7 @@ def start_app(**fr):
         "html_title": "",
         "html_body": "",
         "page-id": "app",
-        "theme": "light",
-        "theme-path": "",
+        "theme": 'light',
         "msg-type": "info",
         "msg-title": "MESSAGE",
         "msg-info": "Unknown"
@@ -82,17 +81,33 @@ def start_app(**fr):
         window.resize(width, height)
         window.show()
 
-        fr['theme-path'] = QFile(':/themes/' + fr['theme'] + '/default.qss')
-        try:
-            if fr['theme-path'].open(QIODevice.ReadOnly | QIODevice.Text):
-                stream = QTextStream(fr['theme-path'])
-            else:
-                raise FileNotFoundError()
-        except FileNotFoundError:
-            error = 'Theme Not Found: ' + fr['theme']
-            logger.error(error)
+        # Set theme
+        qss = ""
+        logger.info('fr["platform"]: %s', fr["platform"])
+        if fr["platform"] == "Windows":
+            if fr['theme'] == 'light':
+                from file_renamer.themes.light.light_windows import (
+                    LightWindows
+                )
+                style = LightWindows()
+                qss = style.theme
+                logger.info('qss: %s', qss)
+            elif fr['theme'] == 'dark':
+                from file_renamer.themes.dark.dark_windows import DarkWindows
+                style = DarkWindows()
+                qss = style.theme
+                logger.info('qss: %s', qss)
         else:
-            app.setStyleSheet(stream.readAll())
-            logger.info('set theme: %s', fr['theme'])
-        finally:
-            app.exec()
+            if fr['theme'] == 'light':
+                from file_renamer.themes.light.light_linux import LightLinux
+                style = LightLinux()
+                qss = style.theme
+                logger.info('qss: %s', qss)
+            elif fr['theme'] == 'dark':
+                from file_renamer.themes.dark.dark_linux import DarkLinux
+                style = DarkLinux()
+                qss = style.theme
+                logger.info('qss: %s', qss)
+        app.setStyleSheet(qss)
+        logger.info('theme set: %s', fr['theme'])
+        app.exec()

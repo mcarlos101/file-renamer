@@ -1,3 +1,21 @@
+import logging
+import inspect
+from pathlib import Path
+from abc import ABC, abstractmethod
+from file_renamer.themes.theme import Theme
+
+
+class DarkLinux(Theme):
+
+    def __init__(self):
+
+        # Log file, class & method names
+        logging.info("")
+        logging.info(__file__)
+        logging.info(self.__class__.__qualname__)
+        logging.info(inspect.stack()[0].function)
+
+        self.theme = """
 QMainWindow {
     background-color: #212529;
     color: #dce0e4;
@@ -95,3 +113,8 @@ QMessageBox {
     background-color: #212529;
     color: #dce0e4;
 }
+"""
+
+    def validate(self, value):
+        logging.info(inspect.stack()[0].function)  # method name
+        logging.info("validate")
