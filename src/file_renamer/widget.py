@@ -157,6 +157,7 @@ class Widget(QWidget):
     def clear(self):
         logging.info(inspect.stack()[0].function)  # method name
         self.fr["ui"].dir_output.clear()
+        self.fr["ui"].label.setText("PREVIEW")
         self.fr["ui"].rename_btn.setEnabled(False)
 
     def rename_files(self):
