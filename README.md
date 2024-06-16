@@ -49,6 +49,16 @@ Renamed
 
 ## Installation
 
+###  Linux
+1. Download latest [release](https://github.com/mcarlos101/file-renamer/releases)
+1. Unzip file & change into dir
+1. Right-click on file-renamer & launch app or run shell command `./file-renamer`
+
+### Windows
+1. Download latest [release](https://github.com/mcarlos101/file-renamer/releases)
+1. Unzip file & change into dir
+1. Right-click on file-renamer.exe & launch app
+
 ###  pip
 Install from [PyPi](https://pypi.org/project/file-renamer/)
 ```bash
