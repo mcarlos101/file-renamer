@@ -8,3 +8,4 @@ patchelf
 Nuitka
 pyinstaller
 twine
+xonsh[full]
