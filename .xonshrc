@@ -10,7 +10,13 @@ from pathlib import Path
 $XONSH_SHOW_TRACEBACK = True
 $XONSH_TRACEBACK_LOGFILE = os.path.expanduser('~') + "/xonsh.log"
 $RAISE_SUBPROC_ERROR = True
+
+$VIRTUALENV_HOME = "/data/fr/vox"
+xontrib load vox
+
+$PYTHONPATH = "/data/fr/file-renamer/src"
 $OPSYS = platform.system()
+$BACKUP = "/data"
 
 
 def frpath():
