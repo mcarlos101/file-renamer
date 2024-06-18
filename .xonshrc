@@ -11,13 +11,8 @@ $XONSH_SHOW_TRACEBACK = True
 $XONSH_TRACEBACK_LOGFILE = os.path.expanduser('~') + "/xonsh.log"
 $RAISE_SUBPROC_ERROR = True
 
-$VIRTUALENV_HOME = "/data/fr/vox"
-xontrib load vox
-
 $PYTHONPATH = "/data/fr/file-renamer/src"
 $OPSYS = platform.system()
-$BACKUP = "/data"
-
 
 def frpath():
     if $OPSYS == "Linux":
@@ -34,3 +29,11 @@ def frpath():
             print(f"Unexpected {err=}, {type(err)=}")
         else:
             print('Windows path')
+
+
+$VIRTUALENV_HOME = "/data/fr/vox"
+xontrib load vox
+vox activate dev
+frpath()
+
+$BACKUP = "/data"
