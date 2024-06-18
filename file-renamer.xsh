@@ -1,10 +1,11 @@
 #!/usr/bin/env xonsh
 
-print($ARGS)
+# print($ARGS)
 # print($ARG1)
 
 
 def run():
+    print('Run')
     try:
         python -m file_renamer
     except Exception as err:
@@ -14,6 +15,7 @@ def run():
         pass
 
 def build_wheel():
+    print('Build Wheel')
     try:
         if $OPSYS == "Linux":
             python -m build
@@ -26,8 +28,10 @@ def build_wheel():
         pass
 
 def build_binary():
+    print('Build Binary')
     try:
         if $OPSYS == "Linux":
+            print('Linux')
             python -m nuitka \
                 --onefile \
                 --output-filename=file-renamer \
@@ -36,6 +40,7 @@ def build_binary():
                 --enable-plugin=pyside6 \
                 /data/fr/file-renamer/src/file_renamer/__main__.py
         elif $OPSYS == "Windows":
+            print('Windows')
             python -m nuitka `
             --onefile `
             --output-filename=file-renamer `
@@ -50,6 +55,7 @@ def build_binary():
         pass
 
 def uninstall_wheel():
+    print('Uninstall File Renamer Wheel')
     try:
         pip uninstall -y PySide6 PySide6_Addons PySide6_Essentials shiboken6 Unidecode file-renamer
     except Exception as err:
@@ -59,6 +65,7 @@ def uninstall_wheel():
         pass
 
 def install_wheel():
+    print('Install File Renamer Wheel')
     try:
         pip install dist/file_renamer-*.whl
     except Exception as err:
@@ -68,6 +75,7 @@ def install_wheel():
         pass
 
 def upload_pypi():
+    print('PyPi Upload Wheel')
     if $OPSYS == "Linux":
         python -m twine upload dist/file_renamer-*
     elif $OPSYS == "Windows":
@@ -75,7 +83,7 @@ def upload_pypi():
 
 def main():
 
-    print('len: ', len($ARGS))
+    # print('len: ', len($ARGS))
     if len($ARGS) > 1:
         if $ARG1 == "run":
             run()
