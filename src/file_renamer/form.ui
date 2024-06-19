@@ -142,6 +142,11 @@
           <string>Remove ID</string>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>Number</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item row="0" column="1">

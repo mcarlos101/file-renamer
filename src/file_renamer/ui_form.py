@@ -93,6 +93,7 @@ class Ui_Widget(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
+        self.comboBox.addItem("")
         self.comboBox.setObjectName(u"comboBox")
 
         self.gridLayout_3.addWidget(self.comboBox, 0, 0, 1, 1)
@@ -202,6 +203,7 @@ class Ui_Widget(object):
         self.comboBox.setItemText(7, QCoreApplication.translate("Widget", u"Lower Case", None))
         self.comboBox.setItemText(8, QCoreApplication.translate("Widget", u"Title Case", None))
         self.comboBox.setItemText(9, QCoreApplication.translate("Widget", u"Remove ID", None))
+        self.comboBox.setItemText(10, QCoreApplication.translate("Widget", u"Number", None))
 
         self.clear_btn.setText(QCoreApplication.translate("Widget", u"CLEAR", None))
         self.rename_btn.setText(QCoreApplication.translate("Widget", u"RENAME", None))

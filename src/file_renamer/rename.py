@@ -433,6 +433,35 @@ class Rename:
         else:
             self.files.preview(self.data, **self.fr)
 
+    def number(self, **fr):
+        logging.info(inspect.stack()[0].function)  # method name
+        self.fr = fr
+        self.data['count'] = 0
+        self.files.print_title(**self.fr)
+        self.files.find(**self.fr)
+        filename = ""
+        filename2 = ""
+        regex = ""
+        try:
+            for filename in self.files.filelist:
+                self.fr["filename"] = Path(filename)
+                logging.info('fr["filename"]: %s', self.fr["filename"])
+                self.file.clear()
+                self.file = self.files.split_name(**self.fr)
+
+                filename2 = self.check_options(**self.fr)
+
+                self.file['new'] = f"{self.data['count']:04d}"
+
+                self.update_options(**self.fr)
+                self.files.compare(self.file, self.data, **self.fr)
+        except SystemError as err:
+            self.files.filelist.clear()
+            self.fr['msg-info'] = err
+            msg = Messages(**self.fr)
+        else:
+            self.files.preview(self.data, **self.fr)
+
     def search_replace(self, **fr):
         logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr

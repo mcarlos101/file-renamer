@@ -131,6 +131,8 @@ class Widget(QWidget):
                 self.rename.title_case(**self.fr)
             elif index == 9:
                 self.rename.remove_ids(**self.fr)
+            elif index == 10:
+                self.rename.number(**self.fr)
         elif index >= 1 and len(self.rename.files.filelist) == 0:
             self.open_dir()
             self.fr["title"] = self.fr["ui"].comboBox.currentText()
@@ -153,6 +155,8 @@ class Widget(QWidget):
                     self.rename.title_case(**self.fr)
                 elif index == 9:
                     self.rename.remove_ids(**self.fr)
+                elif index == 10:
+                    self.rename.number(**self.fr)
 
     def clear(self):
         logging.info(inspect.stack()[0].function)  # method name
