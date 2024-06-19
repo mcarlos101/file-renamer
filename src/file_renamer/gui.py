@@ -295,7 +295,7 @@ class MainWindow(QMainWindow):
     def show_peace(self):
         logging.info(inspect.stack()[0].function)  # method name
         if self.fr['page-id'] != 'peace':
-            import file_renamer.html.rc_imagine
+            import file_renamer.html.imagine
             title = "Imagine Peace On Earth"
             body = """
             <div class="container text-center">
@@ -333,7 +333,7 @@ class MainWindow(QMainWindow):
     def show_rbe(self):
         logging.info(inspect.stack()[0].function)  # method name
         if self.fr['page-id'] != 'rbe':
-            import file_renamer.html.rc_rbe
+            import file_renamer.html.rbe
             title = "Resource Based Economy"
             body = """
             <div class="container text-center">
