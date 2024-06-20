@@ -116,23 +116,28 @@ class Files(File):
 
         else:
             self.filelist.sort()
-            self.fr["case_insensitive_val"] = \
+            self.case_insensitive_val = \
                 self.case_insensitive.check(fr["path"])
             logging.info(
-                'self.fr["case_insensitive_val"]: %s',
-                self.fr["case_insensitive_val"]
+                'self.case_insensitive_val: %s',
+                self.case_insensitive_val
             )
 
     @Slot()
     def list(self, **fr):
         logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
+        count = 0
         text = ""
         if self.filelist:
             self.fr["title"] = "LIST FILES"
             self.print_title(**fr)
             for file in self.filelist:
+                count += 1
+                text = "File " + str(count)
+                self.fr["ui"].dir_output.append(text)
                 self.fr["ui"].dir_output.append(str(file))
+                self.fr["ui"].dir_output.append("")
             self.fr["ui"].dir_output.append("")
             text = 'Total Files: ' + str(len(self.filelist))
             self.fr["ui"].dir_output.append(text)
@@ -177,7 +182,7 @@ class Files(File):
         logging.info("data: %s", data)
         file["current"] = ""
         text = ""
-        file_exists = True
+        file_exists = False
         logging.info('file["name"]: %s', file["name"])
         logging.info('file["base"]: %s', file["base"])
         logging.info('file["new"] : %s', file["new"])
@@ -200,7 +205,7 @@ class Files(File):
             'self.case_insensitive_val: %s',
             self.case_insensitive_val
         )
-        if self.case_insensitive_val:
+        if self.case_insensitive_val == "NO":
             logging.info(
                 'file["current"].lower(): %s',
                 file["current"].lower()
@@ -212,22 +217,38 @@ class Files(File):
             if file["current"] == file["new"]:
                 logging.info('No change')
                 file_exists = True
+                logging.info('file_exists: %s', file_exists)
+                # self.fr["ui"].dir_output.append(str(Path(os.path.join(file["dir"]), file["current"])))
+                # self.fr["ui"].dir_output.append(str(Path(os.path.join(file["dir"]), file["new"])))
+                # self.fr["ui"].dir_output.append("")
             elif file["current"] != file["new"]:
                 logging.info('Changed')
-                # Track lower or title case change
-                logging.info(
-                    'self.fr["case_change"]: %s', self.fr["case_change"]
-                )
-                if self.fr["case_change"]:
-                    if file["current"].lower() == file["new"].lower():
+                logging.info('file["current"]: %s', file["current"])
+                logging.info('file["new"]: %s', file["new"])
+
+                for filename in self.filelist:
+                    filename = os.path.basename(filename)
+                    logging.info('filename: %s', filename)
+                    if file["new"] == filename:
+                        file_exists = True
+                        logging.info('file["new"] == file')
+                        logging.info('file_exists: %s', file_exists)
+
+                if file_exists is False:
+                    # Track lower or title case change
+                    logging.info(
+                        'self.fr["case_change"]: %s', self.fr["case_change"]
+                    )
+                    if self.fr["case_change"]:
+                        if file["current"].lower() == file["new"].lower():
+                            file_exists = False
+                            logging.info('file_exists: %s', file_exists)
+                        elif file["current"].lower() != file["new"].lower():
+                            file_exists = False
+                            logging.info('file_exists: %s', file_exists)
+                    else:
                         file_exists = False
                         logging.info('file_exists: %s', file_exists)
-                    elif file["current"].lower() != file["new"].lower():
-                        file_exists = False
-                        logging.info('file_exists: %s', file_exists)
-                else:
-                    file_exists = False
-                    logging.info('file_exists: %s', file_exists)
         else:
             file_exists = os.path.exists(
                 (Path(os.path.join(file["dir"]), file["new"]))
@@ -253,6 +274,8 @@ class Files(File):
             )
             logging.info('data["count"]: %s', data["count"])
             self.fr["ui"].label.setText('PREVIEW -> ' + self.fr["title"])
+            text = "Preview "  + str(data["count"])
+            self.fr["ui"].dir_output.append(text)
             self.fr["ui"].dir_output.append(str(self.changed[num]["path"]))
             self.fr["ui"].dir_output.append(str(self.changed[num]["new"]))
             self.fr["ui"].dir_output.append("")
@@ -267,7 +290,7 @@ class Files(File):
         for key in self.changed.keys():
             current_file = self.changed[key]['path']
             new_file = self.changed[key]['new']
-            if self.case_insensitive_val:
+            if self.case_insensitive_val == "NO":
                 tmp_file = str(current_file) + '.tmp'
                 os.replace(current_file, tmp_file)
                 os.replace(tmp_file, new_file)
@@ -297,9 +320,9 @@ class Files(File):
             self.fr["ui"].dir_output.append("")
             self.fr["ui"].rename_btn.setEnabled(False)
         elif data["count"] > 0:
-            text = 'Total Files: ' + str(len(self.filelist))
-            self.fr["ui"].dir_output.append(text)
-            self.fr["ui"].dir_output.append("")
+            # text = 'Preview: ' + str(data["count"])
+            # self.fr["ui"].dir_output.append(text)
+            # self.fr["ui"].dir_output.append("")
             self.fr["ui"].rename_btn.setEnabled(True)
         else:
             logging.info('Unknown')
