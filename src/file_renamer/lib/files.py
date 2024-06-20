@@ -130,6 +130,7 @@ class Files(File):
         count = 0
         text = ""
         if self.filelist:
+            self.filelist.sort()
             self.fr["title"] = "LIST FILES"
             self.print_title(**fr)
             for file in self.filelist:
@@ -138,10 +139,8 @@ class Files(File):
                 self.fr["ui"].dir_output.append(text)
                 self.fr["ui"].dir_output.append(str(file))
                 self.fr["ui"].dir_output.append("")
-            self.fr["ui"].dir_output.append("")
             text = 'Total Files: ' + str(len(self.filelist))
             self.fr["ui"].dir_output.append(text)
-            self.fr["ui"].dir_output.append("")
 
     def split_name(self, **fr):
         logging.info(inspect.stack()[0].function)  # method name
@@ -218,18 +217,16 @@ class Files(File):
                 logging.info('No change')
                 file_exists = True
                 logging.info('file_exists: %s', file_exists)
-                # self.fr["ui"].dir_output.append(str(Path(os.path.join(file["dir"]), file["current"])))
-                # self.fr["ui"].dir_output.append(str(Path(os.path.join(file["dir"]), file["new"])))
-                # self.fr["ui"].dir_output.append("")
             elif file["current"] != file["new"]:
                 logging.info('Changed')
                 logging.info('file["current"]: %s', file["current"])
                 logging.info('file["new"]: %s', file["new"])
 
                 for filename in self.filelist:
-                    filename = os.path.basename(filename)
+                    # filename = os.path.basename(filename)
                     logging.info('filename: %s', filename)
-                    if file["new"] == filename:
+                    new_file = (Path(os.path.join(file["dir"]), file["new"]))
+                    if new_file == Path(filename):
                         file_exists = True
                         logging.info('file["new"] == file')
                         logging.info('file_exists: %s', file_exists)
