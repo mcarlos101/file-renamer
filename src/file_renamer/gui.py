@@ -1,15 +1,14 @@
 import logging
 import inspect
 import PySide6.QtCore
-from PySide6.QtCore import (Slot, QDir, QFile, QIODevice,
-                            QTextStream)
+from PySide6.QtCore import (Slot, QDir)
 from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import (
-    QWidget, QMainWindow, QTextEdit, QToolBar)
+    QWidget, QMainWindow, QTextEdit, QToolBar
+)
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from file_renamer.widget import Widget
 from file_renamer.lib.html import WebUI
-from file_renamer.lib.exceptions import Messages
 
 
 class MainWindow(QMainWindow):
@@ -221,20 +220,23 @@ class MainWindow(QMainWindow):
         logging.info(inspect.stack()[0].function)  # method name
         if self.fr['page-id'] != 'license':
             title = "License"
+
             body = """
             <div class="container">
                 <h1>Copyright (C) 2024  Carlos</h1>
-    
-                <p>This program is free software: you can redistribute it and/or
-                modify it under the terms of the GNU General Public License as
-                published by the Free Software Foundation, either version 3 of the
-                License, or (at your option) any later version.</p>
-    
-                <p>This program is distributed in the hope that it will be useful,
-                but WITHOUT ANY WARRANTY; without even the implied warranty of
-                MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-                GNU General Public License for more details.</p>
-    
+
+                <p>This program is free software: you can redistribute it
+                and/or modify it under the terms of the GNU General Public
+                License as published by the Free Software Foundation, either
+                version 3 of the License, or (at your option) any later
+                version.</p>
+
+                <p>This program is distributed in the hope that it will be
+                useful, but WITHOUT ANY WARRANTY; without even the implied
+                warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+                PURPOSE.  See the GNU General Public License for more
+                details.</p>
+
                 <p>You should have received a copy of the GNU General Public
                 License along with this program.  If not, see
                 https://www.gnu.org/licenses/.</p>
@@ -252,9 +254,9 @@ class MainWindow(QMainWindow):
             body = """
             <div class="container">
                 <h1>Qt for Python</h1>
-    
-                <div class="p-3 text-primary-emphasis bg-primary-subtle border \
-                    border-primary-subtle rounded-3">
+
+                <div class="p-3 text-primary-emphasis bg-primary-subtle \
+                    border border-primary-subtle rounded-3">
                     Versions
                     <ul>
                         <li>
@@ -266,24 +268,24 @@ class MainWindow(QMainWindow):
                         </li>
                     </ul>
                 </div>
-    
-                <p>Qt for Python offers the official Python bindings for Qt, which
-                enables you to use Python to write your Qt applications. The
-                project has two main components:</p>
+
+                <p>Qt for Python offers the official Python bindings for Qt,
+                which enables you to use Python to write your Qt applications.
+                The project has two main components:</p>
                     <ol>
-                        <li>PySide6, so that you can use Qt6 APIs in your Python
-                        applications, and</li>
-    
-                        <li>Shiboken6, a binding generator tool, which can be used
-                        to expose C++ projects to Python, and a Python module with
-                        some utility functions.</li>
+                        <li>PySide6, so that you can use Qt6 APIs in your
+                            Python applications, and</li>
+
+                        <li>Shiboken6, a binding generator tool, which can be
+                            used to expose C++ projects to Python, and a Python
+                            module with some utility functions.</li>
                     </ol>
                 <p>This project is available under the LGPLv3/GPLv3 and the Qt
                 commercial license.</p>
-    
+
                 <p>Qt for Python<br>
                 https://www.qt.io/qt-for-python</p>
-    
+
                 <p>Docs<br>
                 https://doc.qt.io/qtforpython-6/</p>
             </div>"""
@@ -303,7 +305,8 @@ class MainWindow(QMainWindow):
                 <div class="row">
                     <h1>""" + title + """</h1>
                     <video controls autoplay>
-                      <source src='qrc:/imagine_mp4' type="video/mp4" codecs="vp9">
+                        <source src='qrc:/imagine_mp4' type="video/mp4" \
+                        codecs="vp9">
                     Your browser does not support the video tag.
                     </video>
                 </div>
@@ -314,14 +317,14 @@ class MainWindow(QMainWindow):
                     Song: John Lennon - Imagine (1971)<br>
                     Background Image: https://pngkit.com</p>
                 <p>
-                    Copyright Disclaimer under Section 107 of the Copyright Act of
-                    1976: Allowance is made for "fair use" for purposes such as
-                    criticism, comment, news reporting, teaching, scholarship,
-                    education, and research.<br>
+                    Copyright Disclaimer under Section 107 of the Copyright Act
+                    of 1976: Allowance is made for "fair use" for purposes such
+                    as criticism, comment, news reporting, teaching,
+                    scholarship, education, and research.<br>
                     Fair use is a use permitted by copyright statute that might
                     otherwise be infringing.<br>
-                    All rights and credit go directly to its rightful owners. No
-                    copyright infringement is intended.
+                    All rights and credit go directly to its rightful owners.
+                    No copyright infringement is intended.
                 </p>
             </div>
     """
@@ -357,14 +360,14 @@ class MainWindow(QMainWindow):
                     Background Image: https://www.resourcebasedeconomy.org
                 </p>
                 <p>
-                    Copyright Disclaimer under Section 107 of the Copyright Act of
-                    1976: Allowance is made for "fair use" for purposes such as
-                    criticism, comment, news reporting, teaching, scholarship,
-                    education, and research.<br>
+                    Copyright Disclaimer under Section 107 of the Copyright Act
+                    of 1976: Allowance is made for "fair use" for purposes such
+                    as criticism, comment, news reporting, teaching,
+                    scholarship, education, and research.<br>
                     Fair use is a use permitted by copyright statute that might
                     otherwise be infringing.<br>
-                    All rights and credit go directly to its rightful owners. No
-                    copyright infringement is intended.
+                    All rights and credit go directly to its rightful owners.
+                    No copyright infringement is intended.
                 </p>
             </div>"""
             self.fr['html_title'] = title

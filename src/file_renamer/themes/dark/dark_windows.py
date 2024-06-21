@@ -1,7 +1,5 @@
 import logging
 import inspect
-from pathlib import Path
-from abc import ABC, abstractmethod
 from file_renamer.themes.theme import Theme
 
 

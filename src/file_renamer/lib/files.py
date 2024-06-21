@@ -145,9 +145,13 @@ class Files(File):
             if self.fr["platform"] == "Linux":
                 logging.info('theme list files: %s', self.fr['theme'])
                 if self.fr['theme'] == 'light':
-                    self.fr["ui"].label.setStyleSheet("color: white; background-color: gray;")
+                    self.fr["ui"].label.setStyleSheet(
+                        "color: white; background-color: gray;"
+                    )
                 elif self.fr['theme'] == 'dark':
-                    self.fr["ui"].label.setStyleSheet("color: white; background-color: black;")
+                    self.fr["ui"].label.setStyleSheet(
+                        "color: white; background-color: black;"
+                    )
 
     def split_name(self, **fr):
         logging.info(inspect.stack()[0].function)  # method name
@@ -278,8 +282,10 @@ class Files(File):
             )
             logging.info('data["count"]: %s', data["count"])
             self.fr["ui"].label.setText('PREVIEW -> ' + self.fr["title"])
-            self.fr["ui"].label.setStyleSheet("color: white; background-color: #0080ff;")
-            text = "Preview "  + str(data["count"])
+            self.fr["ui"].label.setStyleSheet(
+                "color: white; background-color: #0080ff;"
+            )
+            text = "Preview " + str(data["count"])
             self.fr["ui"].dir_output.append(text)
             self.fr["ui"].dir_output.append(str(self.changed[num]["path"]))
             self.fr["ui"].dir_output.append(str(self.changed[num]["new"]))
@@ -302,7 +308,7 @@ class Files(File):
             else:
                 os.replace(current_file, new_file)
             count += 1
-            text = "Renamed "  + str(count)
+            text = "Renamed " + str(count)
             self.fr["ui"].dir_output.append(text)
             self.fr["ui"].dir_output.append(str(self.changed[key]['path']))
             self.fr["ui"].dir_output.append(str(self.changed[key]['new']))
@@ -311,7 +317,9 @@ class Files(File):
         self.fr["ui"].dir_output.append(text)
         self.fr["ui"].dir_output.append("")
         self.fr["ui"].label.setText('RENAMED -> ' + self.fr["title"])
-        self.fr["ui"].label.setStyleSheet("color: white; background-color: maroon;")
+        self.fr["ui"].label.setStyleSheet(
+            "color: white; background-color: maroon;"
+        )
         self.fr["ui"].rename_btn.setEnabled(False)
 
     @Slot()

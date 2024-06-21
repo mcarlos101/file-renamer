@@ -1,18 +1,6 @@
-import sys
-import os
-import re
 import logging
-import os.path
 import inspect
-from pathlib import Path
 from abc import ABC, abstractmethod
-from PySide6.QtCore import Slot, QDir, QUrl, QFile
-from PySide6.QtGui import QAction, QIcon
-from PySide6.QtWidgets import (
-    QWidget, QMainWindow, QTextEdit, QToolBar, QApplication)
-from PySide6.QtWebEngineWidgets import QWebEngineView
-from file_renamer.lib.exceptions import Messages
-from file_renamer.lib.case_insensitive import CaseInsensitive
 import file_renamer.html.rc_ui
 
 

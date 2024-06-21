@@ -1,4 +1,3 @@
-import sys
 import re
 import logging
 import unidecode
