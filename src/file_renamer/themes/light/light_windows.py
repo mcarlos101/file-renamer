@@ -57,8 +57,10 @@ QLabel {
 }
 
 QLabel#label {
-    color: black;
+    color: white;
+    background-color: gray;
     font-weight: bold;
+    padding: 3px;
 }
 
 QLabel#search_label, #replace_label {
@@ -84,7 +86,7 @@ QPushButton {
 }
 
 QPushButton:hover {
-    background-color: black;
+    background-color: gray;
     color: white;
     font-weight: bold;
     padding: 4px 5px;
@@ -95,9 +97,16 @@ QPushButton:pressed {
     color: black;
 }
 
+QPushButton#rename_btn:hover {
+    color: white;
+    background-color: maroon;
+    font-weight: bold;
+    padding: 4px 5px;
+}
+
 QComboBox {
     background-color: white;
-    color: black;
+    color: gray;
 }
 
 QComboBox QAbstractItemView {
@@ -111,15 +120,14 @@ QComboBox::item {
 }
 
 QComboBox::item:selected {
-    background-color: black;
+    background-color: gray;
     color: white;
 }
 
 QMessageBox {
     background-color: white;
-    color: black;
+    color: gray;
 }
-
 """
 
     def validate(self, value):

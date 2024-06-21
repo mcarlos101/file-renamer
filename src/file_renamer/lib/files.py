@@ -6,6 +6,7 @@ import os.path
 from pathlib import Path
 from abc import ABC, abstractmethod
 from PySide6.QtCore import Slot
+
 from file_renamer.lib.exceptions import Messages
 
 from file_renamer.lib.case_insensitive import CaseInsensitive
@@ -141,6 +142,12 @@ class Files(File):
                 self.fr["ui"].dir_output.append("")
             text = 'Total Files: ' + str(len(self.filelist))
             self.fr["ui"].dir_output.append(text)
+            if self.fr["platform"] == "Linux":
+                logging.info('theme list files: %s', self.fr['theme'])
+                if self.fr['theme'] == 'light':
+                    self.fr["ui"].label.setStyleSheet("color: white; background-color: gray;")
+                elif self.fr['theme'] == 'dark':
+                    self.fr["ui"].label.setStyleSheet("color: white; background-color: black;")
 
     def split_name(self, **fr):
         logging.info(inspect.stack()[0].function)  # method name
@@ -271,6 +278,7 @@ class Files(File):
             )
             logging.info('data["count"]: %s', data["count"])
             self.fr["ui"].label.setText('PREVIEW -> ' + self.fr["title"])
+            self.fr["ui"].label.setStyleSheet("color: white; background-color: #0080ff;")
             text = "Preview "  + str(data["count"])
             self.fr["ui"].dir_output.append(text)
             self.fr["ui"].dir_output.append(str(self.changed[num]["path"]))
@@ -294,17 +302,16 @@ class Files(File):
             else:
                 os.replace(current_file, new_file)
             count += 1
+            text = "Renamed "  + str(count)
+            self.fr["ui"].dir_output.append(text)
             self.fr["ui"].dir_output.append(str(self.changed[key]['path']))
             self.fr["ui"].dir_output.append(str(self.changed[key]['new']))
             self.fr["ui"].dir_output.append("")
-        text = 'Total Files: ' + str(len(self.filelist))
+        text = 'Total Files: ' + str(count)
         self.fr["ui"].dir_output.append(text)
         self.fr["ui"].dir_output.append("")
         self.fr["ui"].label.setText('RENAMED -> ' + self.fr["title"])
-        self.fr['msg-type'] = 'info'
-        self.fr['msg-title'] = 'INFO'
-        self.fr['msg-info'] = 'FILE(S) RENAMED!'
-        msg = Messages(**self.fr)
+        self.fr["ui"].label.setStyleSheet("color: white; background-color: maroon;")
         self.fr["ui"].rename_btn.setEnabled(False)
 
     @Slot()
@@ -317,9 +324,8 @@ class Files(File):
             self.fr["ui"].dir_output.append("")
             self.fr["ui"].rename_btn.setEnabled(False)
         elif data["count"] > 0:
-            # text = 'Preview: ' + str(data["count"])
-            # self.fr["ui"].dir_output.append(text)
-            # self.fr["ui"].dir_output.append("")
+            text = 'Total Files: ' + str(data["count"])
+            self.fr["ui"].dir_output.append(text)
             self.fr["ui"].rename_btn.setEnabled(True)
         else:
             logging.info('Unknown')

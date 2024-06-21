@@ -150,6 +150,7 @@ class MainWindow(QMainWindow):
 
         logging.info('self.fr["theme"]: %s', self.fr["theme"])
         qss = ""
+
         logging.info('self.fr["platform"]: %s', self.fr["platform"])
         if self.fr["platform"] == "Windows":
             if self.fr['theme'] == 'light':

@@ -57,6 +57,7 @@ QLabel {
 QLabel#label {
     color: #dce0e4;
     font-weight: bold;
+    padding: 3px;
 }
 
 QLabel#search_label, #replace_label {
@@ -94,6 +95,13 @@ QPushButton:hover {
 QPushButton:pressed {
     background-color: #dce0e4;
     color: #212529;
+}
+
+QPushButton#rename_btn:hover {
+    color: white;
+    background-color: maroon;
+    font-weight: bold;
+    padding: 4px 5px;
 }
 
 QComboBox {

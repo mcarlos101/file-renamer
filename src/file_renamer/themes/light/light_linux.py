@@ -52,8 +52,10 @@ QLabel {
 }
 
 QLabel#label {
-    color: black;
+    color: white;
+    background-color: gray;
     font-weight: bold;
+    padding: 3px;
 }
 
 QLineEdit, QTextEdit {
@@ -72,7 +74,7 @@ QPushButton {
 }
 
 QPushButton:hover {
-    background-color: black;
+    background-color: gray;
     color: white;
     font-weight: bold;
     padding: 4px 5px;
@@ -80,7 +82,14 @@ QPushButton:hover {
 
 QPushButton:pressed {
     background-color: white;
-    color: black;
+    color: gray;
+}
+
+QPushButton#rename_btn:hover {
+    color: white;
+    background-color: maroon;
+    font-weight: bold;
+    padding: 4px 5px;
 }
 
 QComboBox {
@@ -99,15 +108,14 @@ QComboBox::item {
 }
 
 QComboBox::item:selected {
-    background-color: black;
+    background-color: gray;
     color: white;
 }
 
 QMessageBox {
     background-color: white;
-    color: black;
+    color: gray;
 }
-
 """
 
     def validate(self, value):
