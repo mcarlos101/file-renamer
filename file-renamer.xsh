@@ -32,13 +32,7 @@ def build_binary():
     try:
         if $OPSYS == "Linux":
             print('Linux')
-            python -m nuitka \
-                --onefile \
-                --output-filename=file-renamer \
-                --output-dir=deploy \
-                --include-data-dir=/data/fr/file-renamer/icons=icons \
-                --enable-plugin=pyside6 \
-                /data/fr/file-renamer/src/file_renamer/__main__.py
+            pyside6-deploy -c pysidedeploy.spec
         elif $OPSYS == "Windows":
             print('Windows')
             python -m nuitka `

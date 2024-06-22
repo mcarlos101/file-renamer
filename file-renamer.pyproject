@@ -62,6 +62,15 @@
         "src/file_renamer/widget.py",
         ".xonshrc",
         ".gitignore",
-        ".gitattributes"
+        ".gitattributes",
+        "pysidedeploy.spec",
+        "src/file_renamer/icons/file-renamer-32x32.ico",
+        "src/file_renamer/icons/file-renamer-32x32.png",
+        "src/file_renamer/icons/file-renamer-512x512.icns",
+        "src/file_renamer/icons/file-renamer-512x512.png",
+        "src/file_renamer/icons/file-renamer-1024x1024.icns",
+        "src/file_renamer/icons/file-renamer-1024x1024.png",
+        "src/file_renamer/icons.qrc",
+        "src/file_renamer/rc_icons.py"
     ]
 }
