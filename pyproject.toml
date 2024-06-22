@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 packages = ["src/file_renamer"]
 
 [tool.hatch.build.targets.wheel.force-include]
-"icons" = "src/file_renamer/icons"
+# none
 
 [project]
 name = "file-renamer"
