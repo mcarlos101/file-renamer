@@ -313,9 +313,9 @@ class Files(File):
             self.fr["ui"].dir_output.append(text)
             self.fr["ui"].dir_output.append(str(current_file))
             self.fr["ui"].dir_output.append(str(new_file))
+            self.fr["ui"].dir_output.append("")
         text = 'Total Files: ' + str(count)
         self.fr["ui"].dir_output.append(text)
-        self.fr["ui"].dir_output.append("")
         self.fr["ui"].label.setText('RENAMED -> ' + self.fr["title"])
         self.fr["ui"].label.setStyleSheet(
             "color: white; background-color: maroon;"
