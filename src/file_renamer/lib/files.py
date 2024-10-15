@@ -6,9 +6,7 @@ import os.path
 from pathlib import Path
 from abc import ABC, abstractmethod
 from PySide6.QtCore import Slot
-
 from file_renamer.lib.exceptions import Messages
-
 from file_renamer.lib.case_insensitive import CaseInsensitive
 
 
@@ -250,7 +248,10 @@ class Files(File):
                             logging.info('current_file: %s', current_file)
                             if new_file == self.changed[current_file]:
                                 file_conflict = True
-                                logging.info('file_conflict: %s', file_conflict)
+                                logging.info(
+                                    'file_conflict: %s',
+                                    file_conflict
+                                )
                                 break
 
                 if file_exists is False and file_conflict is False:
@@ -278,14 +279,6 @@ class Files(File):
         logging.info('file_exists: %s', file_exists)
         if file_exists is False and file_conflict is False:
             data["count"] += 1
-            # num = data["count"]
-            # self.changed[num] = {}
-            # self.changed[num]["path"] = Path(
-            #    os.path.join(file["dir"]), file["current"]
-            # )
-            # self.changed[num]["new"] = Path(
-            #     os.path.join(file["dir"]), file["new"]
-            # )
             self.changed[self.fr["filename"]] = new_file
             self.fr["ui"].label.setText('PREVIEW -> ' + self.fr["title"])
             self.fr["ui"].label.setStyleSheet(
@@ -344,4 +337,4 @@ class Files(File):
             self.fr["ui"].dir_output.append(text)
             self.fr["ui"].rename_btn.setEnabled(True)
         else:
-            logging.info('Unknown')
+            logging.info('data["count"] unknown')
