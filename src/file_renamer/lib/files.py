@@ -191,8 +191,10 @@ class Files(File):
         self.fr = fr
         logging.info("data: %s", data)
         file["current"] = ""
+        new_file = ""
         text = ""
         file_exists = False
+        file_conflict = False
         logging.info('file["name"]: %s', file["name"])
         logging.info('file["base"]: %s', file["base"])
         logging.info('file["new"] : %s', file["new"])
@@ -237,12 +239,21 @@ class Files(File):
                     # filename = os.path.basename(filename)
                     logging.info('filename: %s', filename)
                     new_file = (Path(os.path.join(file["dir"]), file["new"]))
+                    logging.info('new_file: %s', new_file)
+                    logging.info('Path(filename): %s', Path(filename))
                     if new_file == Path(filename):
                         file_exists = True
-                        logging.info('file["new"] == file')
                         logging.info('file_exists: %s', file_exists)
+                        break
+                    else:
+                        for current_file in self.changed.keys():
+                            logging.info('current_file: %s', current_file)
+                            if new_file == self.changed[current_file]:
+                                file_conflict = True
+                                logging.info('file_conflict: %s', file_conflict)
+                                break
 
-                if file_exists is False:
+                if file_exists is False and file_conflict is False:
                     # Track lower or title case change
                     logging.info(
                         'self.fr["case_change"]: %s', self.fr["case_change"]
@@ -257,38 +268,33 @@ class Files(File):
                     else:
                         file_exists = False
                         logging.info('file_exists: %s', file_exists)
+
         else:
-            file_exists = os.path.exists(
+            file_exists_path = os.path.exists(
                 (Path(os.path.join(file["dir"]), file["new"]))
             )
-            logging.info('file_exists full path: %s', file_exists)
+            logging.info('file_exists_path: %s', file_exists_path)
 
         logging.info('file_exists: %s', file_exists)
-        if file_exists is False:
+        if file_exists is False and file_conflict is False:
             data["count"] += 1
-            num = data["count"]
-            self.changed[num] = {}
-            self.changed[num]["path"] = Path(
-                os.path.join(file["dir"]), file["current"]
-            )
-            self.changed[num]["new"] = Path(
-                os.path.join(file["dir"]), file["new"]
-            )
-            logging.info(
-                'self.changed[num]["path"]: %s', self.changed[num]["path"]
-            )
-            logging.info(
-                'self.changed[num]["new"]: %s', self.changed[num]["new"]
-            )
-            logging.info('data["count"]: %s', data["count"])
+            # num = data["count"]
+            # self.changed[num] = {}
+            # self.changed[num]["path"] = Path(
+            #    os.path.join(file["dir"]), file["current"]
+            # )
+            # self.changed[num]["new"] = Path(
+            #     os.path.join(file["dir"]), file["new"]
+            # )
+            self.changed[self.fr["filename"]] = new_file
             self.fr["ui"].label.setText('PREVIEW -> ' + self.fr["title"])
             self.fr["ui"].label.setStyleSheet(
                 "color: white; background-color: #0080ff;"
             )
             text = "Preview " + str(data["count"])
             self.fr["ui"].dir_output.append(text)
-            self.fr["ui"].dir_output.append(str(self.changed[num]["path"]))
-            self.fr["ui"].dir_output.append(str(self.changed[num]["new"]))
+            self.fr["ui"].dir_output.append(str(self.fr["filename"]))
+            self.fr["ui"].dir_output.append(str(new_file))
             self.fr["ui"].dir_output.append("")
 
     @Slot()
@@ -298,9 +304,11 @@ class Files(File):
         count = 0
         current_file = ""
         new_file = ""
-        for key in self.changed.keys():
-            current_file = self.changed[key]['path']
-            new_file = self.changed[key]['new']
+        for current_file in self.changed.keys():
+            logging.info('current_file: %s', current_file)
+            new_file = self.changed[current_file]
+            logging.info('new_file: %s', new_file)
+
             if self.case_insensitive_val == "NO":
                 tmp_file = str(current_file) + '.tmp'
                 os.replace(current_file, tmp_file)
@@ -310,8 +318,8 @@ class Files(File):
             count += 1
             text = "Renamed " + str(count)
             self.fr["ui"].dir_output.append(text)
-            self.fr["ui"].dir_output.append(str(self.changed[key]['path']))
-            self.fr["ui"].dir_output.append(str(self.changed[key]['new']))
+            self.fr["ui"].dir_output.append(str(current_file))
+            self.fr["ui"].dir_output.append(str(new_file))
             self.fr["ui"].dir_output.append("")
         text = 'Total Files: ' + str(count)
         self.fr["ui"].dir_output.append(text)
