@@ -15,7 +15,7 @@ authors = [
 ]
 description = "Rename files using a GUI desktop app for Linux & Windows. macOS not yet tested."
 readme = "README.md"
-requires-python = "==3.12.2"
+requires-python = "==3.11.10"
 dependencies = [
     "PySide6==6.7.0",
     "PySide6-Addons==6.7.0",
