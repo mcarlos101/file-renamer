@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['src/file_renamer/__main__.py'],
+    ['/data/fr/file-renamer/src/file_renamer/__main__.py'],
     pathex=[],
     binaries=[],
     datas=[],
