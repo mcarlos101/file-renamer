@@ -47,7 +47,7 @@ class WebUI(UI):
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>""" + self.fr['html_title'] + """</title>
-        <link href='qrc:/data/fr/file-renamer/src/file_renamer/html/css/bootstrap.min.css' rel="stylesheet">
+        <link href='qrc:/css/bootstrap.min.css' rel="stylesheet">
     </head>
     <body>"""
         return html_top
@@ -55,7 +55,7 @@ class WebUI(UI):
     def bottom(self):
         logging.info(inspect.stack()[0].function)  # method name
         html_bottom = """
-    <script src='qrc:/data/fr/file-renamer/src/file_renamer/html/js/bootstrap.bundle.min.js'></script>
+    <script src='qrc:/js/bootstrap.bundle.min.js'></script>
     </body>
 </html>"""
         return html_bottom

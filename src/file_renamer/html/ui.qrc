@@ -1,7 +1,7 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource>
-        <file>/data/fr/file-renamer/src/file_renamer/html/css/bootstrap.min.css</file>
-        <file>/data/fr/file-renamer/src/file_renamer/html/js/bootstrap.bundle.min.js</file>
+        <file>css/bootstrap.min.css</file>
+        <file>js/bootstrap.bundle.min.js</file>
     </qresource>
 </RCC>
