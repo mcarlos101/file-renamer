@@ -54,7 +54,7 @@
         "src/file_renamer/icons/file-renamer-32x32.png",
         "src/file_renamer/icons/file-renamer-512x512.icns",
         "src/file_renamer/icons/file-renamer-512x512.png",
-        "src/file_renamer/lib/case_insensitive.py",
+        "src/file_renamer/lib/case.py",
         "src/file_renamer/lib/exceptions.py",
         "src/file_renamer/lib/files.py",
         "src/file_renamer/lib/html.py",
@@ -68,7 +68,7 @@
         "src/file_renamer/ui_form.py",
         "src/file_renamer/version.py",
         "src/file_renamer/widget.py",
-        "windows/file-renamer.bat",
+        "windows/run.ps1",
         "xonsh/.xonshrc",
         "xonsh/file-renamer.xsh"
     ]
