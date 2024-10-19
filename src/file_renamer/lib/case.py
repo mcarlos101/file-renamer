@@ -5,7 +5,7 @@ from pathlib import Path
 from abc import ABC, abstractmethod
 
 
-class CaseSensitive(ABC):
+class Case(ABC):
 
     def __set_name__(self, owner, name):
         self.private_name = '_' + name
@@ -22,7 +22,7 @@ class CaseSensitive(ABC):
         pass
 
 
-class CaseInsensitive(CaseSensitive):
+class CaseSensitive(Case):
     def __init__(self, **fr):
 
         # Log file, class & method names
@@ -34,7 +34,7 @@ class CaseInsensitive(CaseSensitive):
         self.fr = fr
         logging.info('fr: %s', fr)
 
-        self.insensitive = "UNKOWN"
+        self.case_sensitive_val = False
         self.new_file_1 = "case-sensitive.txt.tmp"
         self.new_file_2 = "CASE-SENSITIVE.TXT.TMP"
 
@@ -44,44 +44,36 @@ class CaseInsensitive(CaseSensitive):
 
     def check(self, path):
         logging.info(inspect.stack()[0].function)  # method name
-        count = 0
-        if len(str(path)):
-            pass
-        else:
-            path = os.path.expanduser('~') + '/Test'
+        count = 0 # Num of files created
         self.new_file_1 = Path(os.path.join(path), self.new_file_1)
         self.new_file_2 = Path(os.path.join(path), self.new_file_2)
         try:
-            f1 = open(self.new_file_1, "x")
-            if f1:
-                f1.close()
-            else:
-                raise FileExistsError()
+            with open(self.new_file_1, 'x') as f1:
+                count += 1
+                logging.info(f"File '{self.new_file_1}' created")
         except FileExistsError:
-            logging.info(f"File '{self.new_file_1}' already exists.")
-        else:
-            count += 1
-            logging.info(f"File '{self.new_file_1}' created.")
-
+            logging.info(f"File '{self.new_file_1}' already exists")
         try:
-            f2 = open(self.new_file_2, "x")
-            if f2:
-                f2.close()
-            else:
-                raise FileExistsError()
+            with open(self.new_file_2, 'x') as f2:
+                count += 1
+                logging.info(f"File '{self.new_file_2}' created")
         except FileExistsError:
-            logging.info(f"File '{self.new_file_2}' already exists.")
-        else:
-            count += 1
-            logging.info(f"File '{self.new_file_2}' created.")
-
+            logging.info(f"File '{self.new_file_2}' already exists")
         logging.info('count: %s', count)
         if count == 2:
-            self.insensitive = "NO"
+            self.case_sensitive_val = True
+            logging.info(
+                'self.case_sensitive_val: %s', self.case_sensitive_val
+            )
             os.remove(self.new_file_1)
             os.remove(self.new_file_2)
+            logging.info(f"File '{self.new_file_1}' deleted")
+            logging.info(f"File '{self.new_file_2}' deleted")
         elif count == 1:
-            self.insensitive = "YES"
+            self.case_sensitive_val = False
+            logging.info(
+                'self.case_sensitive_val: %s', self.case_sensitive_val
+            )
             os.remove(self.new_file_1)
-
-        return self.insensitive
+            logging.info(f"File '{self.new_file_1}' deleted")
+        return self.case_sensitive_val

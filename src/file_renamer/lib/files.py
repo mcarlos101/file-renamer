@@ -7,7 +7,7 @@ from pathlib import Path
 from abc import ABC, abstractmethod
 from PySide6.QtCore import Slot
 from file_renamer.lib.exceptions import Messages
-from file_renamer.lib.case_insensitive import CaseInsensitive
+from file_renamer.lib.case import CaseSensitive
 
 
 class File(ABC):
@@ -54,9 +54,9 @@ class Files(File):
         # Regex id
         self.regexid = r'\[.+\]'
 
-        # Check case insensitive file systems such as Windows & macOS
-        self.case_insensitive = CaseInsensitive(**self.fr)
-        self.case_insensitive_val = "UNKOWN"
+        # Check case sensitive file systems
+        self.case_sensitive = CaseSensitive(**self.fr)
+        self.case_sensitive_val = False
 
     def validate(self, value):
         logging.info(inspect.stack()[0].function)  # method name
@@ -115,11 +115,10 @@ class Files(File):
 
         else:
             self.filelist.sort()
-            self.case_insensitive_val = \
-                self.case_insensitive.check(fr["path"])
+            self.case_sensitive_val = self.case_sensitive.check(fr["path"])
             logging.info(
-                'self.case_insensitive_val: %s',
-                self.case_insensitive_val
+                'self.case_sensitive_val: %s',
+                self.case_sensitive_val
             )
 
     @Slot()
@@ -211,11 +210,7 @@ class Files(File):
                 file["current"] = file["base"]
 
         logging.info('file["current"]: %s', file["current"])
-        logging.info(
-            'self.case_insensitive_val: %s',
-            self.case_insensitive_val
-        )
-        if self.case_insensitive_val == "NO":
+        if self.case_sensitive_val is False:
             logging.info(
                 'file["current"].lower(): %s',
                 file["current"].lower()
@@ -224,57 +219,52 @@ class Files(File):
                 'file["new"].lower()    : %s',
                 file["new"].lower()
             )
-            if file["current"] == file["new"]:
-                logging.info('No change')
-                file_exists = True
-                logging.info('file_exists: %s', file_exists)
-            elif file["current"] != file["new"]:
-                logging.info('Changed')
-                logging.info('file["current"]: %s', file["current"])
-                logging.info('file["new"]: %s', file["new"])
 
-                for filename in self.filelist:
-                    # filename = os.path.basename(filename)
-                    logging.info('filename: %s', filename)
-                    new_file = (Path(os.path.join(file["dir"]), file["new"]))
-                    logging.info('new_file: %s', new_file)
-                    logging.info('Path(filename): %s', Path(filename))
-                    if new_file == Path(filename):
-                        file_exists = True
-                        logging.info('file_exists: %s', file_exists)
-                        break
-                    else:
-                        for current_file in self.changed.keys():
-                            logging.info('current_file: %s', current_file)
-                            if new_file == self.changed[current_file]:
-                                file_conflict = True
-                                logging.info(
-                                    'file_conflict: %s',
-                                    file_conflict
-                                )
-                                break
+        if file["current"] == file["new"]:
+            logging.info('No change')
+            file_exists = True
+            logging.info('file_exists: %s', file_exists)
+        elif file["current"] != file["new"]:
+            logging.info('Changed')
+            logging.info('file["current"]: %s', file["current"])
+            logging.info('file["new"]: %s', file["new"])
 
-                if file_exists is False and file_conflict is False:
-                    # Track lower or title case change
-                    logging.info(
-                        'self.fr["case_change"]: %s', self.fr["case_change"]
-                    )
-                    if self.fr["case_change"]:
-                        if file["current"].lower() == file["new"].lower():
-                            file_exists = False
-                            logging.info('file_exists: %s', file_exists)
-                        elif file["current"].lower() != file["new"].lower():
-                            file_exists = False
-                            logging.info('file_exists: %s', file_exists)
-                    else:
+            for filename in self.filelist:
+                # filename = os.path.basename(filename)
+                logging.info('filename: %s', filename)
+                new_file = (Path(os.path.join(file["dir"]), file["new"]))
+                logging.info('new_file: %s', new_file)
+                logging.info('Path(filename): %s', Path(filename))
+                if new_file == Path(filename):
+                    file_exists = True
+                    logging.info('file_exists: %s', file_exists)
+                    break
+                else:
+                    for current_file in self.changed.keys():
+                        logging.info('current_file: %s', current_file)
+                        if new_file == self.changed[current_file]:
+                            file_conflict = True
+                            logging.info(
+                                'file_conflict: %s',
+                                file_conflict
+                            )
+                            break
+
+            if file_exists is False and file_conflict is False:
+                # Track lower or title case change
+                logging.info(
+                    'self.fr["case_change"]: %s', self.fr["case_change"]
+                )
+                if self.fr["case_change"]:
+                    if file["current"].lower() == file["new"].lower():
                         file_exists = False
                         logging.info('file_exists: %s', file_exists)
-
-        else:
-            file_exists_path = os.path.exists(
-                (Path(os.path.join(file["dir"]), file["new"]))
-            )
-            logging.info('file_exists_path: %s', file_exists_path)
+                    elif file["current"].lower() != file["new"].lower():
+                        file_exists = False
+                        logging.info('file_exists: %s', file_exists)
+                else:
+                    file_exists = False
+                    logging.info('file_exists: %s', file_exists)
 
         logging.info('file_exists: %s', file_exists)
         if file_exists is False and file_conflict is False:
@@ -302,7 +292,7 @@ class Files(File):
             new_file = self.changed[current_file]
             logging.info('new_file: %s', new_file)
 
-            if self.case_insensitive_val == "NO":
+            if self.case_sensitive_val:
                 tmp_file = str(current_file) + '.tmp'
                 os.replace(current_file, tmp_file)
                 os.replace(tmp_file, new_file)
