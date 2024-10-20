@@ -107,6 +107,7 @@ class Widget(QWidget):
             self.case_change = True
         else:
             self.case_change = False
+        logging.info('self.case_change: %s', self.case_change)
 
         if index >= 1 and len(self.rename.files.filelist):
             self.fr["ui"].dir_output.clear()

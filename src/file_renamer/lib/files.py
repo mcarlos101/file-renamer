@@ -139,16 +139,14 @@ class Files(File):
                 self.fr["ui"].dir_output.append("")
             text = 'Total Files: ' + str(len(self.filelist))
             self.fr["ui"].dir_output.append(text)
-            if self.fr["platform"] == "Linux":
-                logging.info('theme list files: %s', self.fr['theme'])
-                if self.fr['theme'] == 'light':
-                    self.fr["ui"].label.setStyleSheet(
-                        "color: white; background-color: gray;"
-                    )
-                elif self.fr['theme'] == 'dark':
-                    self.fr["ui"].label.setStyleSheet(
-                        "color: white; background-color: black;"
-                    )
+            if self.fr['theme'] == 'light':
+                self.fr["ui"].label.setStyleSheet(
+                    "color: white; background-color: gray;"
+                )
+            elif self.fr['theme'] == 'dark':
+                self.fr["ui"].label.setStyleSheet(
+                    "color: white; background-color: black;"
+                )
 
     def split_name(self, **fr):
         logging.info(inspect.stack()[0].function)  # method name
@@ -223,7 +221,7 @@ class Files(File):
         if file["current"] == file["new"]:
             logging.info('No change')
             file_exists = True
-            logging.info('file_exists: %s', file_exists)
+            logging.info('1) file_exists: %s', file_exists)
         elif file["current"] != file["new"]:
             logging.info('Changed')
             logging.info('file["current"]: %s', file["current"])
@@ -237,7 +235,7 @@ class Files(File):
                 logging.info('Path(filename): %s', Path(filename))
                 if new_file == Path(filename):
                     file_exists = True
-                    logging.info('file_exists: %s', file_exists)
+                    logging.info('2) file_exists: %s', file_exists)
                     break
                 else:
                     for current_file in self.changed.keys():
@@ -249,24 +247,19 @@ class Files(File):
                                 file_conflict
                             )
                             break
-
-            if file_exists is False and file_conflict is False:
-                # Track lower or title case change
-                logging.info(
-                    'self.fr["case_change"]: %s', self.fr["case_change"]
-                )
+            if  self.case_sensitive_val is False:
                 if self.fr["case_change"]:
                     if file["current"].lower() == file["new"].lower():
-                        file_exists = False
-                        logging.info('file_exists: %s', file_exists)
+                        file_exists = True
+                        logging.info('3) file_exists: %s', file_exists)
                     elif file["current"].lower() != file["new"].lower():
                         file_exists = False
-                        logging.info('file_exists: %s', file_exists)
+                        logging.info('4) file_exists: %s', file_exists)
                 else:
-                    file_exists = False
-                    logging.info('file_exists: %s', file_exists)
+                    pass
+            else:
+                pass
 
-        logging.info('file_exists: %s', file_exists)
         if file_exists is False and file_conflict is False:
             data["count"] += 1
             self.changed[self.fr["filename"]] = new_file
