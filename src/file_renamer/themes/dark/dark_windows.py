@@ -57,7 +57,8 @@ QLabel {
 }
 
 QLabel#label {
-    color: #dce0e4;
+    color: black;
+    background-color: #9e9e9e;
     font-weight: bold;
     padding: 3px;
 }
