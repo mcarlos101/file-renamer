@@ -49,7 +49,7 @@ file_renamer() {
     run_module() {
         # Run module file_renamer from venv dev
         PYTHONPATH=/data/fr/file-renamer/src \
-        /data/fr/venv/dev-py3.11/bin/python -m file_renamer
+        /data/fr/venv/nix/py3.11/dev/bin/python -m file_renamer
         menu
     }
 
@@ -75,7 +75,7 @@ file_renamer() {
     }
 
     build_linux_binary() {
-        pyinstaller --clean spec/app-linux.spec
+        pyinstaller --clean /data/fr/file-renamer/spec/app-linux.spec
         menu
     }
 

@@ -2,4 +2,4 @@
 
 # Run module file_renamer from venv dev
 PYTHONPATH=/data/fr/file-renamer/src \
-/data/fr/venv/dev-py3.11/bin/python -m file_renamer
+/data/fr/venv/nix/py3.11/dev/bin/python -m file_renamer
