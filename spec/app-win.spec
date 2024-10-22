@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['\\data\\fr\\file-renamer\\src\\file_renamer\\__main__.py'],
+    ['C:\\Users\\Me\\fr\\file-renamer\\src\\file_renamer\\__main__.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -35,4 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon='C:\\Users\\Me\\fr\\file-renamer\\src\\file_renamer\\icons\\file-renamer-32x32.ico',
 )
