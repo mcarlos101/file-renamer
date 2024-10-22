@@ -53,11 +53,13 @@ Renamed
 1. Download latest [release](https://github.com/mcarlos101/file-renamer/releases)
 1. Unzip file & change into dir
 1. Right-click on file-renamer & launch app or run shell command `./file-renamer`
+1. Tested on [Fedora Workstation 40](https://fedoraproject.org/workstation/) & [Ubuntu 24.04.1 LTS](https://ubuntu.com/download/desktop)
 
 ### Windows
 1. Download latest [release](https://github.com/mcarlos101/file-renamer/releases)
 1. Unzip file & change into dir
 1. Right-click on file-renamer.exe & launch app
+1. Tested on Windows 11
 
 ###  pip
 Install from [PyPi](https://pypi.org/project/file-renamer/)
