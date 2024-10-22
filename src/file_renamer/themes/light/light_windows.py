@@ -30,6 +30,7 @@ QMenu {
 
 QMenu::item {
     background-color: transparent;
+    color: black;
     padding: 5px;
     font-size: 11px;
 }
@@ -46,7 +47,8 @@ QToolBar {
 }
 
 QGroupBox {
-    /* border: 1px solid gray;*/
+    border: 1px solid gray;
+    background-color: #eeeeee;
 }
 
 QLabel {
@@ -71,6 +73,8 @@ QLabel#search_label, #replace_label {
 QLineEdit, QTextEdit {
     background-color: white;
     color: black;
+    border: 1px solid gray;
+    padding: 3px 0px;
 }
 
 QCheckBox {
@@ -80,6 +84,7 @@ QCheckBox {
 QPushButton {
     background-color: white;
     color: black;
+    border: 1px solid gray;
     padding: 4px 5px;
 }
 
@@ -105,6 +110,8 @@ QPushButton#rename_btn:hover {
 QComboBox {
     background-color: white;
     color: gray;
+    border: 1px solid gray;
+    padding: 3px 5px;
 }
 
 QComboBox QAbstractItemView {
