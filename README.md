@@ -62,8 +62,8 @@ Renamed
 ###  pip
 Install from [PyPi](https://pypi.org/project/file-renamer/)
 ```bash
-# Install Python3.11 on Fedora Linux 40
-sudo dnf install python3.11
+# Install Python3.12 on Fedora Linux 40
+sudo dnf install python3.12
 
 # Create file-renamer folder in $HOME dir or anywhere
 mkdir file-renamer
@@ -72,7 +72,7 @@ mkdir file-renamer
 cd file-renamer
 
 # Create virtual environment
-python3.11 -m venv venv
+python3.12 -m venv venv
 
 # Activate virtual environment
 source venv/bin/activate
@@ -84,8 +84,8 @@ pip install file-renamer
 file-renamer
 ```
 
-1. Tested on Fedora Linux Workstation 40 & Windows 11
-1. macOS and other operating systems not tested (may the gods be with you!) 
+1. Tested on Fedora Linux Workstation 40, Windows 11 & Ubuntu 24.04.1 LTS
+1. macOS and other operating systems not tested (may the gods be with you!)
 1. See [Installing Packages](https://packaging.python.org/en/latest/tutorials/installing-packages/) for more info on other operating systems.
 
 
