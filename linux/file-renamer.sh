@@ -49,7 +49,7 @@ file_renamer() {
     run_module() {
         # Run module file_renamer from venv dev
         PYTHONPATH=/data/fr/file-renamer/src \
-        /data/fr/venv/nix/py3.11/dev/bin/python -m file_renamer
+        /data/fr/venv/nix/py3.12/dev/bin/python -m file_renamer
         menu
     }
 
