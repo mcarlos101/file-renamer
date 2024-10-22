@@ -23,7 +23,7 @@ dependencies = [
     "shiboken6==6.7.0",
     "Unidecode==1.3.8",
 ]
-keywords = ["rename", "file"]
+keywords = ["app", "gui", "ubuntu", "fedora", "rename", "qt", "qcreator", "windows-desktop", "rename-files", "linux-desktop", "batch-rename-files", "renamer", "macos-desktop", "pyside6"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
