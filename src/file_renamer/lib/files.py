@@ -228,16 +228,20 @@ class Files(File):
             logging.info('file["new"]: %s', file["new"])
 
             for filename in self.filelist:
-                # filename = os.path.basename(filename)
-                logging.info('filename: %s', filename)
+                file2 = os.path.basename(filename)
+                logging.info('file2: %s', file2)
                 new_file = (Path(os.path.join(file["dir"]), file["new"]))
                 logging.info('new_file: %s', new_file)
-                logging.info('Path(filename): %s', Path(filename))
-                if new_file == Path(filename):
+                # logging.info('Path(filename): %s', Path(filename))
+                if file["new"] == file2:
+                    # if new_file == Path(filename):
                     file_exists = True
                     logging.info('2) file_exists: %s', file_exists)
                     break
                 else:
+                    file_exists = False
+                    logging.info('3) file_exists: %s', file_exists)
+                    logging.info('self.changed: %s', self.changed)
                     for current_file in self.changed.keys():
                         logging.info('current_file: %s', current_file)
                         if new_file == self.changed[current_file]:
@@ -251,10 +255,10 @@ class Files(File):
                 if self.fr["case_change"]:
                     if file["current"].lower() == file["new"].lower():
                         file_exists = True
-                        logging.info('3) file_exists: %s', file_exists)
+                        logging.info('4) file_exists: %s', file_exists)
                     elif file["current"].lower() != file["new"].lower():
                         file_exists = False
-                        logging.info('4) file_exists: %s', file_exists)
+                        logging.info('5) file_exists: %s', file_exists)
                 else:
                     pass
             else:

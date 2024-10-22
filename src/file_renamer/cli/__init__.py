@@ -36,6 +36,8 @@ def start_app(**fr):
         "logfile": logfile,
         "app": "",
         "platform": sys_platform,
+        "case_sensitive": False,
+        "write": False,
         "widget": None,
         "ui": None,
         "path": "",
