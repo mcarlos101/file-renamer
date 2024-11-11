@@ -80,3 +80,7 @@ deploy/*
 dist/*
 file-renamer.pyproject.user
 venv/*
+.flatpak-builder/*
+repo/*
+src/io.github.mcarlos101.file_renamer.egg-info/*
+flatpak-build-dir/*

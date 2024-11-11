@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=File Renamer
+GenericName=File Renamer
+Comment=Rename files using a GUI desktop app for Linux & Windows
+Version=1.0
+Exec=file-renamer
+Icon=io.github.mcarlos101.file-renamer
+Type=Application
+Terminal=false
+Categories=Utility;
+X-KDE-FormFactor=desktop;tablet;handset;

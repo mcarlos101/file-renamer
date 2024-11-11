@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright [2024] [Carlos] -->
+<component type="desktop-application">
+    <id>io.github.mcarlos101.file-renamer</id>
+
+    <name>File Renamer</name>
+    <summary>Rename files using a GUI desktop app for Linux &amp; Windows</summary>
+
+    <developer id="io.github.mcarlos101.file-renamer">
+        <name>Carlos</name>
+    </developer>
+
+    <url type="homepage">https://github.com/mcarlos101/file-renamer</url>
+
+    <metadata_license>MIT</metadata_license>
+    <project_license>GPL-3.0-or-later</project_license>
+
+    <description>
+        <p>File Renamer is a graphical interface (GUI) desktop app for Linux and Windows. It can preview and rename files by:</p>
+        <ol>
+            <li>Add files recursively</li>
+            <li>Remove non-alpha-numeric characters</li>
+            <li>Remove accents</li>
+            <li>Trim spaces</li>
+            <li>Replace spaces with hyphens</li>
+            <li>Replace dots with hyphens</li>
+            <li>Replace hyphens with spaces</li>
+            <li>Lower case</li>
+            <li>Title case</li>
+            <li>Keep or remove file id in brackets</li>
+            <li>Search &amp; replace with optional regular expression</li>
+        </ol>
+    </description>
+
+    <launchable type="desktop-id">io.github.mcarlos101.file-renamer.desktop</launchable>
+
+    <screenshots>
+        <screenshot type="default">
+            <image>https://raw.githubusercontent.com/mcarlos101/file-renamer/refs/heads/main/screenshots/fedora-linux-40/light/file-renamer-light-01-app-fedora-linux-40.png</image>
+        </screenshot>
+        <screenshot>
+            <image>https://raw.githubusercontent.com/mcarlos101/file-renamer/refs/heads/main/screenshots/windows-11/dark/file-renamer-dark-03-preview-windows-11.png</image>
+        </screenshot>
+        <screenshot>
+            <image>https://raw.githubusercontent.com/mcarlos101/file-renamer/refs/heads/main/screenshots/windows-11/dark/file-renamer-dark-04-renamed-windows-11.png</image>
+        </screenshot>
+    </screenshots>
+
+    <content_rating type="oars-1.0" />
+
+    <categories>
+        <category>FileTools</category>
+        <category>Utility</category>
+        <category>Education</category>
+        <category>KDE</category>
+        <category>GNOME</category>
+        <category>Qt</category>
+    </categories>
+
+    <keywords>
+        <keyword>batch file renamer</keyword>
+    </keywords>
+
+    <releases>
+        <release version="1.1.5" date="2024-10-31">
+            <url type="details">https://github.com/mcarlos101/file-renamer/releases/tag/v1.1.5</url>
+            <description>
+                <p>File Renamer 1.1.5</p>
+                <ul>
+                    <li>Added app to Flathub</li>
+                </ul>
+            </description>
+        </release>
+    </releases>
+
+</component>
