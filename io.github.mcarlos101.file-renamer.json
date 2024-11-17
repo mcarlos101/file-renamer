@@ -21,7 +21,10 @@
             "buildsystem" : "simple",
             "build-commands" : [
                 "python3 setup.py build",
-                "python3 setup.py install --prefix=/app --root=/"
+                "python3 setup.py install --prefix=/app --root=/",
+                "install -Dm644 ${FLATPAK_ID}.metainfo.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml",
+                "install -Dm644 ${FLATPAK_ID}.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop",
+                "install -Dm644 ${FLATPAK_ID}.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg"
             ],
             "sources": [
                 {

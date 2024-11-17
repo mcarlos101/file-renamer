@@ -1,3 +1,38 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools ~= 75.5.0", "setuptools-scm ~= 8.1.0"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "io.github.mcarlos101.file-renamer"
+version = "1.1.5"
+authors = [{name = "Carlos"}]
+description = "Rename files using a GUI desktop app for Linux & Windows"
+readme = "README.md"
+requires-python = ">=3.13"
+keywords = [
+    "app", "gui", "rename", "rename-files", "batch-rename-files", "renamer",
+    "linux-desktop", "ubuntu", "fedora", "windows-desktop", "macos-desktop",
+    "pyside6", "qt-creator"
+]
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Intended Audience :: End Users/Desktop",
+    "Topic :: Utilities    Topic :: Utilities",
+    "Programming Language :: Python",
+    "Operating System :: POSIX :: Linux",
+]
+dependencies = [
+    "Unidecode",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+file-renamer = "file_renamer.cli:start_app"
+
+[project.urls]
+Homepage = "https://github.com/mcarlos101/file-renamer"
+Repository = "https://github.com/mcarlos101/file-renamer.git"
