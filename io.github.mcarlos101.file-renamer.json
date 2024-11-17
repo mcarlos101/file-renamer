@@ -12,6 +12,8 @@
         "--socket=wayland",
         "--filesystem=host",
         "--device=dri",
+        "--socket=pulseaudio",
+        "--system-talk-name=org.freedesktop.UDisks2",
         "--env=QTWEBENGINEPROCESS_PATH=/app/bin/QtWebEngineProcess"
     ],
     "modules": [
