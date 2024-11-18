@@ -45,7 +45,6 @@ class MainWindow(QMainWindow):
 
         # Linux icons
         app_icon = QIcon.fromTheme("application-x-executable")
-        # app_icon = QIcon('icons/file-renamer-32x32.png')
         html_icon = QIcon.fromTheme("text-html")
         exit_icon = QIcon.fromTheme("application-exit")
         video_icon = QIcon.fromTheme("video-x-generic")
@@ -87,18 +86,6 @@ class MainWindow(QMainWindow):
             html_icon, "PySide6", self, triggered=self.show_qt_for_python
         )
         qt_python_menu.addAction(qt_python_action)
-
-        imagine_menu = self.menuBar().addMenu("&Imagine")
-        peace_action = QAction(
-            video_icon, "Peace on Earth", self, triggered=self.show_peace
-        )
-        imagine_menu.addAction(peace_action)
-
-        rbe_action = QAction(
-            video_icon, "Resource Based Economy", self,
-            triggered=self.show_rbe
-        )
-        imagine_menu.addAction(rbe_action)
 
     def show_widget(self):
         logging.info(inspect.stack()[0].function)  # method name
@@ -292,85 +279,4 @@ class MainWindow(QMainWindow):
             self.fr['html_title'] = title
             self.fr['html_body'] = body
             self.fr['page-id'] = 'qt-python'
-            self.render_html()
-
-    @Slot()
-    def show_peace(self):
-        logging.info(inspect.stack()[0].function)  # method name
-        if self.fr['page-id'] != 'peace':
-            import file_renamer.html.rc_imagine
-            title = "Imagine Peace On Earth"
-            body = """
-            <div class="container text-center">
-                <div class="row">
-                    <h1>""" + title + """</h1>
-                    <video controls autoplay>
-                        <source src='qrc:/imagine_mp4' type="video/mp4" \
-                        codecs="vp9">
-                    Your browser does not support the video tag.
-                    </video>
-                </div>
-            </div>
-            <div class="container">
-                <h2>Credits</h2>
-                <p>
-                    Song: John Lennon - Imagine (1971)<br>
-                    Background Image: https://pngkit.com</p>
-                <p>
-                    Copyright Disclaimer under Section 107 of the Copyright Act
-                    of 1976: Allowance is made for "fair use" for purposes such
-                    as criticism, comment, news reporting, teaching,
-                    scholarship, education, and research.<br>
-                    Fair use is a use permitted by copyright statute that might
-                    otherwise be infringing.<br>
-                    All rights and credit go directly to its rightful owners.
-                    No copyright infringement is intended.
-                </p>
-            </div>
-    """
-            self.fr['html_title'] = title
-            self.fr['html_body'] = body
-            self.fr['page-id'] = 'peace'
-            self.render_html()
-
-    @Slot()
-    def show_rbe(self):
-        logging.info(inspect.stack()[0].function)  # method name
-        if self.fr['page-id'] != 'rbe':
-            import file_renamer.html.rc_rbe
-            title = "Resource Based Economy"
-            body = """
-            <div class="container text-center">
-                <div class="row">
-                    <h1>""" + title + """</h1>
-                    <video controls autoplay>
-                      <source src='qrc:/venus_project_mp4' type="video/mp4"
-                      codecs="vp9">
-                    Your browser does not support the video tag.
-                    </video>
-                </div>
-            </div>
-            <div class="container">
-                <h2>Credits</h2>
-                <p>
-                    Song: The Lost Children Of Babylon -  The Venus Project
-                    (2010)<br>
-                    https://lostchildrenofbabylon.com/</p>
-                <p>
-                    Background Image: https://www.resourcebasedeconomy.org
-                </p>
-                <p>
-                    Copyright Disclaimer under Section 107 of the Copyright Act
-                    of 1976: Allowance is made for "fair use" for purposes such
-                    as criticism, comment, news reporting, teaching,
-                    scholarship, education, and research.<br>
-                    Fair use is a use permitted by copyright statute that might
-                    otherwise be infringing.<br>
-                    All rights and credit go directly to its rightful owners.
-                    No copyright infringement is intended.
-                </p>
-            </div>"""
-            self.fr['html_title'] = title
-            self.fr['html_body'] = body
-            self.fr['page-id'] = 'rbe'
             self.render_html()
