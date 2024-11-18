@@ -10,34 +10,39 @@ file_renamer() {
     menu() {
         printf '\n'
         printf '%b\n' "${BLD}FILE RENAMER${DEF}"
-        printf '%s\n' "1) Run Module"
-        printf '%s\n' "2) Build Wheel"
-        printf '%s\n' "3) Install Wheel"
-        printf '%s\n' "4) Run Wheel"
-        printf '%s\n' "5) Uninstall Wheel"
-        printf '%s\n' "6) Build Linux Binary"
-        printf '%s\n' "7) Run Linux Binary"
-        printf '%s\n' "8) Exit"
-        read -r -s -n 1 -p "Enter Number: " keypress
-        printf '%s' "$keypress"
-        printf '\n\n'
+        printf '%s\n' "1) Install Dev Mode"
+        printf '%s\n' "2) Run Dev Mode"
+        printf '%s\n' "3) Remove Dev Mode"
+        printf '%s\n' "4) Build Wheel"
+        printf '%s\n' "5) Install Wheel"
+        printf '%s\n' "6) Run Wheel"
+        printf '%s\n' "7) Uninstall Wheel"
+        printf '%s\n' "8) Build Linux Binary"
+        printf '%s\n' "9) Run Linux Binary"
+        printf '%s\n' "10) Exit"
+        read -r -n 2 -p "Enter Number: " keypress
+        printf '\n'
 
         case "$keypress" in
             1)
-                run_module;;
+                install_dev_mode;;
             2)
-                build_wheel;;
+                run_dev_mode;;
             3)
-                install_wheel;;
+                remove_dev_mode;;
             4)
-                run_wheel;;
+                build_wheel;;
             5)
-                uninstall_wheel;;
+                install_wheel;;
             6)
-                build_linux_binary;;
+                run_wheel;;
             7)
-                run_linux_binary;;
+                uninstall_wheel;;
             8)
+                build_linux_binary;;
+            9)
+                run_linux_binary;;
+            10)
                 printf '%s\n' "Exit"
                 exit 0;;
             *)
@@ -46,40 +51,55 @@ file_renamer() {
         esac
     } # menu
 
-    run_module() {
-        # Run module file_renamer from venv dev
-        PYTHONPATH=/data/fr/file-renamer/src \
-        /data/fr/venv/nix/py3.12/dev/bin/python -m file_renamer
+    install_dev_mode() {
+        printf '%s\n' "Install Dev Mode"
+        python3 -m pip install -e .
         menu
     }
 
+    run_dev_mode() {
+        printf '%s\n' "Run Dev Mode"
+        file-renamer
+        menu
+    }
+
+    remove_dev_mode() {
+        printf '%s\n' "Remove Dev Mode"
+        pip uninstall io.github.mcarlos101.file-renamer -y
+    }
+
     build_wheel() {
-        python -m build
+        printf '%s\n' "Build Wheel"
+        python3 -m build
         menu
     }
 
     install_wheel() {
+        printf '%s\n' "Install Wheel"
         pip install /data/fr/file-renamer/dist/file_renamer-*.whl
         menu
     }
 
     run_wheel() {
+        printf '%s\n' "Run Wheel"
         file-renamer
         menu
     }
 
     uninstall_wheel() {
-        pip uninstall -y PySide6 PySide6_Addons PySide6_Essentials shiboken6 \
-        Unidecode file-renamer
+        printf '%s\n' "Uninstall Wheel"
+        pip uninstall -y file-renamer
         menu
     }
 
     build_linux_binary() {
+        printf '%s\n' "Build Linux Binary"
         pyinstaller --clean /data/fr/file-renamer/spec/app-linux.spec
         menu
     }
 
     run_linux_binary() {
+        printf '%s\n' "Run Linux Binary"
         /data/fr/file-renamer/dist/file-renamer
     }
 
