@@ -1,11 +1,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource>
-        <file>icons/file-renamer-1024x1024.png</file>
-        <file>icons/file-renamer-1024x1024.icns</file>
-        <file>icons/file-renamer-512x512.png</file>
-        <file>icons/file-renamer-512x512.icns</file>
-        <file>icons/file-renamer-32x32.ico</file>
-        <file>icons/file-renamer-32x32.png</file>
+        <file>icons/file-renamer.svg</file>
     </qresource>
 </RCC>
