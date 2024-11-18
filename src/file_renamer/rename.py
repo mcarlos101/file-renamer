@@ -32,7 +32,6 @@ class Rename:
     def list_files(self, **fr):
         logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        self.files.find(**self.fr)
         self.files.list(**self.fr)
 
     def check_options(self, **fr):
@@ -94,7 +93,6 @@ class Rename:
         self.fr = fr
         self.data['count'] = 0
         self.files.print_title(**self.fr)
-        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
         try:
@@ -127,7 +125,6 @@ class Rename:
         self.fr = fr
         self.data['count'] = 0
         self.files.print_title(**self.fr)
-        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
         try:
@@ -207,7 +204,6 @@ class Rename:
         self.fr = fr
         self.data['count'] = 0
         self.files.print_title(**self.fr)
-        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
         try:
@@ -239,7 +235,6 @@ class Rename:
         self.fr = fr
         self.data['count'] = 0
         self.files.print_title(**self.fr)
-        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
         try:
@@ -275,7 +270,6 @@ class Rename:
         self.fr = fr
         self.data['count'] = 0
         self.files.print_title(**self.fr)
-        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
         try:
@@ -305,7 +299,6 @@ class Rename:
         self.fr = fr
         self.data['count'] = 0
         self.files.print_title(**self.fr)
-        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
         try:
@@ -335,7 +328,6 @@ class Rename:
         self.fr = fr
         self.data['count'] = 0
         self.files.print_title(**self.fr)
-        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
         try:
@@ -364,7 +356,6 @@ class Rename:
         self.fr = fr
         self.data['count'] = 0
         self.files.print_title(**self.fr)
-        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
         try:
@@ -393,7 +384,6 @@ class Rename:
         self.fr = fr
         self.data['count'] = 0
         self.files.print_title(**self.fr)
-        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
         regex = ""
@@ -437,7 +427,6 @@ class Rename:
         self.fr = fr
         self.data['count'] = 0
         self.files.print_title(**self.fr)
-        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
         regex = ""
@@ -466,7 +455,6 @@ class Rename:
         self.fr = fr
         self.data['count'] = 0
         self.files.print_title(**self.fr)
-        self.files.find(**self.fr)
         filename = ""
         filename2 = ""
         pattern = ''

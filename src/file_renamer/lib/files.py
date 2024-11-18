@@ -49,8 +49,6 @@ class Files(File):
         self.limit = 1000  # max number in self.filelist
         self.separator = r"[- \.]"  # hyphen or space or dot
 
-        # self.error = dict(name="", exit=True, err="", file="")
-
         # Regex id
         self.regexid = r'\[.+\]'
 
@@ -74,12 +72,16 @@ class Files(File):
         self.fr["ui"].dir_output.clear()
         self.fr["ui"].label.setText(self.fr["title"])
 
-    def find(self, **fr):
+    @Slot()
+    def list(self, **fr):
         logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
         self.filelist.clear()
         self.changed.clear()
         count = 0
+        text = ""
+        self.fr["title"] = "LIST FILES"
+        self.print_title(**fr)
         try:
             if self.fr["ui"].recursively.isChecked():
                 for file in Path(fr["path"]).rglob('*'):
@@ -87,9 +89,11 @@ class Files(File):
                         if count <= self.limit:
                             self.filelist.append(file)
                             count += 1
+                            text = "File " + str(count)
+                            self.fr["ui"].dir_output.append(text)
+                            self.fr["ui"].dir_output.append(str(file))
+                            self.fr["ui"].dir_output.append("")
                         else:
-                            self.filelist.clear()
-                            self.fr["ui"].dir_output.clear()
                             raise Exception()
             else:
                 for file in Path(fr["path"]).iterdir():
@@ -97,46 +101,12 @@ class Files(File):
                         if count <= self.limit:
                             self.filelist.append(file)
                             count += 1
+                            text = "File " + str(count)
+                            self.fr["ui"].dir_output.append(text)
+                            self.fr["ui"].dir_output.append(str(file))
+                            self.fr["ui"].dir_output.append("")
                         else:
-                            self.filelist.clear()
                             raise Exception()
-            if count == 0:
-                raise FileNotFoundError()
-        except FileNotFoundError:
-            self.fr["ui"].rename_btn.setEnabled(False)
-            self.filelist.clear()
-            self.fr["ui"].dir_output.clear()
-            self.fr['msg-info'] = 'NO FILES FOUND!'
-            msg = Messages(**self.fr)
-        except Exception:
-            self.filelist.clear()
-            self.fr['msg-info'] = 'FILE LIMIT REACHED: ' + str(self.limit)
-            msg = Messages(**self.fr)
-
-        else:
-            self.filelist.sort()
-            self.case_sensitive_val = self.case_sensitive.check(fr["path"])
-            logging.info(
-                'self.case_sensitive_val: %s',
-                self.case_sensitive_val
-            )
-
-    @Slot()
-    def list(self, **fr):
-        logging.info(inspect.stack()[0].function)  # method name
-        self.fr = fr
-        count = 0
-        text = ""
-        if self.filelist:
-            self.filelist.sort()
-            self.fr["title"] = "LIST FILES"
-            self.print_title(**fr)
-            for file in self.filelist:
-                count += 1
-                text = "File " + str(count)
-                self.fr["ui"].dir_output.append(text)
-                self.fr["ui"].dir_output.append(str(file))
-                self.fr["ui"].dir_output.append("")
             text = 'Total Files: ' + str(len(self.filelist))
             self.fr["ui"].dir_output.append(text)
             if self.fr['theme'] == 'light':
@@ -147,6 +117,25 @@ class Files(File):
                 self.fr["ui"].label.setStyleSheet(
                     "color: white; background-color: black;"
                 )
+            if count == 0:
+                raise FileNotFoundError()
+        except FileNotFoundError:
+            self.fr["ui"].rename_btn.setEnabled(False)
+            self.filelist.clear()
+            self.fr["ui"].dir_output.clear()
+            self.fr['msg-info'] = 'NO FILES FOUND!'
+            msg = Messages(**self.fr)
+        except Exception:
+            # self.filelist.clear()
+            self.fr['msg-info'] = 'FILE LIMIT REACHED: ' + str(self.limit)
+            msg = Messages(**self.fr)
+
+        else:
+            self.case_sensitive_val = self.case_sensitive.check(fr["path"])
+            logging.info(
+                'self.case_sensitive_val: %s',
+                self.case_sensitive_val
+            )
 
     def split_name(self, **fr):
         logging.info(inspect.stack()[0].function)  # method name
