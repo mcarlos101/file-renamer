@@ -15,13 +15,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self, parent: QWidget = None, **fr):
         super().__init__(parent)
-
-        # Method name
-        logging.info(inspect.stack()[0].function)
-
         self.fr = fr
-        # logging.info('fr: %s', fr)
-
         self.title = "File Renamer"
         self.qdir = QDir()
         self.dir_output = QTextEdit()
@@ -38,9 +32,6 @@ class MainWindow(QMainWindow):
         self.fr['page-id'] = 'app'
 
     def menu(self):
-        logging.info(inspect.stack()[0].function)  # method name
-
-        # Linux icons
         app_icon = QIcon.fromTheme("application-x-executable")
         html_icon = QIcon.fromTheme("text-html")
         exit_icon = QIcon.fromTheme("application-exit")
@@ -85,7 +76,6 @@ class MainWindow(QMainWindow):
         qt_python_menu.addAction(qt_python_action)
 
     def show_widget(self):
-        logging.info(inspect.stack()[0].function)  # method name
         if self.fr['page-id'] != 'app':
             if not self.dir_output:
                 self.dir_output.hide()
@@ -96,20 +86,15 @@ class MainWindow(QMainWindow):
             self.fr['page-id'] = 'app'
 
     def render_html(self):
-        logging.info(inspect.stack()[0].function)  # method name
         qweb = QWebEngineView()
         webui = WebUI(**self.fr)
-        # logging.info("self.fr: %s", self.fr)
         html = webui.html_page.strip()
-        # logging.info("html: %s", html)
-        # logging.info('set html')
         qweb.setHtml(html)
         self.setCentralWidget(qweb)
         self.setWindowTitle(self.fr['html_title'])
 
     @Slot()
     def show_version(self):
-        logging.info(inspect.stack()[0].function)  # method name
         if self.fr['page-id'] != 'version':
             from file_renamer.version import __version__
             title = "Version"
@@ -129,12 +114,7 @@ class MainWindow(QMainWindow):
             self.render_html()
 
     def set_theme(self):
-        logging.info(inspect.stack()[0].function)  # method name
-
-        logging.info('self.fr["theme"]: %s', self.fr["theme"])
         qss = ""
-
-        # logging.info('self.fr["platform"]: %s', self.fr["platform"])
         if self.fr["platform"] == "Windows":
             if self.fr['theme'] == 'light':
                 from file_renamer.themes.light.light_windows import (
@@ -157,7 +137,6 @@ class MainWindow(QMainWindow):
                 qss = style.theme
         if qss:
             self.fr['app'].setStyleSheet(qss)
-            logging.info('theme set: %s', self.fr['theme'])
             if self.fr['page-id'] == 'version':
                 self.fr['page-id'] = ""
                 self.show_version()
@@ -173,34 +152,25 @@ class MainWindow(QMainWindow):
             elif self.fr['page-id'] == 'rbe':
                 self.fr['page-id'] = ""
                 self.show_rbe()
-
         else:
             logging.info('theme NOT set: %s', self.fr['theme'])
 
     @Slot()
     def set_dark_theme(self):
-        logging.info(inspect.stack()[0].function)  # method name
-        logging.info('self.fr["theme"]: %s', self.fr["theme"])
         if self.fr['theme'] != 'dark':
             self.fr['theme'] = 'dark'
-            logging.info('self.fr["theme"]: %s', self.fr["theme"])
             self.set_theme()
 
     @Slot()
     def set_light_theme(self):
-        logging.info(inspect.stack()[0].function)  # method name
-        logging.info('self.fr["theme"]: %s', self.fr["theme"])
         if self.fr['theme'] != 'light':
             self.fr['theme'] = 'light'
-            logging.info('self.fr["theme"]: %s', self.fr["theme"])
             self.set_theme()
 
     @Slot()
     def show_license(self):
-        logging.info(inspect.stack()[0].function)  # method name
         if self.fr['page-id'] != 'license':
             title = "License"
-
             body = """
             <div class="container">
                 <h1>Copyright (C) 2024  Carlos</h1>
@@ -228,7 +198,6 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def show_qt_for_python(self):
-        logging.info(inspect.stack()[0].function)  # method name
         if self.fr['page-id'] != 'qt-python':
             title = "Qt for Python"
             body = """

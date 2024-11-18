@@ -1,41 +1,25 @@
-# This Python file uses the following encoding: utf-8
 import os
 import logging
 import inspect
 from pathlib import Path
 from PySide6.QtWidgets import QWidget, QFileDialog
 from file_renamer.rename import Rename
-
-# Important:
-# You need to run the following command to generate the ui_form.py file
-#     pyside6-uic form.ui -o ui_form.py, or
-#     pyside2-uic form.ui -o ui_form.py
-# from ui_form import Ui_Widget
 from file_renamer.ui_form import Ui_Widget
 
 
 class Widget(QWidget):
     def __init__(self, parent=None, **fr):
         super().__init__(parent)
-
-        # Method name
-        logging.info(inspect.stack()[0].function)
-
         self.fr = fr
-        # logging.info('fr: %s', fr)
-
         # UI
         self.fr["ui"] = Ui_Widget()
         self.fr["ui"].setupUi(self)
-
         # Create rename
         self.rename = Rename(**self.fr)
-
         # Track lower or title case change
         self.fr["case_change"] = False
 
     def open_dir(self):
-        logging.info(inspect.stack()[0].function)  # method name
         dir_name = QFileDialog.getExistingDirectory(self, "Select a Directory")
         if dir_name:
             self.fr["path"] = Path(dir_name)
@@ -44,7 +28,6 @@ class Widget(QWidget):
             self.rename.list_files(**self.fr)
 
     def add_recursively(self):
-        logging.info(inspect.stack()[0].function)  # method name
         dir_name = ""
         if self.fr["ui"].comboBox.currentIndex() > 0:
             self.fr["ui"].comboBox.setCurrentIndex(0)
@@ -59,7 +42,6 @@ class Widget(QWidget):
             self.open_dir()
 
     def keep_id(self):
-        logging.info(inspect.stack()[0].function)  # method name
         index = self.fr["ui"].comboBox.currentIndex()
         if index == 0:
             self.search_replace()
@@ -67,7 +49,6 @@ class Widget(QWidget):
             self.index_changed(index)
 
     def keep_ext(self):
-        logging.info(inspect.stack()[0].function)  # method name
         index = self.fr["ui"].comboBox.currentIndex()
         if index == 0:
             self.search_replace()
@@ -75,13 +56,11 @@ class Widget(QWidget):
             self.index_changed(index)
 
     def search_replace(self):
-        logging.info(inspect.stack()[0].function)  # method name
         self.fr["title"] = "Search & Replace"
         if len(self.fr["ui"].search.displayText()):
             self.rename.search_replace(**self.fr)
 
     def find(self):
-        logging.info(inspect.stack()[0].function)  # method name
         self.fr["title"] = "Search & Replace"
         if self.fr["title"] != self.fr["ui"].comboBox.currentText():
             self.fr["ui"].comboBox.setCurrentIndex(0)
@@ -92,20 +71,17 @@ class Widget(QWidget):
             self.fr["ui"].search.setFocus()
 
     def regex(self):
-        logging.info(inspect.stack()[0].function)  # method name
         self.search_replace()
 
     def index_changed(self, index):
-        logging.info(inspect.stack()[0].function)  # method name
         self.fr["title"] = ""
-
+        logging.info('index: %s', index)
         # Track lower or title case change
         if index == 7 or index == 8:
             self.case_change = True
         else:
             self.case_change = False
         logging.info('self.case_change: %s', self.case_change)
-
         if index >= 1 and len(self.rename.files.filelist):
             self.fr["ui"].dir_output.clear()
             self.fr["title"] = self.fr["ui"].comboBox.currentText()
@@ -155,13 +131,11 @@ class Widget(QWidget):
                     self.rename.number(**self.fr)
 
     def clear(self):
-        logging.info(inspect.stack()[0].function)  # method name
         self.fr["ui"].dir_output.clear()
         self.fr["ui"].label.setText("PREVIEW")
         self.fr["ui"].rename_btn.setEnabled(False)
 
     def rename_files(self):
-        logging.info(inspect.stack()[0].function)  # method name
         self.fr["title"] = ""
         index = self.fr["ui"].comboBox.currentIndex()
         if index == 0:

@@ -6,10 +6,6 @@ from file_renamer.themes.theme import Theme
 class LightLinux(Theme):
 
     def __init__(self):
-
-        # Method name
-        logging.info(inspect.stack()[0].function)
-
         self.theme = """
 QMainWindow {
     background-color: white;

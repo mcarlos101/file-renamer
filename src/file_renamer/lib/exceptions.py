@@ -9,10 +9,6 @@ class Messages(QMainWindow):
 
     def __init__(self, **fr):
         super().__init__()
-
-        # Method name
-        logging.info(inspect.stack()[0].function)
-
         self.fr = fr
         if self.fr['msg-type'] == 'info':
             self.info()

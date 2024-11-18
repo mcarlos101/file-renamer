@@ -30,13 +30,7 @@ class File(ABC):
 class Files(File):
 
     def __init__(self, **fr):
-
-        # Method name
-        logging.info(inspect.stack()[0].function)
-
         self.fr = fr
-        # logging.info('fr: %s', fr)
-
         self.filelist = []  # List of files in directory
         self.changed = {}
         self.file = dict(
@@ -57,20 +51,17 @@ class Files(File):
         pass
 
     def __iter__(self):
-        logging.info(inspect.stack()[0].function)  # method name
         self.filelist = []
         return self
 
     @Slot()
     def print_title(self, **fr):
-        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
         self.fr["ui"].dir_output.clear()
         self.fr["ui"].label.setText(self.fr["title"])
 
     @Slot()
     def list(self, **fr):
-        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
         self.filelist.clear()
         self.changed.clear()
@@ -123,7 +114,6 @@ class Files(File):
             # self.filelist.clear()
             self.fr['msg-info'] = 'FILE LIMIT REACHED: ' + str(self.limit)
             msg = Messages(**self.fr)
-
         else:
             text = 'Total Files: ' + str(len(self.filelist))
             self.fr["ui"].dir_output.append(text)
@@ -134,7 +124,6 @@ class Files(File):
             )
 
     def split_name(self, **fr):
-        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
         filename = ""
         try:
@@ -145,7 +134,6 @@ class Files(File):
                 split_tup = os.path.splitext(self.file["base"])
                 self.file["name"] = split_tup[0]
                 self.file["ext"] = split_tup[1]
-
                 filename = ""
                 if self.fr["ui"].extension.isChecked():
                     filename = self.file['name']
@@ -167,24 +155,12 @@ class Files(File):
 
     @Slot()
     def compare(self, file, data, **fr):
-        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        # logging.info("data: %s", data)
         file["current"] = ""
         new_file = ""
         text = ""
         file_exists = False
         file_conflict = False
-        # logging.info('file["name"]: %s', file["name"])
-        # logging.info('file["base"]: %s', file["base"])
-        # logging.info('file["new"] : %s', file["new"])
-        # logging.info('file["dir"] : %s', file["dir"])
-        """
-        logging.info(
-            'self.fr["ui"].extension.isChecked(): %s',
-            self.fr["ui"].extension.isChecked()
-        )
-        """
         self.fr["ui"].label.setText('PREVIEW -> ' + self.fr["title"])
         self.fr["ui"].label.setStyleSheet(
             "color: white; background-color: #0080ff;"
@@ -197,7 +173,6 @@ class Files(File):
                 file["current"] = file["base"]
             else:
                 file["current"] = file["base"]
-
         if file["current"] == file["new"]:
             logging.info('No change')
             file_exists = True
@@ -206,7 +181,6 @@ class Files(File):
             logging.info('Changed')
             # logging.info('file["current"]: %s', file["current"])
             # logging.info('file["new"]: %s', file["new"])
-
             for filename in self.filelist:
                 file2 = os.path.basename(filename)
                 # logging.info('file2: %s', file2)
@@ -231,7 +205,7 @@ class Files(File):
                                 file_conflict
                             )
                             break
-            if  self.case_sensitive_val is False:
+            if self.case_sensitive_val is False:
                 if self.fr["case_change"]:
                     if file["current"].lower() == file["new"].lower():
                         file_exists = True
@@ -255,16 +229,12 @@ class Files(File):
 
     @Slot()
     def rename(self, **fr):
-        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
         count = 0
         current_file = ""
         new_file = ""
         for current_file in self.changed.keys():
-            # logging.info('current_file: %s', current_file)
             new_file = self.changed[current_file]
-            # logging.info('new_file: %s', new_file)
-
             if self.case_sensitive_val:
                 tmp_file = str(current_file) + '.tmp'
                 os.replace(current_file, tmp_file)
@@ -289,9 +259,7 @@ class Files(File):
 
     @Slot()
     def preview(self, data, **fr):
-        logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        # logging.info('data: %s', data)
         if data["count"] == 0:
             self.fr["ui"].dir_output.append("No changes")
             self.fr["ui"].dir_output.append("")

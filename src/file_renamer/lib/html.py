@@ -24,20 +24,13 @@ class UI(ABC):
 class WebUI(UI):
 
     def __init__(self, **fr):
-
-        # Method name
-        logging.info(inspect.stack()[0].function)
-
         self.fr = fr
-        # logging.info('fr: %s', fr)
-
         self.html_top = self.top()
         self.html_body = self.fr['html_body'].strip()
         self.html_bottom = self.bottom()
         self.html_page = self.html_top + self.html_body + self.html_bottom
 
     def top(self):
-        logging.info(inspect.stack()[0].function)  # method name
         html_top = """<!doctype html>
 <html lang="en" data-bs-theme='""" + self.fr['theme'] + """'>
     <head>
@@ -50,7 +43,6 @@ class WebUI(UI):
         return html_top
 
     def bottom(self):
-        logging.info(inspect.stack()[0].function)  # method name
         html_bottom = """
     </body>
 </html>"""

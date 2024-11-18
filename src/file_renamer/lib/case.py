@@ -23,15 +23,11 @@ class Case(ABC):
 
 
 class CaseSensitive(Case):
+
     def __init__(self, **fr):
-        # Method name
-        logging.info(inspect.stack()[0].function)
-
         self.fr = fr
-        # logging.info('fr: %s', fr)
-
         self.case_sensitive_val = False
-        self.write = False # File system write permission
+        self.write = False  # File system write permission
         self.new_file_1 = "case-sensitive.txt.tmp"
         self.new_file_2 = "CASE-SENSITIVE.TXT.TMP"
 
@@ -39,8 +35,7 @@ class CaseSensitive(Case):
         pass
 
     def check(self, path):
-        logging.info(inspect.stack()[0].function)  # method name
-        count = 0 # Num of files created
+        count = 0  # Num of files created
         self.new_file_1 = Path(os.path.join(path), self.new_file_1)
         self.new_file_2 = Path(os.path.join(path), self.new_file_2)
         if self.fr['write'] is False:

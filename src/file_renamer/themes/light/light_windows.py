@@ -6,10 +6,6 @@ from file_renamer.themes.theme import Theme
 class LightWindows(Theme):
 
     def __init__(self):
-
-        # Method name
-        logging.info(inspect.stack()[0].function)
-
         self.theme = """
 QWidget {
     background-color: white;
