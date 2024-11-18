@@ -1,4 +1,5 @@
 import logging
+logger = logging.getLogger(__name__)
 import inspect
 from file_renamer.themes.theme import Theme
 
@@ -6,6 +7,7 @@ from file_renamer.themes.theme import Theme
 class DarkWindows(Theme):
 
     def __init__(self):
+        logger.info('class DarkWindows')
         self.theme = """
 QWidget {
     background-color: #212529;

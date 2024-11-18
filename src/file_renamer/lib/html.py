@@ -1,4 +1,5 @@
 import logging
+logger = logging.getLogger(__name__)
 import inspect
 from abc import ABC, abstractmethod
 import file_renamer.html.rc_ui
@@ -24,6 +25,7 @@ class UI(ABC):
 class WebUI(UI):
 
     def __init__(self, **fr):
+        logger.info('class WebUI')
         self.fr = fr
         self.html_top = self.top()
         self.html_body = self.fr['html_body'].strip()

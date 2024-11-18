@@ -1,6 +1,7 @@
+import logging
+logger = logging.getLogger(__name__)
 import os
 import re
-import logging
 import inspect
 import os.path
 from pathlib import Path
@@ -30,6 +31,7 @@ class File(ABC):
 class Files(File):
 
     def __init__(self, **fr):
+        logger.info('class Files')
         self.fr = fr
         self.filelist = []  # List of files in directory
         self.changed = {}
@@ -118,7 +120,7 @@ class Files(File):
             text = 'Total Files: ' + str(len(self.filelist))
             self.fr["ui"].dir_output.append(text)
             self.case_sensitive_val = self.case_sensitive.check(fr["path"])
-            logging.info(
+            logger.info(
                 'self.case_sensitive_val: %s',
                 self.case_sensitive_val
             )
@@ -174,33 +176,33 @@ class Files(File):
             else:
                 file["current"] = file["base"]
         if file["current"] == file["new"]:
-            logging.info('No change')
+            logger.info('No change')
             file_exists = True
-            # logging.info('1) file_exists: %s', file_exists)
+            # logger.info('1) file_exists: %s', file_exists)
         elif file["current"] != file["new"]:
-            logging.info('Changed')
-            # logging.info('file["current"]: %s', file["current"])
-            # logging.info('file["new"]: %s', file["new"])
+            logger.info('Changed')
+            # logger.info('file["current"]: %s', file["current"])
+            # logger.info('file["new"]: %s', file["new"])
             for filename in self.filelist:
                 file2 = os.path.basename(filename)
-                # logging.info('file2: %s', file2)
+                # logger.info('file2: %s', file2)
                 new_file = (Path(os.path.join(file["dir"]), file["new"]))
-                # logging.info('new_file: %s', new_file)
-                # logging.info('Path(filename): %s', Path(filename))
+                # logger.info('new_file: %s', new_file)
+                # logger.info('Path(filename): %s', Path(filename))
                 if file["new"] == file2:
                     # if new_file == Path(filename):
                     file_exists = True
-                    logging.info('2) file_exists: %s', file_exists)
+                    logger.info('2) file_exists: %s', file_exists)
                     break
                 else:
                     file_exists = False
-                    # logging.info('3) file_exists: %s', file_exists)
-                    # logging.info('self.changed: %s', self.changed)
+                    # logger.info('3) file_exists: %s', file_exists)
+                    # logger.info('self.changed: %s', self.changed)
                     for current_file in self.changed.keys():
-                        # logging.info('current_file: %s', current_file)
+                        # logger.info('current_file: %s', current_file)
                         if new_file == self.changed[current_file]:
                             file_conflict = True
-                            logging.info(
+                            logger.info(
                                 'file_conflict: %s',
                                 file_conflict
                             )
@@ -209,10 +211,10 @@ class Files(File):
                 if self.fr["case_change"]:
                     if file["current"].lower() == file["new"].lower():
                         file_exists = True
-                        logging.info('4) file_exists: %s', file_exists)
+                        logger.info('4) file_exists: %s', file_exists)
                     elif file["current"].lower() != file["new"].lower():
                         file_exists = False
-                        logging.info('5) file_exists: %s', file_exists)
+                        logger.info('5) file_exists: %s', file_exists)
                 else:
                     pass
             else:
@@ -269,4 +271,4 @@ class Files(File):
             self.fr["ui"].dir_output.append(text)
             self.fr["ui"].rename_btn.setEnabled(True)
         else:
-            logging.info('data["count"] unknown')
+            logger.info('data["count"] unknown')

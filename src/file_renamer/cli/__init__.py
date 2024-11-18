@@ -1,4 +1,5 @@
 import logging
+logger = logging.getLogger(__name__)
 import sys
 import os
 import platform
@@ -14,7 +15,6 @@ def start_app(**fr):
     # Logs
     home = os.path.expanduser('~')
     logfile = Path(home + "/file-renamer.log")
-    logger = logging.getLogger(__name__)
     logging.basicConfig(
         format='%(asctime)s - %(levelname)s - %(message)s',
         filename=logfile,

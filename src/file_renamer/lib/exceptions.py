@@ -1,4 +1,5 @@
 import logging
+logger = logging.getLogger(__name__)
 import inspect
 from PySide6.QtWidgets import (
     QMainWindow, QMessageBox
@@ -9,6 +10,7 @@ class Messages(QMainWindow):
 
     def __init__(self, **fr):
         super().__init__()
+        logger.info('class Messages')
         self.fr = fr
         if self.fr['msg-type'] == 'info':
             self.info()

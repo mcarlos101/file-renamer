@@ -1,4 +1,5 @@
 import logging
+logger = logging.getLogger(__name__)
 import inspect
 import PySide6.QtCore
 from PySide6.QtCore import (Slot, QDir)
@@ -153,7 +154,7 @@ class MainWindow(QMainWindow):
                 self.fr['page-id'] = ""
                 self.show_rbe()
         else:
-            logging.info('theme NOT set: %s', self.fr['theme'])
+            logger.info('theme NOT set: %s', self.fr['theme'])
 
     @Slot()
     def set_dark_theme(self):

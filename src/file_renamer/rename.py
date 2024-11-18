@@ -1,5 +1,6 @@
-import re
 import logging
+logger = logging.getLogger(__name__)
+import re
 import unidecode
 import inspect
 from pathlib import Path
@@ -10,6 +11,7 @@ from file_renamer.lib.exceptions import Messages
 class Rename:
 
     def __init__(self, **fr):
+        logger.info('class Rename')
         self.fr = fr
         self.files = Files(**self.fr)
         self.file = {}

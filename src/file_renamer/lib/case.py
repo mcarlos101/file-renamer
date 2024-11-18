@@ -1,5 +1,6 @@
-import os
 import logging
+logger = logging.getLogger(__name__)
+import os
 import inspect
 from pathlib import Path
 from abc import ABC, abstractmethod
@@ -25,6 +26,7 @@ class Case(ABC):
 class CaseSensitive(Case):
 
     def __init__(self, **fr):
+        logger.info('class CaseSensitive')
         self.fr = fr
         self.case_sensitive_val = False
         self.write = False  # File system write permission
@@ -44,32 +46,32 @@ class CaseSensitive(Case):
                     count += 1
                     self.write = True
                     self.fr["write"] = self.write
-                    logging.info('self.fr["write"]: %s', self.fr["write"])
-                    logging.info(f"File '{self.new_file_1}' created")
+                    logger.info('self.fr["write"]: %s', self.fr["write"])
+                    logger.info(f"File '{self.new_file_1}' created")
             except FileExistsError:
-                logging.info(f"File '{self.new_file_1}' already exists")
+                logger.info(f"File '{self.new_file_1}' already exists")
             try:
                 with open(self.new_file_2, 'x') as f2:
                     count += 1
-                    logging.info(f"File '{self.new_file_2}' created")
+                    logger.info(f"File '{self.new_file_2}' created")
             except FileExistsError:
-                logging.info(f"File '{self.new_file_2}' already exists")
-            logging.info('count: %s', count)
+                logger.info(f"File '{self.new_file_2}' already exists")
+            logger.info('count: %s', count)
             if count == 2:
                 self.case_sensitive_val = True
                 self.fr['case_sensitive'] = self.case_sensitive_val
-                logging.info(
+                logger.info(
                     'self.case_sensitive_val: %s', self.case_sensitive_val
                 )
                 os.remove(self.new_file_1)
                 os.remove(self.new_file_2)
-                logging.info(f"File '{self.new_file_1}' deleted")
-                logging.info(f"File '{self.new_file_2}' deleted")
+                logger.info(f"File '{self.new_file_1}' deleted")
+                logger.info(f"File '{self.new_file_2}' deleted")
             elif count == 1:
                 self.case_sensitive_val = False
-                logging.info(
+                logger.info(
                     'self.case_sensitive_val: %s', self.case_sensitive_val
                 )
                 os.remove(self.new_file_1)
-                logging.info(f"File '{self.new_file_1}' deleted")
+                logger.info(f"File '{self.new_file_1}' deleted")
         return self.case_sensitive_val

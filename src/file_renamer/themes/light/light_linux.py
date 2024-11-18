@@ -1,4 +1,5 @@
 import logging
+logger = logging.getLogger(__name__)
 import inspect
 from file_renamer.themes.theme import Theme
 
@@ -6,6 +7,7 @@ from file_renamer.themes.theme import Theme
 class LightLinux(Theme):
 
     def __init__(self):
+        logger.info('class LightLinux')
         self.theme = """
 QMainWindow {
     background-color: white;

@@ -1,5 +1,6 @@
-import os
 import logging
+logger = logging.getLogger(__name__)
+import os
 import inspect
 from pathlib import Path
 from PySide6.QtWidgets import QWidget, QFileDialog
@@ -10,6 +11,7 @@ from file_renamer.ui_form import Ui_Widget
 class Widget(QWidget):
     def __init__(self, parent=None, **fr):
         super().__init__(parent)
+        logger.info('class Widget')
         self.fr = fr
         # UI
         self.fr["ui"] = Ui_Widget()
@@ -75,13 +77,13 @@ class Widget(QWidget):
 
     def index_changed(self, index):
         self.fr["title"] = ""
-        logging.info('index: %s', index)
+        logger.info('index: %s', index)
         # Track lower or title case change
         if index == 7 or index == 8:
             self.case_change = True
         else:
             self.case_change = False
-        logging.info('self.case_change: %s', self.case_change)
+        logger.info('self.case_change: %s', self.case_change)
         if index >= 1 and len(self.rename.files.filelist):
             self.fr["ui"].dir_output.clear()
             self.fr["title"] = self.fr["ui"].comboBox.currentText()
