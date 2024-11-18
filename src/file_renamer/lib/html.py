@@ -55,7 +55,6 @@ class WebUI(UI):
     def bottom(self):
         logging.info(inspect.stack()[0].function)  # method name
         html_bottom = """
-    <script src='qrc:/js/bootstrap.bundle.min.js'></script>
     </body>
 </html>"""
         return html_bottom
