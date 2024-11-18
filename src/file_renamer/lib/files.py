@@ -76,6 +76,14 @@ class Files(File):
         self.changed.clear()
         count = 0
         text = ""
+        if self.fr['theme'] == 'light':
+            self.fr["ui"].label.setStyleSheet(
+                "color: white; background-color: gray;"
+            )
+        elif self.fr['theme'] == 'dark':
+            self.fr["ui"].label.setStyleSheet(
+                "color: white; background-color: black;"
+            )
         self.fr["title"] = "LIST FILES"
         self.print_title(**fr)
         try:
@@ -103,16 +111,6 @@ class Files(File):
                             self.fr["ui"].dir_output.append("")
                         else:
                             raise Exception()
-            text = 'Total Files: ' + str(len(self.filelist))
-            self.fr["ui"].dir_output.append(text)
-            if self.fr['theme'] == 'light':
-                self.fr["ui"].label.setStyleSheet(
-                    "color: white; background-color: gray;"
-                )
-            elif self.fr['theme'] == 'dark':
-                self.fr["ui"].label.setStyleSheet(
-                    "color: white; background-color: black;"
-                )
             if count == 0:
                 raise FileNotFoundError()
         except FileNotFoundError:
@@ -127,6 +125,8 @@ class Files(File):
             msg = Messages(**self.fr)
 
         else:
+            text = 'Total Files: ' + str(len(self.filelist))
+            self.fr["ui"].dir_output.append(text)
             self.case_sensitive_val = self.case_sensitive.check(fr["path"])
             logging.info(
                 'self.case_sensitive_val: %s',
@@ -185,6 +185,10 @@ class Files(File):
             self.fr["ui"].extension.isChecked()
         )
         """
+        self.fr["ui"].label.setText('PREVIEW -> ' + self.fr["title"])
+        self.fr["ui"].label.setStyleSheet(
+            "color: white; background-color: #0080ff;"
+        )
         if self.fr["ui"].extension.isChecked():
             if file["name"] != file["new"] and file['new'] != "":
                 file["current"] = file["name"] + file["ext"]
@@ -243,10 +247,6 @@ class Files(File):
         if file_exists is False and file_conflict is False:
             data["count"] += 1
             self.changed[self.fr["filename"]] = new_file
-            self.fr["ui"].label.setText('PREVIEW -> ' + self.fr["title"])
-            self.fr["ui"].label.setStyleSheet(
-                "color: white; background-color: #0080ff;"
-            )
             text = "Preview " + str(data["count"])
             self.fr["ui"].dir_output.append(text)
             self.fr["ui"].dir_output.append(str(self.fr["filename"]))
@@ -284,6 +284,8 @@ class Files(File):
             "color: white; background-color: maroon;"
         )
         self.fr["ui"].rename_btn.setEnabled(False)
+        self.filelist.clear()
+        self.changed.clear()
 
     @Slot()
     def preview(self, data, **fr):
