@@ -10,10 +10,7 @@ class Messages(QMainWindow):
     def __init__(self, **fr):
         super().__init__()
 
-        # Log file, class & method names
-        logging.info("")
-        logging.info(__file__)
-        logging.info(self.__class__.__qualname__)
+        # Method name
         logging.info(inspect.stack()[0].function)
 
         self.fr = fr

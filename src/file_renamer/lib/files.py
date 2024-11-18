@@ -31,14 +31,11 @@ class Files(File):
 
     def __init__(self, **fr):
 
-        # Log file, class & method names
-        logging.info("")
-        logging.info(__file__)
-        logging.info(self.__class__.__qualname__)
+        # Method name
         logging.info(inspect.stack()[0].function)
 
         self.fr = fr
-        logging.info('fr: %s', fr)
+        # logging.info('fr: %s', fr)
 
         self.filelist = []  # List of files in directory
         self.changed = {}
@@ -46,7 +43,7 @@ class Files(File):
             path="", base="", dir="", name="", ext="", id="", new="",
             current=""
         )
-        self.limit = 1000  # max number in self.filelist
+        self.limit = 100  # max number in self.filelist
         self.separator = r"[- \.]"  # hyphen or space or dot
 
         # Regex id
@@ -57,8 +54,7 @@ class Files(File):
         self.case_sensitive_val = False
 
     def validate(self, value):
-        logging.info(inspect.stack()[0].function)  # method name
-        logging.info("validate")
+        pass
 
     def __iter__(self):
         logging.info(inspect.stack()[0].function)  # method name
@@ -86,7 +82,7 @@ class Files(File):
             if self.fr["ui"].recursively.isChecked():
                 for file in Path(fr["path"]).rglob('*'):
                     if os.path.isfile(file):
-                        if count <= self.limit:
+                        if count < self.limit:
                             self.filelist.append(file)
                             count += 1
                             text = "File " + str(count)
@@ -98,7 +94,7 @@ class Files(File):
             else:
                 for file in Path(fr["path"]).iterdir():
                     if os.path.isfile(file):
-                        if count <= self.limit:
+                        if count < self.limit:
                             self.filelist.append(file)
                             count += 1
                             text = "File " + str(count)
@@ -173,20 +169,22 @@ class Files(File):
     def compare(self, file, data, **fr):
         logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        logging.info("data: %s", data)
+        # logging.info("data: %s", data)
         file["current"] = ""
         new_file = ""
         text = ""
         file_exists = False
         file_conflict = False
-        logging.info('file["name"]: %s', file["name"])
-        logging.info('file["base"]: %s', file["base"])
-        logging.info('file["new"] : %s', file["new"])
-        logging.info('file["dir"] : %s', file["dir"])
+        # logging.info('file["name"]: %s', file["name"])
+        # logging.info('file["base"]: %s', file["base"])
+        # logging.info('file["new"] : %s', file["new"])
+        # logging.info('file["dir"] : %s', file["dir"])
+        """
         logging.info(
             'self.fr["ui"].extension.isChecked(): %s',
             self.fr["ui"].extension.isChecked()
         )
+        """
         if self.fr["ui"].extension.isChecked():
             if file["name"] != file["new"] and file['new'] != "":
                 file["current"] = file["name"] + file["ext"]
@@ -196,31 +194,20 @@ class Files(File):
             else:
                 file["current"] = file["base"]
 
-        logging.info('file["current"]: %s', file["current"])
-        if self.case_sensitive_val is False:
-            logging.info(
-                'file["current"].lower(): %s',
-                file["current"].lower()
-            )
-            logging.info(
-                'file["new"].lower()    : %s',
-                file["new"].lower()
-            )
-
         if file["current"] == file["new"]:
             logging.info('No change')
             file_exists = True
-            logging.info('1) file_exists: %s', file_exists)
+            # logging.info('1) file_exists: %s', file_exists)
         elif file["current"] != file["new"]:
             logging.info('Changed')
-            logging.info('file["current"]: %s', file["current"])
-            logging.info('file["new"]: %s', file["new"])
+            # logging.info('file["current"]: %s', file["current"])
+            # logging.info('file["new"]: %s', file["new"])
 
             for filename in self.filelist:
                 file2 = os.path.basename(filename)
-                logging.info('file2: %s', file2)
+                # logging.info('file2: %s', file2)
                 new_file = (Path(os.path.join(file["dir"]), file["new"]))
-                logging.info('new_file: %s', new_file)
+                # logging.info('new_file: %s', new_file)
                 # logging.info('Path(filename): %s', Path(filename))
                 if file["new"] == file2:
                     # if new_file == Path(filename):
@@ -229,10 +216,10 @@ class Files(File):
                     break
                 else:
                     file_exists = False
-                    logging.info('3) file_exists: %s', file_exists)
-                    logging.info('self.changed: %s', self.changed)
+                    # logging.info('3) file_exists: %s', file_exists)
+                    # logging.info('self.changed: %s', self.changed)
                     for current_file in self.changed.keys():
-                        logging.info('current_file: %s', current_file)
+                        # logging.info('current_file: %s', current_file)
                         if new_file == self.changed[current_file]:
                             file_conflict = True
                             logging.info(
@@ -274,9 +261,9 @@ class Files(File):
         current_file = ""
         new_file = ""
         for current_file in self.changed.keys():
-            logging.info('current_file: %s', current_file)
+            # logging.info('current_file: %s', current_file)
             new_file = self.changed[current_file]
-            logging.info('new_file: %s', new_file)
+            # logging.info('new_file: %s', new_file)
 
             if self.case_sensitive_val:
                 tmp_file = str(current_file) + '.tmp'
@@ -302,7 +289,7 @@ class Files(File):
     def preview(self, data, **fr):
         logging.info(inspect.stack()[0].function)  # method name
         self.fr = fr
-        logging.info('data: %s', data)
+        # logging.info('data: %s', data)
         if data["count"] == 0:
             self.fr["ui"].dir_output.append("No changes")
             self.fr["ui"].dir_output.append("")

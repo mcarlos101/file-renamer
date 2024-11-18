@@ -23,8 +23,6 @@ def start_app(**fr):
         level=logging.DEBUG
     )
     logger.info('File Renamer %s Logs', __version__)
-    logger.info('')
-    logger.info(__file__)
     function = inspect.stack()[0].function
     logger.info(function)
     sys_platform = platform.system()
@@ -93,23 +91,19 @@ def start_app(**fr):
                 )
                 style = LightWindows()
                 qss = style.theme
-                logger.info('qss: %s', qss)
             elif fr['theme'] == 'dark':
                 from file_renamer.themes.dark.dark_windows import DarkWindows
                 style = DarkWindows()
                 qss = style.theme
-                logger.info('qss: %s', qss)
         else:
             if fr['theme'] == 'light':
                 from file_renamer.themes.light.light_linux import LightLinux
                 style = LightLinux()
                 qss = style.theme
-                logger.info('qss: %s', qss)
             elif fr['theme'] == 'dark':
                 from file_renamer.themes.dark.dark_linux import DarkLinux
                 style = DarkLinux()
                 qss = style.theme
-                logger.info('qss: %s', qss)
         app.setStyleSheet(qss)
         logger.info('theme set: %s', fr['theme'])
         app.exec()

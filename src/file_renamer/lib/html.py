@@ -25,14 +25,11 @@ class WebUI(UI):
 
     def __init__(self, **fr):
 
-        # Log file, class & method names
-        logging.info("")
-        logging.info(__file__)
-        logging.info(self.__class__.__qualname__)
+        # Method name
         logging.info(inspect.stack()[0].function)
 
         self.fr = fr
-        logging.info('fr: %s', fr)
+        # logging.info('fr: %s', fr)
 
         self.html_top = self.top()
         self.html_body = self.fr['html_body'].strip()
@@ -60,5 +57,4 @@ class WebUI(UI):
         return html_bottom
 
     def validate(self, value):
-        logging.info(inspect.stack()[0].function)  # method name
-        logging.info("validate")
+        pass

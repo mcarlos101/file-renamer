@@ -12,14 +12,11 @@ class Rename:
     def __init__(self, **fr):
         """The __init__ method is a constructor"""
 
-        # Log file, class & method names
-        logging.info("")
-        logging.info(__file__)
-        logging.info(self.__class__.__qualname__)
+        # Method name
         logging.info(inspect.stack()[0].function)
 
         self.fr = fr
-        logging.info('fr: %s', fr)
+        # logging.info('fr: %s', fr)
 
         self.files = Files(**self.fr)
         self.file = {}
@@ -62,7 +59,7 @@ class Rename:
     def update_options(self, **fr):
         self.fr = fr
         logging.info(inspect.stack()[0].function)  # method name
-        logging.info("self.file['new']: %s", self.file['new'])
+        # logging.info("self.file['new']: %s", self.file['new'])
         if self.file['new'] != "":
             if (fr["ui"].extension.isChecked() and
                     self.fr["ui"].id.isChecked()):
@@ -98,15 +95,15 @@ class Rename:
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
-                logging.info('fr["filename"]: %s', self.fr["filename"])
+                # logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
                 self.file = self.files.split_name(**self.fr)
-                logging.info('self.file: %s', self.file)
+                # logging.info('self.file: %s', self.file)
 
                 filename2 = self.check_options(**self.fr)
 
                 self.file['new'] = ""
-                logging.info('filename2: %s', filename2)
+                # logging.info('filename2: %s', filename2)
                 for elem in filename2:
                     if elem.isalnum() or elem in self.chars:
                         self.file['new'] += elem
@@ -130,7 +127,7 @@ class Rename:
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
-                logging.info('fr["filename"]: %s', self.fr["filename"])
+                # logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
                 self.file = self.files.split_name(**self.fr)
 
@@ -209,7 +206,7 @@ class Rename:
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
-                logging.info('fr["filename"]: %s', self.fr["filename"])
+                # logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
                 self.file = self.files.split_name(**self.fr)
 
@@ -240,7 +237,7 @@ class Rename:
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
-                logging.info('fr["filename"]: %s', self.fr["filename"])
+                # logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
                 self.file = self.files.split_name(**self.fr)
 
@@ -275,7 +272,7 @@ class Rename:
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
-                logging.info('fr["filename"]: %s', self.fr["filename"])
+                # logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
                 self.file = self.files.split_name(**self.fr)
 
@@ -304,7 +301,7 @@ class Rename:
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
-                logging.info('fr["filename"]: %s', self.fr["filename"])
+                # logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
                 self.file = self.files.split_name(**self.fr)
 
@@ -333,7 +330,7 @@ class Rename:
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
-                logging.info('fr["filename"]: %s', self.fr["filename"])
+                # logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
                 self.file = self.files.split_name(**self.fr)
 
@@ -361,7 +358,7 @@ class Rename:
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
-                logging.info('fr["filename"]: %s', self.fr["filename"])
+                # logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
                 self.file = self.files.split_name(**self.fr)
 
@@ -390,7 +387,7 @@ class Rename:
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
-                logging.info('fr["filename"]: %s', self.fr["filename"])
+                # logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
                 self.file = self.files.split_name(**self.fr)
 
@@ -433,7 +430,7 @@ class Rename:
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
-                logging.info('fr["filename"]: %s', self.fr["filename"])
+                # logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
                 self.file = self.files.split_name(**self.fr)
 
@@ -463,7 +460,7 @@ class Rename:
         try:
             for filename in self.files.filelist:
                 self.fr["filename"] = Path(filename)
-                logging.info('fr["filename"]: %s', self.fr["filename"])
+                # logging.info('fr["filename"]: %s', self.fr["filename"])
                 self.file.clear()
                 self.file = self.files.split_name(**self.fr)
 

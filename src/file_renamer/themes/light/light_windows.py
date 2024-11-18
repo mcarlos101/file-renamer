@@ -7,10 +7,7 @@ class LightWindows(Theme):
 
     def __init__(self):
 
-        # Log file, class & method names
-        logging.info("")
-        logging.info(__file__)
-        logging.info(self.__class__.__qualname__)
+        # Method name
         logging.info(inspect.stack()[0].function)
 
         self.theme = """
@@ -136,5 +133,4 @@ QMessageBox {
 """
 
     def validate(self, value):
-        logging.info(inspect.stack()[0].function)  # method name
-        logging.info("validate")
+        pass

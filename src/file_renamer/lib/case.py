@@ -24,15 +24,11 @@ class Case(ABC):
 
 class CaseSensitive(Case):
     def __init__(self, **fr):
-
-        # Log file, class & method names
-        logging.info("")
-        logging.info(__file__)
-        logging.info(self.__class__.__qualname__)
+        # Method name
         logging.info(inspect.stack()[0].function)
 
         self.fr = fr
-        logging.info('fr: %s', fr)
+        # logging.info('fr: %s', fr)
 
         self.case_sensitive_val = False
         self.write = False # File system write permission
@@ -40,8 +36,7 @@ class CaseSensitive(Case):
         self.new_file_2 = "CASE-SENSITIVE.TXT.TMP"
 
     def validate(self, value):
-        logging.info(inspect.stack()[0].function)  # method name
-        logging.info("validate")
+        pass
 
     def check(self, path):
         logging.info(inspect.stack()[0].function)  # method name

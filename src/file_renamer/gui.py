@@ -16,14 +16,11 @@ class MainWindow(QMainWindow):
     def __init__(self, parent: QWidget = None, **fr):
         super().__init__(parent)
 
-        # Log file, class & method names
-        logging.info("")
-        logging.info(__file__)
-        logging.info(self.__class__.__qualname__)
+        # Method name
         logging.info(inspect.stack()[0].function)
 
         self.fr = fr
-        logging.info('fr: %s', fr)
+        # logging.info('fr: %s', fr)
 
         self.title = "File Renamer"
         self.qdir = QDir()
@@ -102,10 +99,10 @@ class MainWindow(QMainWindow):
         logging.info(inspect.stack()[0].function)  # method name
         qweb = QWebEngineView()
         webui = WebUI(**self.fr)
-        logging.info("self.fr: %s", self.fr)
+        # logging.info("self.fr: %s", self.fr)
         html = webui.html_page.strip()
-        logging.info("html: %s", html)
-        logging.info('set html')
+        # logging.info("html: %s", html)
+        # logging.info('set html')
         qweb.setHtml(html)
         self.setCentralWidget(qweb)
         self.setWindowTitle(self.fr['html_title'])
@@ -137,7 +134,7 @@ class MainWindow(QMainWindow):
         logging.info('self.fr["theme"]: %s', self.fr["theme"])
         qss = ""
 
-        logging.info('self.fr["platform"]: %s', self.fr["platform"])
+        # logging.info('self.fr["platform"]: %s', self.fr["platform"])
         if self.fr["platform"] == "Windows":
             if self.fr['theme'] == 'light':
                 from file_renamer.themes.light.light_windows import (
@@ -145,23 +142,19 @@ class MainWindow(QMainWindow):
                 )
                 style = LightWindows()
                 qss = style.theme
-                logging.info('qss: %s', qss)
             elif self.fr['theme'] == 'dark':
                 from file_renamer.themes.dark.dark_windows import DarkWindows
                 style = DarkWindows()
                 qss = style.theme
-                logging.info('qss: %s', qss)
         else:
             if self.fr['theme'] == 'light':
                 from file_renamer.themes.light.light_linux import LightLinux
                 style = LightLinux()
                 qss = style.theme
-                logging.info('qss: %s', qss)
             elif self.fr['theme'] == 'dark':
                 from file_renamer.themes.dark.dark_linux import DarkLinux
                 style = DarkLinux()
                 qss = style.theme
-                logging.info('qss: %s', qss)
         if qss:
             self.fr['app'].setStyleSheet(qss)
             logging.info('theme set: %s', self.fr['theme'])
