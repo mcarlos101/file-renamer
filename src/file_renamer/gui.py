@@ -97,7 +97,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def show_version(self):
         if self.fr['page-id'] != 'version':
-            from file_renamer.version import __version__
+            from file_renamer.__version__ import __version__
             title = "Version"
             body = """
             <div class="container">

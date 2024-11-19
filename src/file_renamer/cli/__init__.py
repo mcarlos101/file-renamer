@@ -8,7 +8,7 @@ from pathlib import Path
 from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QDir, QFile, QFileInfo, QIODevice, QTextStream
 from file_renamer.gui import MainWindow
-from file_renamer.version import __version__
+from file_renamer.__version__ import __version__
 
 
 def start_app(**fr):

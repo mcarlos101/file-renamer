@@ -4,7 +4,6 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "io.github.mcarlos101.file-renamer"
-version = "1.1.5"
 authors = [{name = "Carlos"}]
 description = "Rename files using a GUI desktop app for Linux & Windows"
 readme = "README.md"
@@ -26,6 +25,10 @@ classifiers = [
 dependencies = [
     "Unidecode",
 ]
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {attr = "file_renamer.__version__"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
