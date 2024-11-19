@@ -133,9 +133,21 @@ class Widget(QWidget):
                     self.rename.number(**self.fr)
 
     def clear(self):
-        self.fr["ui"].dir_output.clear()
-        self.fr["ui"].label.setText("PREVIEW")
+        self.rename.files.filelist.clear()
+        self.rename.files.changed.clear()
         self.fr["ui"].rename_btn.setEnabled(False)
+        self.fr["ui"].label.setText("PREVIEW")
+        if self.fr['theme'] == 'light':
+            self.fr["ui"].label.setStyleSheet(
+                "color: white; background-color: gray;"
+            )
+        elif self.fr['theme'] == 'dark':
+            self.fr["ui"].label.setStyleSheet(
+                "color: white; background-color: black;"
+            )
+        self.fr["ui"].dir_output.clear()
+        self.fr["ui"].search.clear()
+        self.fr["ui"].replace.clear()
 
     def rename_files(self):
         self.fr["title"] = ""

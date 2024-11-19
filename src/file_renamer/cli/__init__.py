@@ -75,15 +75,12 @@ def start_app(**fr):
         print('See logs: ', logfile)
         logger.exception(err)
     else:
-        logger.info('width: %s', width)
-        logger.info('height: %s', height)
         window = MainWindow(**fr)
         window.resize(width, height)
         window.show()
 
         # Set theme
         qss = ""
-        logger.info('fr["platform"]: %s', fr["platform"])
         if fr["platform"] == "Windows":
             if fr['theme'] == 'light':
                 from file_renamer.themes.light.light_windows import (
