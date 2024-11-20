@@ -16,7 +16,7 @@ file_renamer() {
         printf '%s\n' "4) Build Wheel"
         printf '%s\n' "5) Install Wheel"
         printf '%s\n' "6) Run Wheel"
-        printf '%s\n' "7) Uninstall Wheel"
+        printf '%s\n' "7) Remove Wheel"
         printf '%s\n' "8) Build Linux Binary"
         printf '%s\n' "9) Run Linux Binary"
         printf '%s\n' "10) Build Flatpak"
@@ -41,7 +41,7 @@ file_renamer() {
             6)
                 run_wheel;;
             7)
-                uninstall_wheel;;
+                remove_wheel;;
             8)
                 build_linux_binary;;
             9)
@@ -99,9 +99,9 @@ file_renamer() {
         menu
     }
 
-    uninstall_wheel() {
-        printf '%s\n' "Uninstall Wheel"
-        pip uninstall -y file-renamer
+    remove_wheel() {
+        printf '%s\n' "Remove Wheel"
+        pip uninstall io.github.mcarlos101.file-renamer -y
         menu
     }
 
