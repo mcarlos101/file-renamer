@@ -89,7 +89,7 @@ file_renamer() {
 
     install_wheel() {
         printf '%s\n' "Install Wheel"
-        pip install /data/fr/file-renamer/dist/file_renamer-*.whl
+        pip install /data/fr/file-renamer/dist/io.github.mcarlos101.file_renamer-*.whl
         menu
     }
 
