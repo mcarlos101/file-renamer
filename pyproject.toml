@@ -7,7 +7,7 @@ name = "io.github.mcarlos101.file-renamer"
 authors = [{name = "Carlos"}]
 description = "Rename files using a GUI desktop app for Linux & Windows"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.11"
 keywords = [
     "app", "gui", "rename", "rename-files", "batch-rename-files", "renamer",
     "linux-desktop", "ubuntu", "fedora", "windows-desktop", "macos-desktop",
@@ -21,6 +21,9 @@ classifiers = [
     "Topic :: Utilities    Topic :: Utilities",
     "Programming Language :: Python",
     "Operating System :: POSIX :: Linux",
+    "Topic :: Desktop Environment :: Gnome",
+    "Topic :: Desktop Environment :: K Desktop Environment (KDE)",
+    "Operating System :: Microsoft :: Windows :: Windows 11",
 ]
 dependencies = [
     "Unidecode",
