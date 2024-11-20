@@ -108,6 +108,9 @@ class MainWindow(QMainWindow):
                 <p>Python Package Index<br>
                     https://pypi.org/project/file-renamer/
                 </p>
+                <p>Flathub (Coming Soon)<br>
+                    https://flathub.org/apps/io.github.mcarlos101.file-renamer
+                </p>
             </div>"""
             self.fr['html_title'] = title
             self.fr['html_body'] = body
