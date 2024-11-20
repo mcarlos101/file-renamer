@@ -1,5 +1,6 @@
 import logging
 logger = logging.getLogger(__name__)
+import sys
 import inspect
 import PySide6.QtCore
 from PySide6.QtCore import (Slot, QDir)
@@ -70,11 +71,15 @@ class MainWindow(QMainWindow):
         )
         license_menu.addAction(license_action)
 
-        qt_python_menu = self.menuBar().addMenu("&Qt for Python")
-        qt_python_action = QAction(
-            html_icon, "PySide6", self, triggered=self.show_qt_for_python
+        about_menu = self.menuBar().addMenu("&About")
+        python_action = QAction(
+            html_icon, 'Python3', self, triggered=self.show_python
         )
-        qt_python_menu.addAction(qt_python_action)
+        about_menu.addAction(python_action)
+        pyside_action = QAction(
+            html_icon, 'PySide6', self, triggered=self.show_pyside
+        )
+        about_menu.addAction(pyside_action)
 
     def show_widget(self):
         if self.fr['page-id'] != 'app':
@@ -149,7 +154,7 @@ class MainWindow(QMainWindow):
                 self.show_license()
             elif self.fr['page-id'] == 'qt-python':
                 self.fr['page-id'] = ""
-                self.show_qt_for_python()
+                self.show_pyside()
             elif self.fr['page-id'] == 'peace':
                 self.fr['page-id'] = ""
                 self.show_peace()
@@ -201,7 +206,40 @@ class MainWindow(QMainWindow):
             self.render_html()
 
     @Slot()
-    def show_qt_for_python(self):
+    def show_python(self):
+        if self.fr['page-id'] != 'python':
+            title = "Python"
+            version = sys.version
+            body = """
+            <div class="container">
+                <h1>Python</h1>
+
+                <div class="p-3 text-primary-emphasis bg-primary-subtle \
+                    border border-primary-subtle rounded-3">
+                    Version
+                    <ul>
+                        <li>
+                            <strong>Python</strong>:&nbsp;&nbsp;""" \
+                            + version + """
+                        </li>
+                    </ul>
+                </div>
+
+                <p>Python is an interpreted, interactive, object-oriented programming language.</p>
+
+                <p>Python<br>
+                https://www.python.org</p>
+
+                <p>Docs<br>
+                https://docs.python.org</p>
+            </div>"""
+            self.fr['html_title'] = title
+            self.fr['html_body'] = body
+            self.fr['page-id'] = 'python'
+            self.render_html()
+
+    @Slot()
+    def show_pyside(self):
         if self.fr['page-id'] != 'qt-python':
             title = "Qt for Python"
             body = """
@@ -240,7 +278,7 @@ class MainWindow(QMainWindow):
                 https://www.qt.io/qt-for-python</p>
 
                 <p>Docs<br>
-                https://doc.qt.io/qtforpython-6/</p>
+                https://doc.qt.io/qtforpython-6</p>
             </div>"""
             self.fr['html_title'] = title
             self.fr['html_body'] = body
