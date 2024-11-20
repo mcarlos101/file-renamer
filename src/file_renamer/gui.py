@@ -80,6 +80,10 @@ class MainWindow(QMainWindow):
             html_icon, 'PySide6', self, triggered=self.show_pyside
         )
         about_menu.addAction(pyside_action)
+        bootstrap_action = QAction(
+            html_icon, 'Bootstrap', self, triggered=self.show_bootstrap
+        )
+        about_menu.addAction(bootstrap_action)
 
     def show_widget(self):
         if self.fr['page-id'] != 'app':
@@ -283,4 +287,37 @@ class MainWindow(QMainWindow):
             self.fr['html_title'] = title
             self.fr['html_body'] = body
             self.fr['page-id'] = 'qt-python'
+            self.render_html()
+
+    @Slot()
+    def show_bootstrap(self):
+        if self.fr['page-id'] != 'bootstrap':
+            title = "Bootstrap"
+            version = "5.3.3"
+            body = """
+            <div class="container">
+                <h1>Bootstrap</h1>
+
+                <div class="p-3 text-primary-emphasis bg-primary-subtle \
+                    border border-primary-subtle rounded-3">
+                    Version
+                    <ul>
+                        <li>
+                            <strong>Bootstrap</strong>:&nbsp;&nbsp;""" \
+                            + version + """
+                        </li>
+                    </ul>
+                </div>
+
+                <p>Bootstrap is a powerful, feature-packed frontend toolkit.</p>
+
+                <p>Bootstrap<br>
+                https://getbootstrap.com</p>
+
+                <p>Docs<br>
+                https://getbootstrap.com</p>
+            </div>"""
+            self.fr['html_title'] = title
+            self.fr['html_body'] = body
+            self.fr['page-id'] = 'bootstrap'
             self.render_html()
