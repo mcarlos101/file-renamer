@@ -19,7 +19,10 @@ file_renamer() {
         printf '%s\n' "7) Uninstall Wheel"
         printf '%s\n' "8) Build Linux Binary"
         printf '%s\n' "9) Run Linux Binary"
-        printf '%s\n' "10) Exit"
+        printf '%s\n' "10) Build Flatpak"
+        printf '%s\n' "11) Install Flatpak"
+        printf '%s\n' "12) Run Flatpak"
+        printf '%s\n' "13) Exit"
         read -r -n 2 -p "Enter Number: " keypress
         printf '\n'
 
@@ -43,6 +46,12 @@ file_renamer() {
             9)
                 run_linux_binary;;
             10)
+                build_flatpak;;
+            11)
+                install_flatpak;;
+            12)
+                run_flatpak;;
+            13)
                 printf '%s\n' "Exit"
                 exit 0;;
             *)
@@ -101,6 +110,24 @@ file_renamer() {
     run_linux_binary() {
         printf '%s\n' "Run Linux Binary"
         /data/fr/file-renamer/dist/file-renamer
+    }
+
+    build_flatpak() {
+        printf '%s\n' "Build Flatpak"
+        flatpak-builder --verbose --force-clean flatpak-build-dir io.github.mcarlos101.file-renamer.json
+        menu
+    }
+
+    install_flatpak() {
+        printf '%s\n' "Install Flatpak"
+        flatpak run org.flatpak.Builder --force-clean --sandbox --user --install --install-deps-from=flathub --ccache --mirror-screenshots-url=https://dl.flathub.org/media/ --repo=repo builddir io.github.mcarlos101.file-renamer.json
+        menu
+    }
+
+    run_flatpak() {
+        printf '%s\n' "Run Flatpak"
+        flatpak run io.github.mcarlos101.file-renamer
+        menu
     }
 
     menu
