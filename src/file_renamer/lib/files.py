@@ -176,11 +176,11 @@ class Files(File):
             else:
                 file["current"] = file["base"]
         if file["current"] == file["new"]:
-            logger.info('No change')
+            # logger.info('No change')
             file_exists = True
             # logger.info('1) file_exists: %s', file_exists)
         elif file["current"] != file["new"]:
-            logger.info('Changed')
+            # logger.info('Changed')
             # logger.info('file["current"]: %s', file["current"])
             # logger.info('file["new"]: %s', file["new"])
             for filename in self.filelist:
@@ -192,7 +192,7 @@ class Files(File):
                 if file["new"] == file2:
                     # if new_file == Path(filename):
                     file_exists = True
-                    logger.info('2) file_exists: %s', file_exists)
+                    # logger.info('2) file_exists: %s', file_exists)
                     break
                 else:
                     file_exists = False
@@ -202,19 +202,21 @@ class Files(File):
                         # logger.info('current_file: %s', current_file)
                         if new_file == self.changed[current_file]:
                             file_conflict = True
+                            """
                             logger.info(
                                 'file_conflict: %s',
                                 file_conflict
                             )
+                            """
                             break
             if self.case_sensitive_val is False:
                 if self.fr["case_change"]:
                     if file["current"].lower() == file["new"].lower():
                         file_exists = True
-                        logger.info('4) file_exists: %s', file_exists)
+                        # logger.info('4) file_exists: %s', file_exists)
                     elif file["current"].lower() != file["new"].lower():
                         file_exists = False
-                        logger.info('5) file_exists: %s', file_exists)
+                        # logger.info('5) file_exists: %s', file_exists)
                 else:
                     pass
             else:
