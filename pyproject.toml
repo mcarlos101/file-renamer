@@ -18,7 +18,7 @@ classifiers = [
     "Development Status :: 5 - Production/Stable",
     "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Intended Audience :: End Users/Desktop",
-    "Topic :: Utilities    Topic :: Utilities",
+    "Topic :: Utilities",
     "Programming Language :: Python",
     "Operating System :: POSIX :: Linux",
     "Topic :: Desktop Environment :: Gnome",
