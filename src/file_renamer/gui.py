@@ -156,15 +156,15 @@ class MainWindow(QMainWindow):
             elif self.fr['page-id'] == 'license':
                 self.fr['page-id'] = ""
                 self.show_license()
-            elif self.fr['page-id'] == 'qt-python':
+            elif self.fr['page-id'] == 'python':
+                self.fr['page-id'] = ""
+                self.show_python()
+            elif self.fr['page-id'] == 'pyside':
                 self.fr['page-id'] = ""
                 self.show_pyside()
-            elif self.fr['page-id'] == 'peace':
+            elif self.fr['page-id'] == 'bootstrap':
                 self.fr['page-id'] = ""
-                self.show_peace()
-            elif self.fr['page-id'] == 'rbe':
-                self.fr['page-id'] = ""
-                self.show_rbe()
+                self.show_bootstrap()
         else:
             logger.info('theme NOT set: %s', self.fr['theme'])
 
@@ -223,7 +223,7 @@ class MainWindow(QMainWindow):
                     Version
                     <ul>
                         <li>
-                            <strong>Python</strong>:&nbsp;&nbsp;""" \
+                            <strong>Python</strong>&nbsp;&nbsp;""" \
                             + version + """
                         </li>
                     </ul>
@@ -244,7 +244,7 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def show_pyside(self):
-        if self.fr['page-id'] != 'qt-python':
+        if self.fr['page-id'] != 'pyside':
             title = "Qt for Python"
             body = """
             <div class="container">
@@ -255,10 +255,10 @@ class MainWindow(QMainWindow):
                     Versions
                     <ul>
                         <li>
-                            <strong>Qt</strong>:&nbsp;&nbsp;""" \
+                            <strong>Qt</strong>&nbsp;&nbsp;""" \
                             + PySide6.QtCore.__version__ + """
                         </li>
-                        <li><strong>PySide6</strong>:&nbsp;&nbsp;""" \
+                        <li><strong>PySide6</strong>&nbsp;&nbsp;""" \
                             + PySide6.__version__ + """
                         </li>
                     </ul>
@@ -286,7 +286,7 @@ class MainWindow(QMainWindow):
             </div>"""
             self.fr['html_title'] = title
             self.fr['html_body'] = body
-            self.fr['page-id'] = 'qt-python'
+            self.fr['page-id'] = 'pyside'
             self.render_html()
 
     @Slot()
@@ -303,7 +303,7 @@ class MainWindow(QMainWindow):
                     Version
                     <ul>
                         <li>
-                            <strong>Bootstrap</strong>:&nbsp;&nbsp;""" \
+                            <strong>Bootstrap</strong>&nbsp;&nbsp;""" \
                             + version + """
                         </li>
                     </ul>
