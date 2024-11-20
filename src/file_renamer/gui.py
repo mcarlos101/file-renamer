@@ -111,13 +111,13 @@ class MainWindow(QMainWindow):
             body = """
             <div class="container">
                 <h1>File Renamer """ + __version__ + """</h1>
-                <p>GitHub<br>
+                <p><strong>GitHub</strong><br>
                     https://github.com/mcarlos101/file-renamer/
                 </p>
-                <p>Python Package Index<br>
+                <p><strong>Python Package Index</strong><br>
                     https://pypi.org/project/file-renamer/
                 </p>
-                <p>Flathub (Coming Soon)<br>
+                <p><strong>Flathub (Coming Soon)</strong><br>
                     https://flathub.org/apps/io.github.mcarlos101.file-renamer
                 </p>
             </div>"""
@@ -189,10 +189,10 @@ class MainWindow(QMainWindow):
                 <h1>Copyright (C) 2024  Carlos</h1>
 
                 <p>This program is free software: you can redistribute it
-                and/or modify it under the terms of the GNU General Public
-                License as published by the Free Software Foundation, either
-                version 3 of the License, or (at your option) any later
-                version.</p>
+                and/or modify it under the terms of the <strong>GNU General
+                Public License</strong> as published by the Free Software
+                Foundation, either version 3 of the License, or (at your option)
+                any later version.</p>
 
                 <p>This program is distributed in the hope that it will be
                 useful, but WITHOUT ANY WARRANTY; without even the implied
@@ -231,10 +231,10 @@ class MainWindow(QMainWindow):
 
                 <p>Python is an interpreted, interactive, object-oriented programming language.</p>
 
-                <p>Python<br>
+                <p><strong>Python</strong><br>
                 https://www.python.org</p>
 
-                <p>Docs<br>
+                <p><strong>Docs</strong><br>
                 https://docs.python.org</p>
             </div>"""
             self.fr['html_title'] = title
@@ -278,10 +278,10 @@ class MainWindow(QMainWindow):
                 <p>This project is available under the LGPLv3/GPLv3 and the Qt
                 commercial license.</p>
 
-                <p>Qt for Python<br>
+                <p><strong>Qt for Python</strong><br>
                 https://www.qt.io/qt-for-python</p>
 
-                <p>Docs<br>
+                <p><strong>Docs</strong><br>
                 https://doc.qt.io/qtforpython-6</p>
             </div>"""
             self.fr['html_title'] = title
@@ -311,10 +311,10 @@ class MainWindow(QMainWindow):
 
                 <p>Bootstrap is a powerful, feature-packed frontend toolkit.</p>
 
-                <p>Bootstrap<br>
+                <p><strong>Bootstrap</strong><br>
                 https://getbootstrap.com</p>
 
-                <p>Docs<br>
+                <p><strong>Docs</strong><br>
                 https://getbootstrap.com</p>
             </div>"""
             self.fr['html_title'] = title
