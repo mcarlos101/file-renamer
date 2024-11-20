@@ -22,7 +22,8 @@ file_renamer() {
         printf '%s\n' "10) Build Flatpak"
         printf '%s\n' "11) Install Flatpak"
         printf '%s\n' "12) Run Flatpak"
-        printf '%s\n' "13) Exit"
+        printf '%s\n' "13) Remove Flatpak"
+        printf '%s\n' "14) Exit"
         read -r -n 2 -p "Enter Number: " keypress
         printf '\n'
 
@@ -52,6 +53,8 @@ file_renamer() {
             12)
                 run_flatpak;;
             13)
+                remove_flatpak;;
+            14)
                 printf '%s\n' "Exit"
                 exit 0;;
             *)
@@ -75,6 +78,7 @@ file_renamer() {
     remove_dev_mode() {
         printf '%s\n' "Remove Dev Mode"
         pip uninstall io.github.mcarlos101.file-renamer -y
+        menu
     }
 
     build_wheel() {
@@ -110,6 +114,7 @@ file_renamer() {
     run_linux_binary() {
         printf '%s\n' "Run Linux Binary"
         /data/fr/file-renamer/dist/file-renamer
+        menu
     }
 
     build_flatpak() {
@@ -127,6 +132,12 @@ file_renamer() {
     run_flatpak() {
         printf '%s\n' "Run Flatpak"
         flatpak run io.github.mcarlos101.file-renamer
+        menu
+    }
+
+    remove_flatpak() {
+        printf '%s\n' "Remove Flatpak"
+        flatpak uninstall io.github.mcarlos101.file-renamer
         menu
     }
 
