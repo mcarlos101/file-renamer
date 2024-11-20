@@ -39,7 +39,7 @@ class Files(File):
             path="", base="", dir="", name="", ext="", id="", new="",
             current=""
         )
-        self.limit = 100  # max number in self.filelist
+        self.limit = 200  # max number in self.filelist
         self.separator = r"[- \.]"  # hyphen or space or dot
 
         # Regex id
