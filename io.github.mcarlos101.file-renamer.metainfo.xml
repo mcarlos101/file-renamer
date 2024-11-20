@@ -36,13 +36,20 @@
 
     <screenshots>
         <screenshot type="default">
-            <image>https://raw.githubusercontent.com/mcarlos101/file-renamer/refs/heads/main/screenshots/fedora-linux-40/light/file-renamer-light-01-app-fedora-linux-40.png</image>
+            <image>https://raw.githubusercontent.com/mcarlos101/file-renamer/refs/heads/main/screenshots/fedora-linux-41/light/01-file-renamer-app.png</image>
+            <caption>File Renamer App</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/mcarlos101/file-renamer/refs/heads/main/screenshots/windows-11/dark/file-renamer-dark-03-preview-windows-11.png</image>
+            <image>https://raw.githubusercontent.com/mcarlos101/file-renamer/refs/heads/main/screenshots/fedora-linux-41/light/02-file-renamer-list-files.png</image>
+            <caption>List Files</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/mcarlos101/file-renamer/refs/heads/main/screenshots/windows-11/dark/file-renamer-dark-04-renamed-windows-11.png</image>
+            <image>https://raw.githubusercontent.com/mcarlos101/file-renamer/refs/heads/main/screenshots/fedora-linux-41/light/03-file-renamer-preview.png</image>
+            <caption>Preview</caption>
+        </screenshot>
+        <screenshot>
+            <image>https://raw.githubusercontent.com/mcarlos101/file-renamer/refs/heads/main/screenshots/fedora-linux-41/light/04-file-renamer-renamed.png</image>
+            <caption>Renamed</caption>
         </screenshot>
     </screenshots>
 
@@ -62,7 +69,7 @@
     </keywords>
 
     <releases>
-        <release version="1.1.5" date="2024-10-31">
+        <release version="1.1.5" date="2024-11-20">
             <url type="details">https://github.com/mcarlos101/file-renamer/releases/tag/v1.1.5</url>
             <description>
                 <p>File Renamer 1.1.5</p>
