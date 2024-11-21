@@ -22,9 +22,11 @@ file_renamer() {
         printf '%s\n' "10) Build Flatpak"
         printf '%s\n' "11) Install Flatpak"
         printf '%s\n' "12) Run Flatpak"
-        printf '%s\n' "13) Remove Flatpak"
-        printf '%s\n' "14) Clean Up"
-        printf '%s\n' "15) Exit"
+        printf '%s\n' "13) Manifest Check"
+        printf '%s\n' "14) Repo Check"
+        printf '%s\n' "15) Remove Flatpak"
+        printf '%s\n' "16) Clean Up"
+        printf '%s\n' "17) Exit"
         read -r -n 2 -p "Enter Number: " keypress
         printf '\n'
 
@@ -54,10 +56,14 @@ file_renamer() {
             12)
                 run_flatpak;;
             13)
-                remove_flatpak;;
+                manifest_check;;
             14)
-                clean_up;;
+                repo_check;;
             15)
+                remove_flatpak;;
+            16)
+                clean_up;;
+            17)
                 printf '%s\n' "Exit"
                 exit 0;;
             *)
@@ -135,6 +141,18 @@ file_renamer() {
     run_flatpak() {
         printf '%s\n' "Run Flatpak"
         flatpak run io.github.mcarlos101.file-renamer
+        menu
+    }
+
+    manifest_check() {
+        printf '%s\n' "Manifest Check"
+        flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest io.github.mcarlos101.file-renamer.json
+        menu
+    }
+
+    repo_check() {
+        printf '%s\n' "Repo Check"
+        flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo
         menu
     }
 
