@@ -31,7 +31,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "path": "dist/io.github.mcarlos101.file_renamer-1.1.5.tar.gz"
+                    "url": "https://github.com/mcarlos101/file-renamer/archive/refs/tags/v1.1.5.tar.gz",
+                    "sha256": "77349f0d549f14523c4b9b8a3981e58667c5738f58dfb0ea0bcb546be45ed05f"
                 }
             ]
         }
