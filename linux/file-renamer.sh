@@ -23,7 +23,8 @@ file_renamer() {
         printf '%s\n' "11) Install Flatpak"
         printf '%s\n' "12) Run Flatpak"
         printf '%s\n' "13) Remove Flatpak"
-        printf '%s\n' "14) Exit"
+        printf '%s\n' "14) Clean Up"
+        printf '%s\n' "15) Exit"
         read -r -n 2 -p "Enter Number: " keypress
         printf '\n'
 
@@ -55,6 +56,8 @@ file_renamer() {
             13)
                 remove_flatpak;;
             14)
+                clean_up;;
+            15)
                 printf '%s\n' "Exit"
                 exit 0;;
             *)
@@ -138,6 +141,33 @@ file_renamer() {
     remove_flatpak() {
         printf '%s\n' "Remove Flatpak"
         flatpak uninstall io.github.mcarlos101.file-renamer
+        menu
+    }
+
+    clean_up() {
+        printf '%s\n' "Clean Up"
+
+        printf '%s\n' "Remove __pycache__"
+        find /data/fr/file-renamer/src/file_renamer/ -type d -name "__pycache__" -exec rm -rfv {} +
+
+        printf '%s\n' "Remove /data/fr/file-renamer/builddir"
+        rm -frv /data/fr/file-renamer/builddir
+
+        printf '%s\n' "Remove /data/fr/file-renamer/dist"
+        rm -frv /data/fr/file-renamer/dist
+
+        printf '%s\n' "Remove /data/fr/file-renamer/flatpak-build-dir"
+        rm -frv /data/fr/file-renamer/flatpak-build-dir
+
+        printf '%s\n' "Remove /data/fr/file-renamer/.flatpak-builder"
+        rm -frv /data/fr/file-renamer/.flatpak-builder
+
+        printf '%s\n' "Remove /data/fr/file-renamer/repo"
+        rm -frv /data/fr/file-renamer/repo
+
+        printf '%s\n' "Remove /data/fr/file-renamer/src/io.github.mcarlos101.file_renamer.egg-info"
+        rm -frv /data/fr/file-renamer/src/io.github.mcarlos101.file_renamer.egg-info
+
         menu
     }
 
