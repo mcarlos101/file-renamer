@@ -80,7 +80,7 @@ file_renamer() {
 
     run_dev_mode() {
         printf '%s\n' "Run Dev Mode"
-        file-renamer
+        python3 -m file_renamer
         menu
     }
 
