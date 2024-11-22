@@ -115,7 +115,8 @@ class MainWindow(QMainWindow):
                     https://github.com/mcarlos101/file-renamer/
                 </p>
                 <p><strong>Python Package Index</strong><br>
-                    https://pypi.org/project/file-renamer/
+                    https://pypi.org/project/io.github.mcarlos101.file-renamer/ (Latest)<br>
+                    https://pypi.org/project/file-renamer/ (Deprecated)
                 </p>
                 <p><strong>Flathub (Coming Soon)</strong><br>
                     https://flathub.org/apps/io.github.mcarlos101.file-renamer
