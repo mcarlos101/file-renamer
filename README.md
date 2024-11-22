@@ -1,9 +1,20 @@
 # File Renamer
 Rename files using a GUI desktop app for Linux & Windows
 
-1. [Github](https://github.com/mcarlos101/file-renamer)
-1. [PyPi](https://pypi.org/project/file-renamer/)
-1. [Flathub](https://flathub.org/apps/io.github.mcarlos101.file-renamer) (Coming Soon)
+## Locations
+
+### Github
+https://github.com/mcarlos101/file-renamer
+
+### PyPi
+1. https://pypi.org/project/io.github.mcarlos101.file-renamer/ (Latest)
+1. https://pypi.org/project/file-renamer/ (Deprecated)
+
+### Flathub
+https://flathub.org/apps/io.github.mcarlos101.file-renamer (Coming Soon)
+
+### Chocolatey
+https://chocolatey.org (Coming Soon)
 
 ## Screenshots
 
@@ -36,11 +47,11 @@ Renamed
 ### Windows
 1. [Chocolatey](https://chocolatey.org) (Coming Soon)
 
-### Python Package Index
-1. [PyPi](https://pypi.org/project/file-renamer/)
+### Python Package Index - Cross Platform
+1. [PyPi](https://pypi.org/project/io.github.mcarlos101.file-renamer/)
 
 ```bash
-# Install Python3.11 or higher
+# Install Python3.11 or higher (Fedora Linux example)
 sudo dnf install python3.13
 
 # Create file-renamer folder in $HOME dir or anywhere
@@ -55,8 +66,11 @@ python3.13 -m venv venv
 # Activate virtual environment
 source venv/bin/activate
 
+# Install dependencies
+python3 -m pip install -r pip/requirements.txt
+
 # Install file-renamer
-pip install file-renamer
+pip install io.github.mcarlos101.file-renamer
 
 # Run
 file-renamer
