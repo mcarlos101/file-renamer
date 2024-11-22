@@ -69,10 +69,10 @@
     </keywords>
 
     <releases>
-        <release version="1.1.5" date="2024-11-20">
-            <url type="details">https://github.com/mcarlos101/file-renamer/releases/tag/v1.1.5</url>
+        <release version="1.1.6" date="2024-11-22">
+            <url type="details">https://github.com/mcarlos101/file-renamer/releases/tag/v1.1.6</url>
             <description>
-                <p>File Renamer 1.1.5</p>
+                <p>File Renamer 1.1.6</p>
                 <ul>
                     <li>Added app to Flathub</li>
                 </ul>
