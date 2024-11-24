@@ -35,5 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='C:\\Users\\Me\\fr\\file-renamer\\src\\file_renamer\\icons\\file-renamer-32x32.ico',
+    icon='C:\\Users\\Me\\fr\\file-renamer\\src\\file_renamer\\icons\\file-renamer-128x128.ico',
 )
