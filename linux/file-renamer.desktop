@@ -1,12 +1,17 @@
 [Desktop Entry]
-Comment=File Renamer
-Encoding=UTF-8
+Categories=Utility;
+Comment[en_US]=Rename files using a GUI desktop app for Linux & Windows
+GenericName[en_US]=File Renamer
 
 # Update path
-Exec=/path/file-renamer
-Icon=/path/file-renamer.png
+Exec=file-renamer
+Icon=file-renamer
 
-Name=File Renamer
+MimeType=
+Name[en_US]=File Renamer
+Path=
+StartupNotify=true
 Terminal=false
+TerminalOptions=
 Type=Application
 Version=1.0
