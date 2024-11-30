@@ -113,9 +113,8 @@ class Files(File):
             self.fr['msg-info'] = 'NO FILES FOUND!'
             msg = Messages(**self.fr)
         except Exception:
-            # self.filelist.clear()
-            self.fr['msg-info'] = 'FILE LIMIT REACHED: ' + str(self.limit)
-            msg = Messages(**self.fr)
+            text = 'Total Files: ' + str(len(self.filelist)) + ' (MAX REACHED)'
+            self.fr["ui"].dir_output.append(text)
         else:
             text = 'Total Files: ' + str(len(self.filelist))
             self.fr["ui"].dir_output.append(text)
