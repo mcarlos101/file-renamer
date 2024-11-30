@@ -77,13 +77,11 @@ class Widget(QWidget):
 
     def index_changed(self, index):
         self.fr["title"] = ""
-        logger.info('index: %s', index)
         # Track lower or title case change
         if index == 7 or index == 8:
             self.case_change = True
         else:
             self.case_change = False
-        logger.info('self.case_change: %s', self.case_change)
         if index >= 1 and len(self.rename.files.filelist):
             self.fr["ui"].dir_output.clear()
             self.fr["title"] = self.fr["ui"].comboBox.currentText()
