@@ -86,14 +86,13 @@ class MainWindow(QMainWindow):
         about_menu.addAction(bootstrap_action)
 
     def show_widget(self):
-        if self.fr['page-id'] != 'app':
-            if not self.dir_output:
-                self.dir_output.hide()
-            self.widget = Widget(**self.fr)
-            self.widget.show()
-            self.setCentralWidget(self.widget)
-            self.setWindowTitle(self.title)
-            self.fr['page-id'] = 'app'
+        if not self.dir_output:
+            self.dir_output.hide()
+        self.widget = Widget(**self.fr)
+        self.widget.show()
+        self.setCentralWidget(self.widget)
+        self.setWindowTitle(self.title)
+        self.fr['page-id'] = 'app'
 
     def render_html(self):
         qweb = QWebEngineView()
@@ -105,27 +104,29 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def show_version(self):
-        if self.fr['page-id'] != 'version':
-            from file_renamer.__version__ import __version__
-            title = "Version"
-            body = """
-            <div class="container">
-                <h1>File Renamer """ + __version__ + """</h1>
-                <p><strong>GitHub</strong><br>
-                    https://github.com/mcarlos101/file-renamer/
-                </p>
-                <p><strong>Python Package Index</strong><br>
-                    https://pypi.org/project/io.github.mcarlos101.file-renamer/ (Latest)<br>
-                    https://pypi.org/project/file-renamer/ (Deprecated)
-                </p>
-                <p><strong>Flathub (Coming Soon)</strong><br>
-                    https://flathub.org/apps/io.github.mcarlos101.file-renamer
-                </p>
-            </div>"""
-            self.fr['html_title'] = title
-            self.fr['html_body'] = body
-            self.fr['page-id'] = 'version'
-            self.render_html()
+        from file_renamer.__version__ import __version__
+        title = "Version"
+        body = """
+        <div class="container">
+            <h1>File Renamer """ + __version__ + """</h1>
+            <p><strong>GitHub</strong><br>
+                <a href="https://github.com/mcarlos101/file-renamer/">https://github.com/mcarlos101/file-renamer/</a>
+            </p>
+            <p><strong>Python Package Index</strong><br>
+                <a href="https://pypi.org/project/io.github.mcarlos101.file-renamer/">https://pypi.org/project/io.github.mcarlos101.file-renamer/</a> (Latest)<br>
+                https://pypi.org/project/file-renamer/ (Deprecated)
+            </p>
+            <p><strong>Flathub (Coming Soon)</strong><br>
+                <a href="https://flathub.org">https://flathub.org</a>
+            </p>
+            <p><strong>Chocolatey (Coming Soon)</strong><br>
+                <a href="https://community.chocolatey.org/packages/">https://community.chocolatey.org/packages/</a>
+            </p>
+        </div>"""
+        self.fr['html_title'] = title
+        self.fr['html_body'] = body
+        self.fr['page-id'] = 'version'
+        self.render_html()
 
     def set_theme(self):
         qss = ""
@@ -152,19 +153,14 @@ class MainWindow(QMainWindow):
         if qss:
             self.fr['app'].setStyleSheet(qss)
             if self.fr['page-id'] == 'version':
-                self.fr['page-id'] = ""
                 self.show_version()
             elif self.fr['page-id'] == 'license':
-                self.fr['page-id'] = ""
                 self.show_license()
             elif self.fr['page-id'] == 'python':
-                self.fr['page-id'] = ""
                 self.show_python()
             elif self.fr['page-id'] == 'pyside':
-                self.fr['page-id'] = ""
                 self.show_pyside()
             elif self.fr['page-id'] == 'bootstrap':
-                self.fr['page-id'] = ""
                 self.show_bootstrap()
         else:
             logger.info('theme NOT set: %s', self.fr['theme'])
@@ -183,142 +179,138 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def show_license(self):
-        if self.fr['page-id'] != 'license':
-            title = "License"
-            body = """
-            <div class="container">
-                <h1>Copyright (C) 2024  Carlos</h1>
+        title = "License"
+        body = """
+        <div class="container">
+            <h1>Copyright (C) 2024  Carlos</h1>
 
-                <p>This program is free software: you can redistribute it
-                and/or modify it under the terms of the <strong>GNU General
-                Public License</strong> as published by the Free Software
-                Foundation, either version 3 of the License, or (at your option)
-                any later version.</p>
+            <p>This program is free software: you can redistribute it
+            and/or modify it under the terms of the <strong>GNU General
+            Public License</strong> as published by the Free Software
+            Foundation, either version 3 of the License, or (at your option)
+            any later version.</p>
 
-                <p>This program is distributed in the hope that it will be
-                useful, but WITHOUT ANY WARRANTY; without even the implied
-                warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-                PURPOSE.  See the GNU General Public License for more
-                details.</p>
+            <p>This program is distributed in the hope that it will be
+            useful, but WITHOUT ANY WARRANTY; without even the implied
+            warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+            PURPOSE.  See the GNU General Public License for more
+            details.</p>
 
-                <p>You should have received a copy of the GNU General Public
-                License along with this program.  If not, see
-                https://www.gnu.org/licenses/.</p>
-            </div>"""
-            self.fr['html_title'] = title
-            self.fr['html_body'] = body
-            self.fr['page-id'] = 'license'
-            self.render_html()
+            <p>You should have received a copy of the GNU General Public
+            License along with this program.  If not, see
+            <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+        </div>"""
+        self.fr['html_title'] = title
+        self.fr['html_body'] = body
+        self.fr['page-id'] = 'license'
+        self.render_html()
 
     @Slot()
     def show_python(self):
-        if self.fr['page-id'] != 'python':
-            title = "Python"
-            version = sys.version
-            body = """
-            <div class="container">
-                <h1>Python</h1>
+        title = "Python"
+        version = sys.version
+        body = """
+        <div class="container">
+            <h1>Python</h1>
 
-                <div class="p-3 text-primary-emphasis bg-primary-subtle \
-                    border border-primary-subtle rounded-3">
-                    Version
-                    <ul>
-                        <li>
-                            <strong>Python</strong>&nbsp;&nbsp;""" \
-                            + version + """
-                        </li>
-                    </ul>
-                </div>
+            <div class="p-3 text-primary-emphasis bg-primary-subtle \
+                border border-primary-subtle rounded-3">
+                Version
+                <ul>
+                    <li>
+                        <strong>Python</strong>&nbsp;&nbsp;""" \
+                        + version + """
+                    </li>
+                </ul>
+            </div>
 
-                <p>Python is an interpreted, interactive, object-oriented programming language.</p>
+            <p>Python is an interpreted, interactive, object-oriented programming language.</p>
 
-                <p><strong>Python</strong><br>
-                https://www.python.org</p>
+            <p><strong>Python</strong><br>
+            <a href="https://www.python.org">https://www.python.org</a></p>
 
-                <p><strong>Docs</strong><br>
-                https://docs.python.org</p>
-            </div>"""
-            self.fr['html_title'] = title
-            self.fr['html_body'] = body
-            self.fr['page-id'] = 'python'
-            self.render_html()
+            <p><strong>Docs</strong><br>
+            <a href="https://docs.python.org">https://docs.python.org</a></p>
+        </div>"""
+        self.fr['html_title'] = title
+        self.fr['html_body'] = body
+        self.fr['page-id'] = 'python'
+        self.render_html()
 
     @Slot()
     def show_pyside(self):
-        if self.fr['page-id'] != 'pyside':
-            title = "Qt for Python"
-            body = """
-            <div class="container">
-                <h1>Qt for Python</h1>
+        title = "Qt for Python"
+        body = """
+        <div class="container">
+            <h1>Qt for Python</h1>
 
-                <div class="p-3 text-primary-emphasis bg-primary-subtle \
-                    border border-primary-subtle rounded-3">
-                    Versions
-                    <ul>
-                        <li>
-                            <strong>Qt</strong>&nbsp;&nbsp;""" \
-                            + PySide6.QtCore.__version__ + """
-                        </li>
-                        <li><strong>PySide6</strong>&nbsp;&nbsp;""" \
-                            + PySide6.__version__ + """
-                        </li>
-                    </ul>
-                </div>
+            <div class="p-3 text-primary-emphasis bg-primary-subtle \
+                border border-primary-subtle rounded-3">
+                Versions
+                <ul>
+                    <li>
+                        <strong>Qt</strong>&nbsp;&nbsp;""" \
+                        + PySide6.QtCore.__version__ + """
+                    </li>
+                    <li><strong>PySide6</strong>&nbsp;&nbsp;""" \
+                        + PySide6.__version__ + """
+                    </li>
+                </ul>
+            </div>
 
-                <p>Qt for Python offers the official Python bindings for Qt,
-                which enables you to use Python to write your Qt applications.
-                The project has two main components:</p>
-                    <ol>
-                        <li>PySide6, so that you can use Qt6 APIs in your
-                            Python applications, and</li>
+            <p>Qt for Python offers the official Python bindings for Qt,
+            which enables you to use Python to write your Qt applications.
+            The project has two main components:</p>
+                <ol>
+                    <li>PySide6, so that you can use Qt6 APIs in your
+                        Python applications, and</li>
 
-                        <li>Shiboken6, a binding generator tool, which can be
-                            used to expose C++ projects to Python, and a Python
-                            module with some utility functions.</li>
-                    </ol>
-                <p>This project is available under the LGPLv3/GPLv3 and the Qt
-                commercial license.</p>
+                    <li>Shiboken6, a binding generator tool, which can be
+                        used to expose C++ projects to Python, and a Python
+                        module with some utility functions.</li>
+                </ol>
+            <p>This project is available under the LGPLv3/GPLv3 and the Qt
+            commercial license.</p>
 
-                <p><strong>Qt for Python</strong><br>
-                https://www.qt.io/qt-for-python</p>
+            <p><strong>Qt for Python</strong><br>
+            <a href="https://www.qt.io/qt-for-python">https://www.qt.io/qt-for-python</a></p>
 
-                <p><strong>Docs</strong><br>
-                https://doc.qt.io/qtforpython-6</p>
-            </div>"""
-            self.fr['html_title'] = title
-            self.fr['html_body'] = body
-            self.fr['page-id'] = 'pyside'
-            self.render_html()
+            <p><strong>Docs</strong><br>
+            <a href="https://doc.qt.io/qtforpython-6">https://doc.qt.io/qtforpython-6</a></p>
+        </div>"""
+        self.fr['html_title'] = title
+        self.fr['html_body'] = body
+        self.fr['page-id'] = 'pyside'
+        self.render_html()
 
     @Slot()
     def show_bootstrap(self):
-        if self.fr['page-id'] != 'bootstrap':
-            title = "Bootstrap"
-            version = "5.3.3"
-            body = """
-            <div class="container">
-                <h1>Bootstrap</h1>
+        title = "Bootstrap"
+        version = "5.3.3"
+        body = """
+        <div class="container">
+            <h1>Bootstrap</h1>
 
-                <div class="p-3 text-primary-emphasis bg-primary-subtle \
-                    border border-primary-subtle rounded-3">
-                    Version
-                    <ul>
-                        <li>
-                            <strong>Bootstrap</strong>&nbsp;&nbsp;""" \
-                            + version + """
-                        </li>
-                    </ul>
-                </div>
+            <div class="p-3 text-primary-emphasis bg-primary-subtle \
+                border border-primary-subtle rounded-3">
+                Version
+                <ul>
+                    <li>
+                        <strong>Bootstrap</strong>&nbsp;&nbsp;""" \
+                        + version + """
+                    </li>
+                </ul>
+            </div>
 
-                <p>Bootstrap is a powerful, feature-packed frontend toolkit.</p>
+            <p>Bootstrap is a powerful, feature-packed frontend toolkit.</p>
 
-                <p><strong>Bootstrap</strong><br>
-                https://getbootstrap.com</p>
+            <p><strong>Bootstrap</strong><br>
+            <a href="https://getbootstrap.com">https://getbootstrap.com</a></p>
 
-                <p><strong>Docs</strong><br>
-                https://getbootstrap.com</p>
-            </div>"""
-            self.fr['html_title'] = title
-            self.fr['html_body'] = body
-            self.fr['page-id'] = 'bootstrap'
-            self.render_html()
+            <p><strong>Docs</strong><br>
+            <a href="https://getbootstrap.com/docs/">https://getbootstrap.com/docs/</a></p>
+        </div>"""
+        self.fr['html_title'] = title
+        self.fr['html_body'] = body
+        self.fr['page-id'] = 'bootstrap'
+        self.render_html()
